@@ -1,0 +1,141 @@
+
+<!-- Bottleneck Visualization Integration -->
+<div id="bottleneck-panel" class="bottleneck-panel">
+    <h3>🚨 Bottleneck Analysis</h3>
+    
+    <div class="bottleneck-summary">
+        <div class="summary-item">
+            <span class="label">Bottlenecks:</span>
+            <span class="value" id="bottleneck-count">1</span>
+        </div>
+        <div class="summary-item">
+            <span class="label">Severity:</span>
+            <span class="value" id="severity-level">6/5</span>
+        </div>
+        <div class="summary-item">
+            <span class="label">Risk Level:</span>
+            <span class="value" id="delay-risk">CRITICAL</span>
+        </div>
+        <div class="summary-item">
+            <span class="label">Passengers at Risk:</span>
+            <span class="value" id="passengers-at-risk">120</span>
+        </div>
+        <div class="summary-item">
+            <span class="label">Fuel Waste:</span>
+            <span class="value" id="fuel-waste">37.5 gal</span>
+        </div>
+    </div>
+    
+    <div class="impact-metrics">
+        <h4>💰 Impact Analysis</h4>
+        <div class="metric-item">
+            <span class="label">Economic Impact:</span>
+            <span class="value" id="economic-impact">$4631.25</span>
+        </div>
+        <div class="metric-item">
+            <span class="label">CO2 Emissions:</span>
+            <span class="value" id="co2-emissions">791.2 lbs</span>
+        </div>
+    </div>
+    
+    <div class="bottleneck-details">
+        <h4>🚨 Active Bottlenecks</h4>
+        <div id="bottleneck-list">
+            <!-- Bottleneck details will be populated here -->
+        </div>
+    </div>
+</div>
+
+<style>
+.bottleneck-panel {
+    background: rgba(15, 15, 15, 0.95);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px;
+    color: #e0e0e0;
+    font-family: 'JetBrains Mono', monospace;
+    max-width: 300px;
+}
+
+.bottleneck-summary {
+    margin-bottom: 20px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid #333;
+}
+
+.summary-item .label {
+    color: #999;
+    font-size: 12px;
+}
+
+.summary-item .value {
+    color: #00ff00;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.impact-metrics {
+    margin-bottom: 20px;
+}
+
+.impact-metrics h4 {
+    color: #ffaa00;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.metric-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.metric-item .label {
+    color: #ccc;
+    font-size: 11px;
+}
+
+.metric-item .value {
+    color: #ffaa00;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.bottleneck-details h4 {
+    color: #ff4444;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+#bottleneck-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.bottleneck-item {
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid #ff4444;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.bottleneck-item .type {
+    color: #ff4444;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.bottleneck-item .details {
+    color: #ccc;
+    font-size: 11px;
+    margin-top: 5px;
+}
+</style>

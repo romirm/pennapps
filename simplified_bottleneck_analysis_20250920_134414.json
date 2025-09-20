@@ -1,0 +1,71 @@
+{
+  "timestamp": "2025-09-20T13:44:14.989512",
+  "airport": "KJFK",
+  "analysis_radius_nm": 3,
+  "total_aircraft_monitored": 8,
+  "bottleneck_predictions": [
+    {
+      "bottleneck_id": "taxiway_intersection",
+      "location": {
+        "zone": "taxiway_intersection",
+        "coordinates": [
+          40.6413,
+          -73.7781
+        ]
+      },
+      "type": "taxiway_intersection",
+      "probability": 1.0,
+      "severity": 6,
+      "timing": {
+        "predicted_onset_minutes": 0,
+        "estimated_duration_minutes": 15.0,
+        "resolution_confidence": 0.0
+      },
+      "aircraft_affected": [
+        {
+          "flight_id": "UAL123",
+          "aircraft_type": "B737",
+          "estimated_passengers": 120,
+          "delay_contribution": 10.0,
+          "current_phase": "taxi"
+        }
+      ],
+      "impact_analysis": {
+        "passengers_affected": 120,
+        "total_delay_minutes": 15.0,
+        "fuel_waste_gallons": 37.5,
+        "fuel_cost_estimate": 131.25,
+        "co2_emissions_lbs": 791.25,
+        "economic_impact_estimate": 4631.25
+      },
+      "recommended_mitigations": [
+        {
+          "action": "Implement ground traffic sequencing",
+          "priority": "medium",
+          "estimated_effectiveness": 0.7,
+          "implementation_time": 3.0
+        },
+        {
+          "action": "Use alternative taxi routes",
+          "priority": "low",
+          "estimated_effectiveness": 0.5,
+          "implementation_time": 2.0
+        }
+      ]
+    }
+  ],
+  "airport_summary": {
+    "total_bottlenecks_predicted": 1,
+    "highest_severity_level": 6,
+    "total_passengers_at_risk": 120,
+    "total_fuel_waste_estimate": 37.5,
+    "overall_delay_risk": "critical"
+  },
+  "impact_metrics": {
+    "total_passengers_affected": 120,
+    "total_fuel_waste_gallons": 37.5,
+    "total_economic_impact_usd": 4631.25,
+    "total_co2_emissions_lbs": 791.25,
+    "average_delay_minutes": 15
+  }
+}

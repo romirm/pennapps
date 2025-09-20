@@ -1,0 +1,84 @@
+{
+  "aircraft": [
+    {
+      "flight": "UAL123",
+      "t": "B737",
+      "lat": 40.6413,
+      "lon": -73.7781,
+      "alt_baro": 500,
+      "track": 90,
+      "gs": 150,
+      "timestamp": "2024-09-20T13:10:00Z"
+    },
+    {
+      "flight": "DAL456",
+      "t": "A320",
+      "lat": 40.6420,
+      "lon": -73.7790,
+      "alt_baro": 300,
+      "track": 85,
+      "gs": 120,
+      "timestamp": "2024-09-20T13:10:00Z"
+    },
+    {
+      "flight": "SWA789",
+      "t": "B737",
+      "lat": 40.6400,
+      "lon": -73.7770,
+      "alt_baro": 0,
+      "track": 0,
+      "gs": 5,
+      "timestamp": "2024-09-20T13:10:00Z"
+    },
+    {
+      "flight": "JBU012",
+      "t": "A320",
+      "lat": 40.6430,
+      "lon": -73.7800,
+      "alt_baro": 0,
+      "track": 0,
+      "gs": 0,
+      "timestamp": "2024-09-20T13:10:00Z"
+    },
+    {
+      "flight": "FED345",
+      "t": "B767F",
+      "lat": 40.6390,
+      "lon": -73.7760,
+      "alt_baro": 0,
+      "track": 0,
+      "gs": 0,
+      "timestamp": "2024-09-20T13:10:00Z"
+    },
+    {
+      "flight": "AAL678",
+      "t": "B777",
+      "lat": 40.6440,
+      "lon": -73.7810,
+      "alt_baro": 200,
+      "track": 95,
+      "gs": 100,
+      "timestamp": "2024-09-20T13:10:00Z"
+    },
+    {
+      "flight": "DLH901",
+      "t": "A380",
+      "lat": 40.6380,
+      "lon": -73.7750,
+      "alt_baro": 0,
+      "track": 0,
+      "gs": 0,
+      "timestamp": "2024-09-20T13:10:00Z"
+    },
+    {
+      "flight": "BAW234",
+      "t": "B777",
+      "lat": 40.6450,
+      "lon": -73.7820,
+      "alt_baro": 400,
+      "track": 88,
+      "gs": 140,
+      "timestamp": "2024-09-20T13:10:00Z"
+    }
+  ]
+}
