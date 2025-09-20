@@ -421,6 +421,220 @@ def plot_airport_map(airport_data: Dict, save_path: Optional[str] = None) -> Non
     
     plt.show()
 
+def get_airport_info_from_coordinates(airport_code: str, coordinates: Dict) -> Dict:
+    """
+    Get airport name, city, and country information using coordinates and known airport data
+    """
+    lat = coordinates['lat']
+    lng = coordinates['lng']
+    
+    # Known airport information database
+    airport_info_db = {
+        'JFK': {
+            'name': 'John F. Kennedy International Airport',
+            'city': 'New York',
+            'country': 'USA',
+            'state': 'NY'
+        },
+        'LAX': {
+            'name': 'Los Angeles International Airport',
+            'city': 'Los Angeles',
+            'country': 'USA',
+            'state': 'CA'
+        },
+        'PHL': {
+            'name': 'Philadelphia International Airport',
+            'city': 'Philadelphia',
+            'country': 'USA',
+            'state': 'PA'
+        },
+        'MIA': {
+            'name': 'Miami International Airport',
+            'city': 'Miami',
+            'country': 'USA',
+            'state': 'FL'
+        },
+        'ORD': {
+            'name': 'Chicago O\'Hare International Airport',
+            'city': 'Chicago',
+            'country': 'USA',
+            'state': 'IL'
+        },
+        'DFW': {
+            'name': 'Dallas/Fort Worth International Airport',
+            'city': 'Dallas',
+            'country': 'USA',
+            'state': 'TX'
+        },
+        'ATL': {
+            'name': 'Hartsfield-Jackson Atlanta International Airport',
+            'city': 'Atlanta',
+            'country': 'USA',
+            'state': 'GA'
+        },
+        'DEN': {
+            'name': 'Denver International Airport',
+            'city': 'Denver',
+            'country': 'USA',
+            'state': 'CO'
+        },
+        'SFO': {
+            'name': 'San Francisco International Airport',
+            'city': 'San Francisco',
+            'country': 'USA',
+            'state': 'CA'
+        },
+        'BOS': {
+            'name': 'Logan International Airport',
+            'city': 'Boston',
+            'country': 'USA',
+            'state': 'MA'
+        },
+        'SEA': {
+            'name': 'Seattle-Tacoma International Airport',
+            'city': 'Seattle',
+            'country': 'USA',
+            'state': 'WA'
+        },
+        'LAS': {
+            'name': 'McCarran International Airport',
+            'city': 'Las Vegas',
+            'country': 'USA',
+            'state': 'NV'
+        },
+        'MCO': {
+            'name': 'Orlando International Airport',
+            'city': 'Orlando',
+            'country': 'USA',
+            'state': 'FL'
+        },
+        'LHR': {
+            'name': 'London Heathrow Airport',
+            'city': 'London',
+            'country': 'UK',
+            'state': 'England'
+        },
+        'CDG': {
+            'name': 'Charles de Gaulle Airport',
+            'city': 'Paris',
+            'country': 'France',
+            'state': 'Île-de-France'
+        },
+        'NRT': {
+            'name': 'Narita International Airport',
+            'city': 'Tokyo',
+            'country': 'Japan',
+            'state': 'Chiba'
+        },
+        'ICN': {
+            'name': 'Incheon International Airport',
+            'city': 'Seoul',
+            'country': 'South Korea',
+            'state': 'Incheon'
+        },
+        'DXB': {
+            'name': 'Dubai International Airport',
+            'city': 'Dubai',
+            'country': 'UAE',
+            'state': 'Dubai'
+        },
+        'SIN': {
+            'name': 'Singapore Changi Airport',
+            'city': 'Singapore',
+            'country': 'Singapore',
+            'state': 'Singapore'
+        },
+        'HKG': {
+            'name': 'Hong Kong International Airport',
+            'city': 'Hong Kong',
+            'country': 'Hong Kong',
+            'state': 'Hong Kong'
+        },
+        'FRA': {
+            'name': 'Frankfurt Airport',
+            'city': 'Frankfurt',
+            'country': 'Germany',
+            'state': 'Hesse'
+        },
+        'AMS': {
+            'name': 'Amsterdam Airport Schiphol',
+            'city': 'Amsterdam',
+            'country': 'Netherlands',
+            'state': 'North Holland'
+        },
+        'MAD': {
+            'name': 'Madrid-Barajas Airport',
+            'city': 'Madrid',
+            'country': 'Spain',
+            'state': 'Madrid'
+        },
+        'BCN': {
+            'name': 'Barcelona-El Prat Airport',
+            'city': 'Barcelona',
+            'country': 'Spain',
+            'state': 'Catalonia'
+        }
+    }
+    
+    # Check if we have information for this airport code
+    if airport_code in airport_info_db:
+        return airport_info_db[airport_code]
+    
+    # Try to reverse geocode using a simple coordinate-based lookup
+    # This is a basic implementation - in production you'd use a proper geocoding service
+    try:
+        # Simple coordinate-based city detection for major regions
+        if 40.0 <= lat <= 41.0 and -74.5 <= lng <= -73.5:
+            return {'name': f'{airport_code} Airport', 'city': 'New York', 'country': 'USA', 'state': 'NY'}
+        elif 33.0 <= lat <= 34.5 and -118.5 <= lng <= -117.5:
+            return {'name': f'{airport_code} Airport', 'city': 'Los Angeles', 'country': 'USA', 'state': 'CA'}
+        elif 39.5 <= lat <= 40.5 and -75.5 <= lng <= -74.5:
+            return {'name': f'{airport_code} Airport', 'city': 'Philadelphia', 'country': 'USA', 'state': 'PA'}
+        elif 25.0 <= lat <= 26.0 and -80.5 <= lng <= -80.0:
+            return {'name': f'{airport_code} Airport', 'city': 'Miami', 'country': 'USA', 'state': 'FL'}
+        elif 41.5 <= lat <= 42.0 and -87.5 <= lng <= -87.0:
+            return {'name': f'{airport_code} Airport', 'city': 'Chicago', 'country': 'USA', 'state': 'IL'}
+        elif 32.5 <= lat <= 33.5 and -97.5 <= lng <= -96.5:
+            return {'name': f'{airport_code} Airport', 'city': 'Dallas', 'country': 'USA', 'state': 'TX'}
+        elif 33.0 <= lat <= 34.0 and -84.5 <= lng <= -84.0:
+            return {'name': f'{airport_code} Airport', 'city': 'Atlanta', 'country': 'USA', 'state': 'GA'}
+        elif 39.5 <= lat <= 40.0 and -105.0 <= lng <= -104.0:
+            return {'name': f'{airport_code} Airport', 'city': 'Denver', 'country': 'USA', 'state': 'CO'}
+        elif 37.0 <= lat <= 38.0 and -122.5 <= lng <= -122.0:
+            return {'name': f'{airport_code} Airport', 'city': 'San Francisco', 'country': 'USA', 'state': 'CA'}
+        elif 42.0 <= lat <= 42.5 and -71.5 <= lng <= -70.5:
+            return {'name': f'{airport_code} Airport', 'city': 'Boston', 'country': 'USA', 'state': 'MA'}
+        elif 47.0 <= lat <= 47.5 and -122.5 <= lng <= -122.0:
+            return {'name': f'{airport_code} Airport', 'city': 'Seattle', 'country': 'USA', 'state': 'WA'}
+        elif 35.5 <= lat <= 36.5 and -115.5 <= lng <= -115.0:
+            return {'name': f'{airport_code} Airport', 'city': 'Las Vegas', 'country': 'USA', 'state': 'NV'}
+        elif 28.0 <= lat <= 28.5 and -81.5 <= lng <= -81.0:
+            return {'name': f'{airport_code} Airport', 'city': 'Orlando', 'country': 'USA', 'state': 'FL'}
+        elif 51.0 <= lat <= 52.0 and -1.0 <= lng <= 0.0:
+            return {'name': f'{airport_code} Airport', 'city': 'London', 'country': 'UK', 'state': 'England'}
+        elif 48.5 <= lat <= 49.5 and 2.0 <= lng <= 3.0:
+            return {'name': f'{airport_code} Airport', 'city': 'Paris', 'country': 'France', 'state': 'Île-de-France'}
+        elif 35.0 <= lat <= 36.0 and 139.5 <= lng <= 140.5:
+            return {'name': f'{airport_code} Airport', 'city': 'Tokyo', 'country': 'Japan', 'state': 'Tokyo'}
+        elif 37.0 <= lat <= 38.0 and 126.0 <= lng <= 127.0:
+            return {'name': f'{airport_code} Airport', 'city': 'Seoul', 'country': 'South Korea', 'state': 'Seoul'}
+        elif 25.0 <= lat <= 26.0 and 55.0 <= lng <= 56.0:
+            return {'name': f'{airport_code} Airport', 'city': 'Dubai', 'country': 'UAE', 'state': 'Dubai'}
+        elif 1.0 <= lat <= 2.0 and 103.5 <= lng <= 104.0:
+            return {'name': f'{airport_code} Airport', 'city': 'Singapore', 'country': 'Singapore', 'state': 'Singapore'}
+        elif 22.0 <= lat <= 23.0 and 113.5 <= lng <= 114.5:
+            return {'name': f'{airport_code} Airport', 'city': 'Hong Kong', 'country': 'Hong Kong', 'state': 'Hong Kong'}
+    except Exception as e:
+        print(f"Error in coordinate-based lookup: {e}")
+    
+    # Fallback to generic information
+    return {
+        'name': f'{airport_code} Airport',
+        'city': 'Unknown',
+        'country': 'Unknown',
+        'state': 'Unknown'
+    }
+
 def convert_to_app_format(airport_data: Dict) -> Dict:
     """
     Convert OSM airport data to the format expected by the Flask app
@@ -444,9 +658,9 @@ def convert_to_app_format(airport_data: Dict) -> Dict:
         # Convert meter coordinates to simplified grid coordinates
         simplified_points = []
         for point in taxiway['points']:
-            # Scale down coordinates for visualization
-            x = int(point[0] / 10)  # Scale factor
-            y = int(point[1] / 10)
+            # Scale down coordinates for visualization - use smaller scale factor
+            x = int(point[0] / 2)  # Smaller scale factor for better visibility
+            y = int(point[1] / 2)
             simplified_points.append((x, y))
         
         app_taxiways.append({
@@ -454,10 +668,13 @@ def convert_to_app_format(airport_data: Dict) -> Dict:
             'points': simplified_points
         })
     
+    # Get proper airport information
+    airport_info = get_airport_info_from_coordinates(airport_data['airport_code'], airport_data['coordinates'])
+    
     return {
-        'name': f"{airport_data['airport_code']} Airport",
-        'city': 'Unknown',
-        'country': 'Unknown',
+        'name': airport_info.get('name', f"{airport_data['airport_code']} Airport"),
+        'city': airport_info.get('city', 'Unknown'),
+        'country': airport_info.get('country', 'Unknown'),
         'coordinates': airport_data['coordinates'],
         'runways': app_runways,
         'taxiways': app_taxiways,
