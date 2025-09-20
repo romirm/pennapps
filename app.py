@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import requests
 import json
 from airport_data_fetcher import get_airport_data_for_app
+from world_data_processor import get_world_airport_data
 import os
 
 app = Flask(__name__)
@@ -177,6 +178,7 @@ def generate_realistic_taxiways(airport_code, runways):
             taxiways.append({'id': taxiway_id, 'points': points})
     
     return taxiways
+
 
 # Comprehensive airport database
 AIRPORTS = {
@@ -817,6 +819,12 @@ def index():
 def airport(code):
     airport_code = code.upper()
     
+    # Route JFK searches to the world airport view
+    if airport_code == 'JFK':
+        print(f"🔄 Redirecting JFK search to world airport view...")
+        from flask import redirect, url_for
+        return redirect(url_for('world_airport', code=airport_code))
+    
     # First try to get real data from OpenStreetMap
     print(f"🔄 Fetching real OSM data for {airport_code}...")
     try:
@@ -878,6 +886,29 @@ def airport(code):
                     airport_data['coordinates'] = coords
     
     return render_template('airport.html', airport_code=airport_code, airport=airport_data)
+
+@app.route('/world-airport/<code>')
+def world_airport(code):
+    """New route for airport visualization using world_data.json"""
+    airport_code = code.upper()
+    
+    print(f"🔄 Loading world data for {airport_code}...")
+    try:
+        airport_data = get_world_airport_data(airport_code)
+        
+        if airport_data and airport_data.get('runways') and airport_data.get('taxiways'):
+            print(f"✅ Found world data: {len(airport_data['runways'])} runways, {len(airport_data['taxiways'])} taxiways")
+            return render_template('world_airport.html', airport_code=airport_code, airport=airport_data)
+        else:
+            print(f"❌ No world data found for {airport_code}")
+            return render_template('error.html', 
+                                 message=f"No world data available for airport {airport_code}",
+                                 back_url='/')
+    except Exception as e:
+        print(f"❌ Error loading world data: {e}")
+        return render_template('error.html', 
+                             message=f"Error loading world data: {str(e)}",
+                             back_url='/')
 
 @app.route('/api/search')
 def search():
