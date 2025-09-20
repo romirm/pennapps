@@ -1,0 +1,63 @@
+{
+  "date": "2025-09-20 16:59:20.603325",
+  "departures": [
+    {
+      "icao24": "a67805",
+      "firstSeen": 1758401792,
+      "estDepartureAirport": "KJFK",
+      "lastSeen": 1758403592,
+      "estArrivalAirport": "KLAX",
+      "callsign": "DAL1975",
+      "estDepartureAirportHorizDistance": 1286,
+      "estDepartureAirportVertDistance": 26,
+      "estArrivalAirportHorizDistance": 0,
+      "estArrivalAirportVertDistance": 0,
+      "departureAirportCandidatesCount": 285,
+      "arrivalAirportCandidatesCount": 0
+    },
+    {
+      "icao24": "ad89f7",
+      "firstSeen": 1758402392,
+      "estDepartureAirport": "KJFK",
+      "lastSeen": 1758404192,
+      "estArrivalAirport": "KBOS",
+      "callsign": "JBU2637",
+      "estDepartureAirportHorizDistance": 1286,
+      "estDepartureAirportVertDistance": 34,
+      "estArrivalAirportHorizDistance": 0,
+      "estArrivalAirportVertDistance": 0,
+      "departureAirportCandidatesCount": 285,
+      "arrivalAirportCandidatesCount": 0
+    }
+  ],
+  "arrivals": [
+    {
+      "icao24": "406947",
+      "firstSeen": 1758398192,
+      "estDepartureAirport": "EGLL",
+      "lastSeen": 1758404792,
+      "estArrivalAirport": "KJFK",
+      "callsign": "BAW33K",
+      "estDepartureAirportHorizDistance": 1527,
+      "estDepartureAirportVertDistance": 104,
+      "estArrivalAirportHorizDistance": 8325,
+      "estArrivalAirportVertDistance": 361,
+      "departureAirportCandidatesCount": 3,
+      "arrivalAirportCandidatesCount": 1
+    },
+    {
+      "icao24": "a05614",
+      "firstSeen": 1758399992,
+      "estDepartureAirport": "KATL",
+      "lastSeen": 1758405092,
+      "estArrivalAirport": "KJFK",
+      "callsign": "DAL2466",
+      "estDepartureAirportHorizDistance": 1149,
+      "estDepartureAirportVertDistance": 30,
+      "estArrivalAirportHorizDistance": 20027,
+      "estArrivalAirportVertDistance": 902,
+      "departureAirportCandidatesCount": 1,
+      "arrivalAirportCandidatesCount": 1
+    }
+  ]
+}

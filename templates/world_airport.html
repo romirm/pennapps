@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ airport.name }} - Real-World ATC Visualizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 150, 255, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid #333;
+            padding: 10px 20px 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            height: 65px;
+        }
+
+        .back-button {
+            background: rgba(30, 30, 30, 0.8);
+            color: #e0e0e0;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 255, 0, 0.1);
+            border-color: #00ff00;
+            color: #00ff00;
+        }
+
+        .airport-info {
+            text-align: center;
+            flex: 1;
+        }
+
+        .airport-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #00ff00;
+            margin-bottom: 2px;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+        }
+
+        .airport-name {
+            font-size: 0.9em;
+            color: #e0e0e0;
+            font-weight: 500;
+            margin-bottom: 1px;
+        }
+
+        .airport-location {
+            font-size: 0.75em;
+            color: #888;
+            font-weight: 300;
+        }
+
+        .data-source {
+            background: rgba(30, 30, 30, 0.8);
+            color: #888;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7em;
+        }
+
+        .main-container {
+            display: flex;
+            height: 100vh;
+            padding-top: 65px;
+        }
+
+        .map-container {
+            flex: 1;
+            position: relative;
+            background: #000;
+        }
+
+        #airportCanvas {
+            display: block;
+            background: #000000;
+            cursor: crosshair;
+        }
+
+        .info-panel {
+            width: 320px;
+            background: rgba(10, 10, 10, 0.95);
+            border-left: 1px solid #333;
+            padding: 20px;
+            overflow-y: auto;
+            backdrop-filter: blur(15px);
+        }
+
+        .panel-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .panel-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            color: #00ff00;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .metric-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: #00ff00;
+            background: rgba(0, 255, 0, 0.05);
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #00ff00;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 0.7em;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value.animating {
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .aircraft-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .aircraft-item {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 8px;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8em;
+        }
+
+        .aircraft-callsign {
+            color: #00ff00;
+            font-weight: 600;
+        }
+
+        .aircraft-type {
+            color: #888;
+            font-size: 0.7em;
+        }
+
+        .aircraft-phase {
+            color: #0088ff;
+            font-size: 0.7em;
+            text-transform: uppercase;
+        }
+
+        .bottleneck-item {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff4444;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 8px;
+        }
+
+        .bottleneck-severity {
+            color: #ff4444;
+            font-weight: 600;
+            font-size: 0.8em;
+        }
+
+        .bottleneck-description {
+            color: #e0e0e0;
+            font-size: 0.7em;
+            margin-top: 4px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .control-button {
+            background: rgba(30, 30, 30, 0.8);
+            color: #e0e0e0;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7em;
+            transition: all 0.3s ease;
+        }
+
+        .control-button:hover {
+            background: rgba(0, 255, 0, 0.1);
+            border-color: #00ff00;
+            color: #00ff00;
+        }
+
+        .coordinates {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #00ff00;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8em;
+            border: 1px solid #333;
+            z-index: 1000;
+        }
+
+        .status-bar {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #888;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7em;
+            border: 1px solid #333;
+            z-index: 1000;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Scrollbar styling */
+        .info-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .info-panel::-webkit-scrollbar-track {
+            background: #222;
+        }
+
+        .info-panel::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 3px;
+        }
+
+        .info-panel::-webkit-scrollbar-thumb:hover {
+            background: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/" class="back-button">
+            ← Back to Search
+        </a>
+        
+        <div class="airport-info">
+            <div class="airport-code">{{ airport_code }}</div>
+            <div class="airport-name">{{ airport.name }}</div>
+            <div class="airport-location">{{ airport.city }}, {{ airport.country }}</div>
+        </div>
+        
+        <div class="data-source">Real-World Data</div>
+    </div>
+
+    <div class="main-container">
+        <div class="map-container">
+            <canvas id="airportCanvas"></canvas>
+        </div>
+
+        <div class="info-panel">
+            <div class="panel-section">
+                <div class="section-title">Live Metrics</div>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="total-aircraft">0</div>
+                        <div class="metric-label">Aircraft</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="predicted-delays">0</div>
+                        <div class="metric-label">Delays (min)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="affected-passengers">0</div>
+                        <div class="metric-label">Passengers</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="active-bottlenecks">0</div>
+                        <div class="metric-label">Bottlenecks</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-title">Airport Info</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.8em; color: #888;">
+                    <div style="margin-bottom: 8px;"><strong>Runways:</strong> {{ airport.runways|length }}</div>
+                    <div style="margin-bottom: 8px;"><strong>Taxiways:</strong> {{ airport.taxiways|length }}</div>
+                    <div style="margin-bottom: 8px;"><strong>Data Source:</strong> Real-World Coordinates</div>
+                    <div><strong>Coordinate System:</strong> WGS84</div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-title">Controls</div>
+                <div class="controls">
+                    <button class="control-button" onclick="resetView()">Reset View</button>
+                    <button class="control-button" onclick="toggleAircraft()">Toggle Aircraft</button>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-title">Active Aircraft</div>
+                <div class="aircraft-list" id="aircraft-list">
+                    <!-- Aircraft items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-title">Bottlenecks</div>
+                <div id="bottlenecks-list">
+                    <!-- Bottleneck items will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="coordinates" id="coordinates">
+        X: 0, Y: 0
+    </div>
+
+    <div class="status-bar">
+        <div class="status-left">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>Live View</span>
+            </div>
+            <div>{{ airport_code }} Active</div>
+            <div>Real-World Coordinates</div>
+        </div>
+        <div>ATC Visualizer v2.0</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('airportCanvas');
+        const ctx = canvas.getContext('2d');
+        const coordinates = document.getElementById('coordinates');
+        
+        // Airport data from server
+        const airportData = {{ airport | tojson }};
+        
+        // Debug: Log airport data to console
+        console.log('World Airport Data:', airportData);
+        console.log('Bounds:', airportData.bounds);
+        
+        // Canvas setup
+        function resizeCanvas() {
+            canvas.width = window.innerWidth - 320; // Fixed space for info panel
+            canvas.height = window.innerHeight - 65; // Account for header
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Drawing variables
+        let drawingScale = 1;
+        let showAircraft = true;
+        
+        // Set canvas background
+        function clearCanvas() {
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        // Convert real-world coordinates to canvas coordinates
+        function worldToCanvas(lat, lon) {
+            const bounds = airportData.bounds;
+            const minLat = bounds[0];
+            const maxLat = bounds[1];
+            const minLon = bounds[2];
+            const maxLon = bounds[3];
+            
+            // Normalize coordinates to 0-1 range
+            const normLon = (lon - minLon) / (maxLon - minLon);
+            const normLat = (lat - minLat) / (maxLat - minLat);
+            
+            // Flip Y coordinate (lat increases north, but canvas Y increases down)
+            const flippedLat = 1.0 - normLat;
+            
+            // Scale to canvas size with padding
+            const padding = 50;
+            const x = padding + normLon * (canvas.width - 2 * padding);
+            const y = padding + flippedLat * (canvas.height - 2 * padding);
+            
+            return { x, y };
+        }
+        
+        // Draw taxiways using real-world coordinates
+        function drawTaxiways() {
+            if (!airportData.taxiways || airportData.taxiways.length === 0) {
+                console.log('No taxiways data available');
+                return;
+            }
+            
+            console.log(`Drawing ${airportData.taxiways.length} taxiways`);
+            
+            ctx.strokeStyle = '#ffffff'; // Bright white for maximum visibility
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.globalAlpha = 0.8;
+            
+            airportData.taxiways.forEach((taxiway, index) => {
+                ctx.beginPath();
+                
+                taxiway.points.forEach((point, pointIndex) => {
+                    if (pointIndex === 0) {
+                        ctx.moveTo(point[0], point[1]);
+                    } else {
+                        ctx.lineTo(point[0], point[1]);
+                    }
+                });
+                ctx.stroke();
+            });
+            
+            ctx.globalAlpha = 1.0; // Reset alpha
+        }
+        
+        // Draw runways using real-world coordinates
+        function drawRunways() {
+            if (!airportData.runways || airportData.runways.length === 0) {
+                console.log('No runways data available');
+                return;
+            }
+            
+            console.log(`Drawing ${airportData.runways.length} runways`);
+            
+            airportData.runways.forEach((runway, index) => {
+                // Draw runway as a line using the real coordinates
+                ctx.strokeStyle = '#00ff00';
+                ctx.lineWidth = 8;
+                ctx.lineCap = 'round';
+                ctx.globalAlpha = 0.9;
+                
+                ctx.beginPath();
+                runway.points.forEach((point, pointIndex) => {
+                    if (pointIndex === 0) {
+                        ctx.moveTo(point[0], point[1]);
+                    } else {
+                        ctx.lineTo(point[0], point[1]);
+                    }
+                });
+                ctx.stroke();
+                
+                // Draw runway center line
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 2;
+                ctx.globalAlpha = 1.0;
+                
+                ctx.beginPath();
+                runway.points.forEach((point, pointIndex) => {
+                    if (pointIndex === 0) {
+                        ctx.moveTo(point[0], point[1]);
+                    } else {
+                        ctx.lineTo(point[0], point[1]);
+                    }
+                });
+                ctx.stroke();
+                
+                // Draw runway identifier
+                if (runway.points.length >= 2) {
+                    const midPoint = {
+                        x: (runway.points[0][0] + runway.points[runway.points.length - 1][0]) / 2,
+                        y: (runway.points[0][1] + runway.points[runway.points.length - 1][1]) / 2
+                    };
+                    
+                    ctx.fillStyle = '#00ff00';
+                    ctx.font = 'bold 12px JetBrains Mono';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(runway.id, midPoint.x, midPoint.y - 10);
+                }
+            });
+        }
+        
+        // Draw aircraft (sample data for demonstration)
+        function drawAircraft() {
+            if (!showAircraft) return;
+            
+            // Sample aircraft positions based on real-world coordinates
+            const aircraftData = [
+                {
+                    id: 'UAL123',
+                    type: 'B737',
+                    lat: 40.6413,
+                    lon: -73.7781,
+                    heading: 90,
+                    phase: 'approach',
+                    color: '#00ff00'
+                },
+                {
+                    id: 'DAL456',
+                    type: 'A320',
+                    lat: 40.6380,
+                    lon: -73.7750,
+                    heading: 180,
+                    phase: 'taxi',
+                    color: '#0088ff'
+                },
+                {
+                    id: 'SWA789',
+                    type: 'B737',
+                    lat: 40.6440,
+                    lon: -73.7820,
+                    heading: 270,
+                    phase: 'gate',
+                    color: '#ff8800'
+                }
+            ];
+            
+            aircraftData.forEach(aircraft => {
+                const pos = worldToCanvas(aircraft.lat, aircraft.lon);
+                
+                // Draw aircraft triangle
+                ctx.save();
+                ctx.translate(pos.x, pos.y);
+                ctx.rotate((aircraft.heading * Math.PI) / 180);
+                
+                ctx.fillStyle = aircraft.color;
+                ctx.beginPath();
+                ctx.moveTo(0, -8);
+                ctx.lineTo(-6, 4);
+                ctx.lineTo(6, 4);
+                ctx.closePath();
+                ctx.fill();
+                
+                ctx.restore();
+                
+                // Draw aircraft label
+                ctx.fillStyle = aircraft.color;
+                ctx.font = 'bold 10px JetBrains Mono';
+                ctx.textAlign = 'center';
+                ctx.fillText(aircraft.id, pos.x, pos.y - 15);
+            });
+        }
+        
+        // Draw compass rose
+        function drawCompassRose() {
+            const x = canvas.width - 90;
+            const y = 120;
+            const size = 35;
+            
+            ctx.strokeStyle = '#666';
+            ctx.lineWidth = 1;
+            
+            // Draw compass circle
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, 2 * Math.PI);
+            ctx.stroke();
+            
+            // Draw cardinal directions
+            ctx.fillStyle = '#888';
+            ctx.font = `9px JetBrains Mono`;
+            ctx.textAlign = 'center';
+            
+            ctx.fillText('N', x, y - size - 6);
+            ctx.fillText('S', x, y + size + 14);
+            ctx.fillText('E', x + size + 6, y + 4);
+            ctx.fillText('W', x - size - 6, y + 4);
+            
+            // Draw north arrow
+            ctx.strokeStyle = '#00ff00';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(x, y - size + 6);
+            ctx.lineTo(x, y - 6);
+            ctx.lineTo(x - 4, y - 3);
+            ctx.moveTo(x, y - 6);
+            ctx.lineTo(x + 4, y - 3);
+            ctx.stroke();
+        }
+        
+        // Main draw function
+        function draw() {
+            clearCanvas();
+            drawTaxiways();
+            drawRunways();
+            drawAircraft();
+            drawCompassRose();
+        }
+        
+        // Mouse tracking for coordinates
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Convert canvas coordinates back to lat/lon
+            const bounds = airportData.bounds;
+            const minLat = bounds[0];
+            const maxLat = bounds[1];
+            const minLon = bounds[2];
+            const maxLon = bounds[3];
+            
+            const padding = 50;
+            const normX = (x - padding) / (canvas.width - 2 * padding);
+            const normY = (y - padding) / (canvas.height - 2 * padding);
+            
+            const lon = minLon + normX * (maxLon - minLon);
+            const lat = maxLat - normY * (maxLat - minLat);
+            
+            coordinates.textContent = `Lat: ${lat.toFixed(6)}, Lon: ${lon.toFixed(6)}`;
+        });
+        
+        // Control functions
+        function resetView() {
+            drawingScale = 1;
+            draw();
+        }
+        
+        function toggleAircraft() {
+            showAircraft = !showAircraft;
+            draw();
+        }
+        
+        // Load sample data and update metrics
+        function loadSampleData() {
+            // Update metrics
+            document.getElementById('total-aircraft').textContent = '3';
+            document.getElementById('predicted-delays').textContent = '12';
+            document.getElementById('affected-passengers').textContent = '360';
+            document.getElementById('active-bottlenecks').textContent = '1';
+            
+            // Update aircraft list
+            const aircraftList = document.getElementById('aircraft-list');
+            aircraftList.innerHTML = `
+                <div class="aircraft-item">
+                    <div class="aircraft-callsign">UAL123</div>
+                    <div class="aircraft-type">Boeing 737-800</div>
+                    <div class="aircraft-phase">Approach</div>
+                </div>
+                <div class="aircraft-item">
+                    <div class="aircraft-callsign">DAL456</div>
+                    <div class="aircraft-type">Airbus A320</div>
+                    <div class="aircraft-phase">Taxi</div>
+                </div>
+                <div class="aircraft-item">
+                    <div class="aircraft-callsign">SWA789</div>
+                    <div class="aircraft-type">Boeing 737-800</div>
+                    <div class="aircraft-phase">Gate</div>
+                </div>
+            `;
+            
+            // Update bottlenecks list
+            const bottlenecksList = document.getElementById('bottlenecks-list');
+            bottlenecksList.innerHTML = `
+                <div class="bottleneck-item">
+                    <div class="bottleneck-severity">MODERATE</div>
+                    <div class="bottleneck-description">Taxiway congestion near Terminal 4</div>
+                </div>
+            `;
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'r':
+                case 'R':
+                    resetView();
+                    break;
+                case 'a':
+                case 'A':
+                    toggleAircraft();
+                    break;
+                case 'Escape':
+                    window.location.href = '/';
+                    break;
+            }
+        });
+        
+        // Initialize
+        loadSampleData();
+        draw();
+    </script>
+</body>
+</html>

@@ -25,7 +25,7 @@ def generate_results_file(airport_code="KJFK"):
     print("=" * 60)
     
     # Check if data.json exists
-    if not os.path.exists("data.json"):
+    if not os.path.exists("model/data.json"):
         print("❌ data.json file not found!")
         print("💡 Make sure your data.json file is in the model directory")
         return False
