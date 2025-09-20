@@ -128,7 +128,7 @@
             position: fixed;
             top: 65px;
             left: 0;
-            right: 380px; /* Increased space for larger info panel */
+            right: 400px; /* Expanded sidebar width for better organization */
             bottom: 0;
             display: flex;
             flex-direction: column;
@@ -152,7 +152,7 @@
             position: fixed;
             top: 65px;
             right: 0;
-            width: 380px; /* Increased width for more data */
+            width: 400px; /* Expanded width to match visualization container */
             height: calc(100vh - 65px);
             background: rgba(8, 8, 8, 0.98);
             border-left: 2px solid #00ff00;
@@ -190,10 +190,13 @@
             padding: 20px;
             flex: 1;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Better spacing between panels */
         }
 
         .legend {
-            margin-bottom: 25px;
+            margin-bottom: 0; /* Gap spacing handles this now */
             background: rgba(15, 15, 15, 0.8);
             padding: 15px;
             border-radius: 6px;
@@ -240,7 +243,7 @@
             border: 1px solid #333;
             border-radius: 8px;
             padding: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 0; /* Gap spacing handles this now */
             color: #e0e0e0;
             font-family: 'JetBrains Mono', monospace;
         }
@@ -349,7 +352,7 @@
             border: 1px solid #333;
             border-radius: 8px;
             padding: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 0; /* Gap spacing handles this now */
             color: #e0e0e0;
             font-family: 'JetBrains Mono', monospace;
         }
@@ -390,12 +393,13 @@
             background: rgba(0, 255, 0, 0.1);
             color: #00ff00;
             border: 1px solid #00ff00;
-            padding: 8px 12px;
-            border-radius: 4px;
+            padding: 4px 8px;
+            border-radius: 3px;
             cursor: pointer;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8em;
+            font-size: 0.7em;
             transition: all 0.3s ease;
+            min-width: 60px;
         }
 
         .update-button:hover {
@@ -648,6 +652,7 @@
                 <button class="control-button" onclick="resetView()">Reset View</button>
                 <button class="control-button" onclick="loadSampleAircraftData()">Load Aircraft</button>
                 <button class="control-button" onclick="loadSampleBottleneckData()">Test Bottlenecks</button>
+                <button class="control-button" onclick="clearBottleneckData()">Clear Bottlenecks</button>
             </div>
     </div>
 
@@ -858,9 +863,9 @@
                 
                 // Fixed positioning - no pan/zoom
                 taxiway.points.forEach((point, pointIndex) => {
-                    // Scale to fill more of the canvas with proper centering
-                    const scaledX = (point[0] * 1.5) + (canvas.width * 0.3);
-                    const scaledY = (point[1] * 1.2) + (canvas.height * 0.4);
+                    // Scale to fit the entire airport within canvas bounds (another 10% smaller)
+                    const scaledX = (point[0] * 0.567) + (canvas.width * 0.5);
+                    const scaledY = (point[1] * 0.567) + (canvas.height * 0.5);
                     
                     if (pointIndex === 0) {
                         ctx.moveTo(scaledX, scaledY);
@@ -870,15 +875,7 @@
                 });
                 ctx.stroke();
                 
-                // Draw taxiway labels (only for major taxiways to avoid clutter)
-                if (index % 8 === 0 && taxiway.points.length > 0) {
-                    const x = (taxiway.points[0][0] * 1.5) + (canvas.width * 0.3) + 8;
-                    const y = (taxiway.points[0][1] * 1.2) + (canvas.height * 0.4) - 8;
-                    
-                    ctx.fillStyle = '#ffffff';
-                    ctx.font = `10px JetBrains Mono`;
-                    ctx.fillText(taxiway.id, x, y);
-                }
+                // Taxiway labels removed for cleaner display
             });
             
             ctx.globalAlpha = 1.0; // Reset alpha
@@ -898,9 +895,9 @@
             const centerY = canvas.height / 2;
             
             airportData.runways.forEach((runway, index) => {
-                // Use actual runway dimensions from OSM data
-                const length = Math.min((runway.length / 4), canvas.width * 0.3);
-                const width = Math.max((runway.width / 2), 8); // Minimum width for visibility
+                // Use actual runway dimensions from OSM data, scaled to fit screen (another 10% smaller)
+                const length = Math.min((runway.length / 5.6), canvas.width * 0.36);
+                const width = Math.max((runway.width / 4.8), 4); // Thinner runways for cleaner look
                 const heading = runway.heading * Math.PI / 180;
                 
                 // Calculate runway position based on heading and index
@@ -909,7 +906,7 @@
                 
                 // Offset parallel runways
                 if (totalRunways > 1) {
-                    const spacing = 100; // Distance between parallel runways
+                    const spacing = 85; // Further reduced distance between parallel runways (another 10% smaller)
                     if (Math.abs(Math.sin(heading)) > 0.7) { // Nearly vertical runways
                         runwayX = centerX + (index - (totalRunways - 1) / 2) * spacing;
                     } else { // Nearly horizontal runways
@@ -922,50 +919,35 @@
                 ctx.translate(runwayX, runwayY);
                 ctx.rotate(heading);
                 
-                // Runway surface - bright white
-                ctx.fillStyle = '#ffffff';
-                ctx.globalAlpha = 0.9;
+                // Runway surface - neon green (no white fill)
+                ctx.fillStyle = '#00ff00';
+                ctx.globalAlpha = 0.8;
                 ctx.fillRect(-length/2, -width/2, length, width);
                 
-                // Runway outline - bright yellow for contrast
-                ctx.strokeStyle = '#ffff00';
-                ctx.lineWidth = 4;
+                // Runway outline - darker green for definition
+                ctx.strokeStyle = '#00cc00';
+                ctx.lineWidth = 1;
                 ctx.globalAlpha = 1.0;
                 ctx.strokeRect(-length/2, -width/2, length, width);
                 
-                // Runway center line - neon green
-                ctx.strokeStyle = '#00ff00';
-                ctx.lineWidth = 2;
+                // Runway center line - white for contrast
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(-length/2 + 10, 0);
                 ctx.lineTo(length/2 - 10, 0);
                 ctx.stroke();
                 
-                // Runway threshold markings - bright yellow
-                ctx.strokeStyle = '#ffff00';
-                ctx.lineWidth = 2;
+                // Simplified threshold markings - white dots
+                ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
-                for (let i = 0; i < 4; i++) {
-                    const x = -length/2 + 15 + (i * 20);
-                    ctx.moveTo(x, -width/2 + 5);
-                    ctx.lineTo(x, width/2 - 5);
+                for (let i = 0; i < 3; i++) {
+                    const x = -length/2 + 20 + (i * 30);
+                    ctx.arc(x, 0, 2, 0, 2 * Math.PI);
                 }
-                ctx.stroke();
+                ctx.fill();
                 
                 ctx.restore();
-                
-                // Draw runway ID with neon green background
-                ctx.fillStyle = '#00ff00';
-                ctx.globalAlpha = 0.9;
-                ctx.fillRect(runwayX - 30, runwayY - 35, 60, 20);
-                
-                ctx.fillStyle = '#000000';
-                ctx.font = `bold 14px JetBrains Mono`;
-                ctx.textAlign = 'center';
-                ctx.globalAlpha = 1.0;
-                ctx.fillText(runway.id, runwayX, runwayY - 22);
-                
-                ctx.textAlign = 'left';
             });
         }
         
@@ -1234,10 +1216,11 @@
             const impact = bottleneckData.impact_summary;
             
             if (summary) {
-                document.getElementById('bottleneck-count').textContent = summary.total_bottlenecks_predicted || 0;
-                document.getElementById('severity-level').textContent = `${summary.highest_severity_level || 1}/5`;
+                // Format numbers properly to prevent glitching
+                document.getElementById('bottleneck-count').textContent = Math.round(summary.total_bottlenecks_predicted || 0);
+                document.getElementById('severity-level').textContent = `${Math.round(summary.highest_severity_level || 1)}/5`;
                 document.getElementById('delay-risk').textContent = (summary.overall_delay_risk || 'low').toUpperCase();
-                document.getElementById('passengers-at-risk').textContent = summary.total_passengers_at_risk || 0;
+                document.getElementById('passengers-at-risk').textContent = Math.round(summary.total_passengers_at_risk || 0);
                 document.getElementById('fuel-waste').textContent = `${(summary.total_fuel_waste_estimate || 0).toFixed(1)} gal`;
             }
             
@@ -1255,7 +1238,7 @@
                     item.className = 'bottleneck-item';
                     item.innerHTML = `
                         <div class="type">${bottleneck.type.replace('_', ' ').toUpperCase()}</div>
-                        <div class="details">Severity: ${bottleneck.severity}/5 | ${bottleneck.aircraft_count} aircraft | $${bottleneck.economic_impact.toFixed(2)} impact</div>
+                        <div class="details">Severity: ${Math.round(bottleneck.severity)}/5 | ${Math.round(bottleneck.aircraft_count)} aircraft | $${(bottleneck.economic_impact || 0).toFixed(2)} impact</div>
                     `;
                     bottleneckList.appendChild(item);
                 });
@@ -1271,6 +1254,29 @@
             draw(); // Redraw with bottlenecks
         }
 
+        // Clear bottleneck data
+        function clearBottleneckData() {
+            bottleneckData = {
+                bottlenecks: [],
+                impact_summary: {
+                    total_passengers_affected: 0,
+                    total_fuel_waste_gallons: 0,
+                    total_economic_impact_usd: 0,
+                    total_co2_emissions_lbs: 0,
+                    average_delay_minutes: 0
+                },
+                airport_summary: {
+                    total_bottlenecks_predicted: 0,
+                    highest_severity_level: 1,
+                    total_passengers_at_risk: 0,
+                    total_fuel_waste_estimate: 0,
+                    overall_delay_risk: "low"
+                }
+            };
+            updateBottleneckInfoPanel();
+            draw(); // Redraw without bottlenecks
+        }
+
         // Demo function to load sample bottleneck data
         function loadSampleBottleneckData() {
             const sampleData = {
@@ -1283,12 +1289,12 @@
                         radius_pixels: 40,
                         color: "#ffaa44",
                         opacity: 0.8,
-                        severity: 4,
-                        probability: 0.85,
+                        severity: 3,
+                        probability: 0.75,
                         aircraft_count: 2,
-                        passengers_affected: 240,
-                        fuel_waste: 75.0,
-                        economic_impact: 9262.50,
+                        passengers_affected: 180,
+                        fuel_waste: 45.0,
+                        economic_impact: 5250.00,
                         recommendations: [
                             {
                                 action: "Implement ground traffic sequencing",
@@ -1300,18 +1306,18 @@
                     }
                 ],
                 impact_summary: {
-                    total_passengers_affected: 240,
-                    total_fuel_waste_gallons: 75.0,
-                    total_economic_impact_usd: 9262.50,
-                    total_co2_emissions_lbs: 1582.5,
-                    average_delay_minutes: 15
+                    total_passengers_affected: 180,
+                    total_fuel_waste_gallons: 45.0,
+                    total_economic_impact_usd: 5250.00,
+                    total_co2_emissions_lbs: 950.0,
+                    average_delay_minutes: 12
                 },
                 airport_summary: {
                     total_bottlenecks_predicted: 1,
-                    highest_severity_level: 4,
-                    total_passengers_at_risk: 240,
-                    total_fuel_waste_estimate: 75.0,
-                    overall_delay_risk: "high"
+                    highest_severity_level: 3,
+                    total_passengers_at_risk: 180,
+                    total_fuel_waste_estimate: 45.0,
+                    overall_delay_risk: "medium"
                 }
             };
             
@@ -1426,9 +1432,19 @@
         // Animated counter function
         function animateCounter(elementId, targetValue, duration = 1000) {
             const element = document.getElementById(elementId);
+            if (!element || targetValue === undefined || targetValue === null) {
+                return; // Exit if element doesn't exist or targetValue is invalid
+            }
+            
             const startValue = parseInt(element.textContent) || 0;
             const increment = (targetValue - startValue) / (duration / 16);
             let currentValue = startValue;
+            
+            // If values are the same, just set the value without animation
+            if (startValue === targetValue) {
+                element.textContent = Math.round(targetValue);
+                return;
+            }
             
             const timer = setInterval(() => {
                 currentValue += increment;
@@ -1447,12 +1463,21 @@
             }, 16);
         }
 
-        // Update metrics with animation
+        // Update metrics with animation (only if elements exist)
         function updateMetrics() {
-            animateCounter('total-aircraft', aircraftData.totalCount);
-            animateCounter('predicted-delays', aircraftData.predictedDelays);
-            animateCounter('affected-passengers', aircraftData.affectedPassengers);
-            animateCounter('active-bottlenecks', bottleneckData.bottlenecks.length);
+            // Only animate counters that exist and have valid data
+            if (document.getElementById('total-aircraft') && aircraftData.totalCount !== undefined) {
+                animateCounter('total-aircraft', aircraftData.totalCount);
+            }
+            if (document.getElementById('predicted-delays') && aircraftData.predictedDelays !== undefined) {
+                animateCounter('predicted-delays', aircraftData.predictedDelays);
+            }
+            if (document.getElementById('affected-passengers') && aircraftData.affectedPassengers !== undefined) {
+                animateCounter('affected-passengers', aircraftData.affectedPassengers);
+            }
+            if (document.getElementById('active-bottlenecks') && bottleneckData.bottlenecks) {
+                animateCounter('active-bottlenecks', bottleneckData.bottlenecks.length);
+            }
         }
 
         // Load sample aircraft data
@@ -1534,10 +1559,7 @@
         // Setup interactive features
         setupCanvasInteractivity();
         
-        // Initialize metrics
-        updateMetrics();
-        
-        // Initial draw
+        // Initial draw (metrics will be updated when data is loaded)
         draw();
         
         // Professional ATC layout - info panel always visible
