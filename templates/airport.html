@@ -642,7 +642,7 @@
         <div class="airport-info">
             <div class="airport-code">{{ airport_code }}</div>
             <div class="airport-name">{{ airport.name }}</div>
-            <div class="airport-location">{{ airport.city }}, {{ airport.country }}</div>
+            <div class="airport-location">{{ airport.city }}{% if airport.state and airport.country == 'USA' %}, {{ airport.state }}{% endif %}, {{ airport.country }}</div>
         </div>
             <div class="controls">
                 <button class="control-button" onclick="resetView()">Reset View</button>
@@ -658,7 +658,7 @@
     <div id="infoPanel" class="info-panel">
         <div class="panel-header">
             <div class="panel-title">Airport Data</div>
-            <div class="panel-subtitle">{{ airport_code }} - {{ airport.city }}</div>
+            <div class="panel-subtitle">{{ airport_code }} - {{ airport.city }}{% if airport.state and airport.country == 'USA' %}, {{ airport.state }}{% endif %}</div>
         </div>
         <div class="panel-content">
             <!-- Airport Selector -->
@@ -671,7 +671,7 @@
                 </div>
                 <div class="current-airport">
                     <span class="label">Current:</span>
-                    <span class="value">{{ airport_code }} - {{ airport.city }}</span>
+                    <span class="value">{{ airport_code }} - {{ airport.city }}{% if airport.state and airport.country == 'USA' %}, {{ airport.state }}{% endif %}</span>
                 </div>
             </div>
 
@@ -816,6 +816,11 @@
         // Airport data from server
         const airportData = {{ airport | tojson }};
         
+        // Debug: Log airport data to console
+        console.log('Airport Data:', airportData);
+        console.log('Runways:', airportData.runways);
+        console.log('Taxiways:', airportData.taxiways);
+        
         // Canvas setup
         function resizeCanvas() {
             canvas.width = window.innerWidth - 320; // Fixed space for info panel
@@ -826,7 +831,7 @@
         window.addEventListener('resize', resizeCanvas);
         
         // Drawing variables
-        let scale = 1;
+        let drawingScale = 1;
         
         // Set canvas background
         function clearCanvas() {
@@ -834,12 +839,19 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
         
-        // Draw taxiways as subtle background
+        // Draw taxiways as bright white lines
         function drawTaxiways() {
-            ctx.strokeStyle = '#999999'; // Brighter gray for better visibility
-            ctx.lineWidth = 1.5;
+            if (!airportData.taxiways || airportData.taxiways.length === 0) {
+                console.log('No taxiways data available');
+                return;
+            }
+            
+            console.log(`Drawing ${airportData.taxiways.length} taxiways`);
+            
+            ctx.strokeStyle = '#ffffff'; // Bright white for maximum visibility
+            ctx.lineWidth = 2;
             ctx.lineCap = 'round';
-            ctx.globalAlpha = 0.6; // More visible background
+            ctx.globalAlpha = 0.8; // More visible
             
             airportData.taxiways.forEach((taxiway, index) => {
                 ctx.beginPath();
@@ -847,8 +859,8 @@
                 // Fixed positioning - no pan/zoom
                 taxiway.points.forEach((point, pointIndex) => {
                     // Scale to fill more of the canvas with proper centering
-                    const scaledX = (point[0] * 1.2) + (canvas.width * 0.1);
-                    const scaledY = (point[1] * 0.9) + (canvas.height * 0.15);
+                    const scaledX = (point[0] * 1.5) + (canvas.width * 0.3);
+                    const scaledY = (point[1] * 1.2) + (canvas.height * 0.4);
                     
                     if (pointIndex === 0) {
                         ctx.moveTo(scaledX, scaledY);
@@ -860,10 +872,10 @@
                 
                 // Draw taxiway labels (only for major taxiways to avoid clutter)
                 if (index % 8 === 0 && taxiway.points.length > 0) {
-                    const x = (taxiway.points[0][0] * 1.2) + (canvas.width * 0.1) + 8;
-                    const y = (taxiway.points[0][1] * 0.9) + (canvas.height * 0.15) - 8;
+                    const x = (taxiway.points[0][0] * 1.5) + (canvas.width * 0.3) + 8;
+                    const y = (taxiway.points[0][1] * 1.2) + (canvas.height * 0.4) - 8;
                     
-                    ctx.fillStyle = '#aaaaaa';
+                    ctx.fillStyle = '#ffffff';
                     ctx.font = `10px JetBrains Mono`;
                     ctx.fillText(taxiway.id, x, y);
                 }
@@ -874,13 +886,21 @@
         
         // Draw runways with ATC-style prominence
         function drawRunways() {
+            if (!airportData.runways || airportData.runways.length === 0) {
+                console.log('No runways data available');
+                return;
+            }
+            
+            console.log(`Drawing ${airportData.runways.length} runways`);
+            
             const totalRunways = airportData.runways.length;
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
             
             airportData.runways.forEach((runway, index) => {
-                const length = Math.min((runway.length / 8), canvas.width * 0.4);
-                const width = (runway.width / 1.2);
+                // Use actual runway dimensions from OSM data
+                const length = Math.min((runway.length / 4), canvas.width * 0.3);
+                const width = Math.max((runway.width / 2), 8); // Minimum width for visibility
                 const heading = runway.heading * Math.PI / 180;
                 
                 // Calculate runway position based on heading and index
@@ -889,7 +909,7 @@
                 
                 // Offset parallel runways
                 if (totalRunways > 1) {
-                    const spacing = 80; // Distance between parallel runways
+                    const spacing = 100; // Distance between parallel runways
                     if (Math.abs(Math.sin(heading)) > 0.7) { // Nearly vertical runways
                         runwayX = centerX + (index - (totalRunways - 1) / 2) * spacing;
                     } else { // Nearly horizontal runways
@@ -902,13 +922,13 @@
                 ctx.translate(runwayX, runwayY);
                 ctx.rotate(heading);
                 
-                // Runway surface
-                ctx.fillStyle = '#1a1a1a';
+                // Runway surface - bright white
+                ctx.fillStyle = '#ffffff';
                 ctx.globalAlpha = 0.9;
                 ctx.fillRect(-length/2, -width/2, length, width);
                 
-                // Runway outline - bright white
-                ctx.strokeStyle = '#ffffff';
+                // Runway outline - bright yellow for contrast
+                ctx.strokeStyle = '#ffff00';
                 ctx.lineWidth = 4;
                 ctx.globalAlpha = 1.0;
                 ctx.strokeRect(-length/2, -width/2, length, width);
@@ -921,9 +941,9 @@
                 ctx.lineTo(length/2 - 10, 0);
                 ctx.stroke();
                 
-                // Runway threshold markings
-                ctx.strokeStyle = '#ffffff';
-                ctx.lineWidth = 1;
+                // Runway threshold markings - bright yellow
+                ctx.strokeStyle = '#ffff00';
+                ctx.lineWidth = 2;
                 ctx.beginPath();
                 for (let i = 0; i < 4; i++) {
                     const x = -length/2 + 15 + (i * 20);
@@ -952,14 +972,14 @@
         // Draw airport name
         function drawAirportName() {
             ctx.fillStyle = '#ffffff';
-            ctx.font = `bold ${18 * scale}px Inter`;
+            ctx.font = `bold ${18 * drawingScale}px Inter`;
             ctx.textAlign = 'center';
-            ctx.fillText(airportData.name, canvas.width / 2, 40 * scale);
+            ctx.fillText(airportData.name, canvas.width / 2, 40 * drawingScale);
             
             // Add airport code below
             ctx.fillStyle = '#00ff00';
-            ctx.font = `bold ${14 * scale}px JetBrains Mono`;
-            ctx.fillText(airportData.city + ', ' + airportData.country, canvas.width / 2, 60 * scale);
+            ctx.font = `bold ${14 * drawingScale}px JetBrains Mono`;
+            ctx.fillText(airportData.city + ', ' + airportData.country, canvas.width / 2, 60 * drawingScale);
             ctx.textAlign = 'left';
         }
         
@@ -1008,8 +1028,8 @@
             }
 
             aircraftData.aircraft.forEach(aircraft => {
-                const x = (aircraft.x * scale) + offsetX;
-                const y = (aircraft.y * scale) + offsetY;
+                const x = (aircraft.x * drawingScale) + offsetX;
+                const y = (aircraft.y * drawingScale) + offsetY;
                 
                 // Skip if aircraft is outside visible area
                 if (x < -50 || x > canvas.width + 50 || y < -50 || y > canvas.height + 50) {
@@ -1023,26 +1043,26 @@
                 // Draw aircraft icon based on phase
                 if (aircraft.phase === 'approach' || aircraft.phase === 'departure') {
                     // Flying aircraft - use emoji
-                    ctx.font = `${20 * scale}px Arial`;
+                    ctx.font = `${20 * drawingScale}px Arial`;
                     ctx.textAlign = 'center';
                     ctx.fillText('✈️', 0, 5);
                 } else {
                     // Ground aircraft - use simple shape
                     ctx.fillStyle = aircraft.color || '#00ff00';
-                    ctx.fillRect(-8 * scale, -4 * scale, 16 * scale, 8 * scale);
+                    ctx.fillRect(-8 * drawingScale, -4 * drawingScale, 16 * drawingScale, 8 * drawingScale);
                     
                     // Add aircraft type text
                     ctx.fillStyle = '#ffffff';
-                    ctx.font = `${8 * scale}px JetBrains Mono`;
+                    ctx.font = `${8 * drawingScale}px JetBrains Mono`;
                     ctx.textAlign = 'center';
-                    ctx.fillText(aircraft.type || 'AC', 0, -8 * scale);
+                    ctx.fillText(aircraft.type || 'AC', 0, -8 * drawingScale);
                 }
                 
                 // Draw flight ID
                 ctx.fillStyle = '#ffffff';
-                ctx.font = `${10 * scale}px JetBrains Mono`;
+                ctx.font = `${10 * drawingScale}px JetBrains Mono`;
                 ctx.textAlign = 'center';
-                ctx.fillText(aircraft.flight_id || 'N/A', 0, 15 * scale);
+                ctx.fillText(aircraft.flight_id || 'N/A', 0, 15 * drawingScale);
                 
                 ctx.restore();
             });
@@ -1055,9 +1075,9 @@
             }
 
             bottleneckData.bottlenecks.forEach(bottleneck => {
-                const x = (bottleneck.canvas_x * scale) + offsetX;
-                const y = (bottleneck.canvas_y * scale) + offsetY;
-                const radius = (bottleneck.radius_pixels || 30) * scale;
+                const x = (bottleneck.canvas_x * drawingScale) + offsetX;
+                const y = (bottleneck.canvas_y * drawingScale) + offsetY;
+                const radius = (bottleneck.radius_pixels || 30) * drawingScale;
                 
                 // Skip if bottleneck is outside visible area
                 if (x < -radius || x > canvas.width + radius || y < -radius || y > canvas.height + radius) {
@@ -1087,14 +1107,14 @@
                 
                 // Draw border
                 ctx.strokeStyle = color;
-                ctx.lineWidth = 2 * scale;
+                ctx.lineWidth = 2 * drawingScale;
                 ctx.stroke();
                 
                 // Draw severity indicator
                 ctx.fillStyle = '#ffffff';
-                ctx.font = `bold ${16 * scale}px JetBrains Mono`;
+                ctx.font = `bold ${16 * drawingScale}px JetBrains Mono`;
                 ctx.textAlign = 'center';
-                ctx.fillText(bottleneck.severity.toString(), x, y + 5 * scale);
+                ctx.fillText(bottleneck.severity.toString(), x, y + 5 * drawingScale);
                 
                 ctx.restore();
             });
@@ -1152,7 +1172,6 @@
         let lastY = 0;
         let offsetX = 0;
         let offsetY = 0;
-        let scale = 1;
         let minScale = 0.5;
         let maxScale = 3.0;
 
@@ -1353,14 +1372,14 @@
                 const mouseY = e.clientY - rect.top;
                 
                 const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
-                const newScale = Math.max(minScale, Math.min(maxScale, scale * zoomFactor));
+                const newScale = Math.max(minScale, Math.min(maxScale, drawingScale * zoomFactor));
                 
-                if (newScale !== scale) {
+                if (newScale !== drawingScale) {
                     // Zoom towards mouse position
-                    const scaleChange = newScale / scale;
+                    const scaleChange = newScale / drawingScale;
                     offsetX = mouseX - (mouseX - offsetX) * scaleChange;
                     offsetY = mouseY - (mouseY - offsetY) * scaleChange;
-                    scale = newScale;
+                    drawingScale = newScale;
                     
                     draw();
                 }
@@ -1391,10 +1410,10 @@
                     
                     if (lastTouchDistance > 0) {
                         const zoomFactor = currentDistance / lastTouchDistance;
-                        const newScale = Math.max(minScale, Math.min(maxScale, scale * zoomFactor));
+                        const newScale = Math.max(minScale, Math.min(maxScale, drawingScale * zoomFactor));
                         
-                        if (newScale !== scale) {
-                            scale = newScale;
+                        if (newScale !== drawingScale) {
+                            drawingScale = newScale;
                             draw();
                         }
                     }
