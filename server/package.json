@@ -1,0 +1,21 @@
+{
+  "name": "atc-ai-copilot-server",
+  "version": "1.0.0",
+  "description": "Backend server for ATC AI Co-Pilot Dashboard",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "axios": "^1.6.0",
+    "socket.io": "^4.7.4",
+    "dotenv": "^16.3.1",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
