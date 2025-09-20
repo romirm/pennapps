@@ -658,9 +658,9 @@ def convert_to_app_format(airport_data: Dict) -> Dict:
         # Convert meter coordinates to simplified grid coordinates
         simplified_points = []
         for point in taxiway['points']:
-            # Scale down coordinates for visualization - use smaller scale factor
-            x = int(point[0] / 2)  # Smaller scale factor for better visibility
-            y = int(point[1] / 2)
+            # Scale down coordinates for visualization - 1.75x bigger airports
+            x = int(point[0] / 2.86)  # Adjusted scale factor for 1.75x bigger display
+            y = int(point[1] / 2.86)
             simplified_points.append((x, y))
         
         app_taxiways.append({
