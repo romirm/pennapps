@@ -1,26 +1,59 @@
 """
-GNN-KAN Airport Bottleneck Prediction System
+Simplified MLP Airport Bottleneck Prediction System
 
-A hybrid Graph Neural Network (GNN) + Kolmogorov-Arnold Network (KAN) model 
-that analyzes aircraft data from ADS-B.lol API to predict operational bottlenecks,
-resolution times, passenger impact, and fuel waste estimates.
+A simple Multi-Layer Perceptron model that analyzes aircraft data from ADS-B.lol API 
+to predict operational bottlenecks, resolution times, passenger impact, and fuel waste estimates.
+
+Replaces the complex GNN-KAN hybrid with a straightforward neural network approach.
 """
 
-from .adsb_processor import ADSBDataProcessor
-from .bottleneck_gnn import BottleneckGNN
-from .kan_predictor import BottleneckKANPredictor
-from .airport_bottleneck_model import AirportBottleneckModel
+# Import simplified components
+from .simple_mlp_predictor import SimpleMLPPredictor, SimpleBottleneckPredictor, BottleneckPrediction
+from .simple_airport_model import SimpleAirportBottleneckModel, AirportBottleneckModel
+from .simple_config import SIMPLE_BOTTLENECK_CONFIG, BOTTLENECK_CONFIG, MODEL_CONFIG
+
+# Import remaining components (still needed)
 from .flight_metadata import FlightMetadataProcessor
 from .impact_calculator import ImpactCalculator
 
-__version__ = "1.0.0"
-__author__ = "Airport Bottleneck Prediction System"
+# Backward compatibility imports
+try:
+    from .adsb_processor import ADSBDataProcessor
+except ImportError:
+    ADSBDataProcessor = None
+
+try:
+    from .bottleneck_gnn import BottleneckGNN
+except ImportError:
+    BottleneckGNN = None
+
+try:
+    from .kan_predictor import BottleneckKANPredictor
+except ImportError:
+    BottleneckKANPredictor = None
+
+__version__ = "2.0.0"
+__author__ = "Simplified Airport Bottleneck Prediction System"
 
 __all__ = [
-    "ADSBDataProcessor",
-    "BottleneckGNN", 
-    "BottleneckKANPredictor",
+    # New simplified components
+    "SimpleMLPPredictor",
+    "SimpleBottleneckPredictor", 
+    "BottleneckPrediction",
+    "SimpleAirportBottleneckModel",
     "AirportBottleneckModel",
+    
+    # Configuration
+    "SIMPLE_BOTTLENECK_CONFIG",
+    "BOTTLENECK_CONFIG",
+    "MODEL_CONFIG",
+    
+    # Remaining components
     "FlightMetadataProcessor",
-    "ImpactCalculator"
+    "ImpactCalculator",
+    
+    # Backward compatibility (if available)
+    "ADSBDataProcessor",
+    "BottleneckGNN",
+    "BottleneckKANPredictor"
 ]

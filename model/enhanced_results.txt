@@ -1,0 +1,123 @@
+================================================================================
+ENHANCED AIRPORT BOTTLENECK ANALYSIS RESULTS
+================================================================================
+Airport: KJFK
+Analysis Date: 2025-09-20 17:11:21
+Model Type: Simple MLP (Enhanced)
+
+AIRPORT SUMMARY
+----------------------------------------
+Total Aircraft Analyzed: 849
+Total Bottlenecks Predicted: 3
+Highest Severity Level: 1/5
+Total Passengers at Risk: 382,050
+Total Fuel Waste Estimate: 300.0 gallons
+Overall Delay Risk: LOW
+
+DETAILED BOTTLENECK ANALYSIS WITH COORDINATES
+----------------------------------------
+
+BOTTLENECK #1
+Type: RUNWAY APPROACH
+Coordinates: 40.640500, -73.779500
+Probability: 1.00 (100.0%)
+Severity: 1/5
+
+Affected Flight Types:
+  Total Aircraft: 849
+  Aircraft Types: {'B737': 815, 'A320': 25, 'B777': 9}
+  Airlines: {'DAL': 165, 'JBU': 204, 'DLH': 3, 'QTR': 3, 'THY': 5, 'RPA': 80, 'N92': 5, 'EDV': 90, 'KUG': 2, 'EEV': 1, 'QAF': 4, 'JZA': 6, 'AAL': 66, 'CNS': 2, 'N62': 4, 'N94': 2, 'N45': 2, 'EJA': 3, 'RJA': 3, 'WUP': 2, 'N80': 2, 'N84': 2, 'FAM': 2, 'N41': 4, 'ASA': 12, 'FFT': 18, 'KAP': 2, 'SCX': 2, 'CGJ': 2, 'LXJ': 1, 'CAL': 3, 'BCS': 2, 'VIR': 6, 'FDX': 4, 'CPA': 4, 'AVA': 6, 'UPS': 6, 'BAW': 8, 'A7A': 2, 'BWA': 6, 'DHK': 2, 'FXC': 2, 'TAI': 6, 'EJM': 2, 'HAL': 4, 'GTI': 4, 'CMP': 4, 'ANA': 2, 'PAL': 1, 'JAL': 3, 'AAR': 2, 'EVA': 1, 'KAL': 3, 'BOX': 1, 'NBT': 3, 'ICE': 1, 'UAE': 2, 'SIA': 2, 'RAM': 1, 'ITY': 3, 'AFR': 4, 'IBE': 2, 'AEA': 1, 'ASL': 1, 'VJA': 1, 'EUK': 1, 'SAS': 2, 'ATN': 1, 'SWR': 3, 'EIN': 2, 'QFA': 1, 'WJA': 1, 'ETD': 2, 'AMX': 2, 'UBT': 1, 'CKK': 1, 'OSP': 1, 'LOT': 1, 'KLM': 1, 'MVP': 1, 'NOS': 1, 'VIV': 1, 'CFG': 1, 'KAC': 1, 'BEL': 1, 'CSG': 1, 'CXA': 1, 'MSR': 1, 'AIC': 1, 'UZB': 1, 'SVA': 1, 'LAN': 1, 'LPE': 1, 'CHG': 1, 'ETH': 1, 'ABX': 1, 'TAM': 1, 'KQA': 1, 'ELY': 2, 'AIZ': 1, 'EAL': 1, 'GLG': 1, 'MMD': 1}
+  Flight Types: {'departure': 344, 'arrival': 505}
+
+Sample Affected Flights:
+  • DAL1975 (B737) - departure
+    Position: 40.639813, -73.778887
+  • JBU2637 (B737) - departure
+    Position: 40.639813, -73.778887
+  • DLH405 (A320) - departure
+    Position: 40.639812, -73.778888
+  • QTR59P (B777) - departure
+    Position: 40.639813, -73.778887
+  • JBU59 (B737) - departure
+    Position: 40.639811, -73.778889
+
+Impact Analysis:
+  Passengers Affected: 127,350
+  Fuel Waste: 100.0 gallons
+  Economic Impact: $350.00
+
+Recommended Action:
+  Action: Increase runway separation
+  Priority: high
+  Effectiveness: 0.8
+----------------------------------------
+
+BOTTLENECK #2
+Type: TAXIWAY INTERSECTION
+Coordinates: 40.639500, -73.779000
+Probability: 1.00 (100.0%)
+Severity: 1/5
+
+Affected Flight Types:
+  Total Aircraft: 849
+  Aircraft Types: {'B737': 815, 'A320': 25, 'B777': 9}
+  Airlines: {'DAL': 165, 'JBU': 204, 'DLH': 3, 'QTR': 3, 'THY': 5, 'RPA': 80, 'N92': 5, 'EDV': 90, 'KUG': 2, 'EEV': 1, 'QAF': 4, 'JZA': 6, 'AAL': 66, 'CNS': 2, 'N62': 4, 'N94': 2, 'N45': 2, 'EJA': 3, 'RJA': 3, 'WUP': 2, 'N80': 2, 'N84': 2, 'FAM': 2, 'N41': 4, 'ASA': 12, 'FFT': 18, 'KAP': 2, 'SCX': 2, 'CGJ': 2, 'LXJ': 1, 'CAL': 3, 'BCS': 2, 'VIR': 6, 'FDX': 4, 'CPA': 4, 'AVA': 6, 'UPS': 6, 'BAW': 8, 'A7A': 2, 'BWA': 6, 'DHK': 2, 'FXC': 2, 'TAI': 6, 'EJM': 2, 'HAL': 4, 'GTI': 4, 'CMP': 4, 'ANA': 2, 'PAL': 1, 'JAL': 3, 'AAR': 2, 'EVA': 1, 'KAL': 3, 'BOX': 1, 'NBT': 3, 'ICE': 1, 'UAE': 2, 'SIA': 2, 'RAM': 1, 'ITY': 3, 'AFR': 4, 'IBE': 2, 'AEA': 1, 'ASL': 1, 'VJA': 1, 'EUK': 1, 'SAS': 2, 'ATN': 1, 'SWR': 3, 'EIN': 2, 'QFA': 1, 'WJA': 1, 'ETD': 2, 'AMX': 2, 'UBT': 1, 'CKK': 1, 'OSP': 1, 'LOT': 1, 'KLM': 1, 'MVP': 1, 'NOS': 1, 'VIV': 1, 'CFG': 1, 'KAC': 1, 'BEL': 1, 'CSG': 1, 'CXA': 1, 'MSR': 1, 'AIC': 1, 'UZB': 1, 'SVA': 1, 'LAN': 1, 'LPE': 1, 'CHG': 1, 'ETH': 1, 'ABX': 1, 'TAM': 1, 'KQA': 1, 'ELY': 2, 'AIZ': 1, 'EAL': 1, 'GLG': 1, 'MMD': 1}
+  Flight Types: {'departure': 344, 'arrival': 505}
+
+Sample Affected Flights:
+  • DAL1975 (B737) - departure
+    Position: 40.639813, -73.778887
+  • JBU2637 (B737) - departure
+    Position: 40.639813, -73.778887
+  • DLH405 (A320) - departure
+    Position: 40.639812, -73.778888
+  • QTR59P (B777) - departure
+    Position: 40.639813, -73.778887
+  • JBU59 (B737) - departure
+    Position: 40.639811, -73.778889
+
+Impact Analysis:
+  Passengers Affected: 127,350
+  Fuel Waste: 100.0 gallons
+  Economic Impact: $350.00
+
+Recommended Action:
+  Action: Optimize taxiway sequencing
+  Priority: medium
+  Effectiveness: 0.6
+----------------------------------------
+
+BOTTLENECK #3
+Type: DEPARTURE QUEUE
+Coordinates: 40.640800, -73.778800
+Probability: 1.00 (100.0%)
+Severity: 1/5
+
+Affected Flight Types:
+  Total Aircraft: 849
+  Aircraft Types: {'B737': 815, 'A320': 25, 'B777': 9}
+  Airlines: {'DAL': 165, 'JBU': 204, 'DLH': 3, 'QTR': 3, 'THY': 5, 'RPA': 80, 'N92': 5, 'EDV': 90, 'KUG': 2, 'EEV': 1, 'QAF': 4, 'JZA': 6, 'AAL': 66, 'CNS': 2, 'N62': 4, 'N94': 2, 'N45': 2, 'EJA': 3, 'RJA': 3, 'WUP': 2, 'N80': 2, 'N84': 2, 'FAM': 2, 'N41': 4, 'ASA': 12, 'FFT': 18, 'KAP': 2, 'SCX': 2, 'CGJ': 2, 'LXJ': 1, 'CAL': 3, 'BCS': 2, 'VIR': 6, 'FDX': 4, 'CPA': 4, 'AVA': 6, 'UPS': 6, 'BAW': 8, 'A7A': 2, 'BWA': 6, 'DHK': 2, 'FXC': 2, 'TAI': 6, 'EJM': 2, 'HAL': 4, 'GTI': 4, 'CMP': 4, 'ANA': 2, 'PAL': 1, 'JAL': 3, 'AAR': 2, 'EVA': 1, 'KAL': 3, 'BOX': 1, 'NBT': 3, 'ICE': 1, 'UAE': 2, 'SIA': 2, 'RAM': 1, 'ITY': 3, 'AFR': 4, 'IBE': 2, 'AEA': 1, 'ASL': 1, 'VJA': 1, 'EUK': 1, 'SAS': 2, 'ATN': 1, 'SWR': 3, 'EIN': 2, 'QFA': 1, 'WJA': 1, 'ETD': 2, 'AMX': 2, 'UBT': 1, 'CKK': 1, 'OSP': 1, 'LOT': 1, 'KLM': 1, 'MVP': 1, 'NOS': 1, 'VIV': 1, 'CFG': 1, 'KAC': 1, 'BEL': 1, 'CSG': 1, 'CXA': 1, 'MSR': 1, 'AIC': 1, 'UZB': 1, 'SVA': 1, 'LAN': 1, 'LPE': 1, 'CHG': 1, 'ETH': 1, 'ABX': 1, 'TAM': 1, 'KQA': 1, 'ELY': 2, 'AIZ': 1, 'EAL': 1, 'GLG': 1, 'MMD': 1}
+  Flight Types: {'departure': 344, 'arrival': 505}
+
+Sample Affected Flights:
+  • DAL1975 (B737) - departure
+    Position: 40.639813, -73.778887
+  • JBU2637 (B737) - departure
+    Position: 40.639813, -73.778887
+  • DLH405 (A320) - departure
+    Position: 40.639812, -73.778888
+  • QTR59P (B777) - departure
+    Position: 40.639813, -73.778887
+  • JBU59 (B737) - departure
+    Position: 40.639811, -73.778889
+
+Impact Analysis:
+  Passengers Affected: 127,350
+  Fuel Waste: 100.0 gallons
+  Economic Impact: $350.00
+----------------------------------------
+
+================================================================================
+End of Enhanced Analysis Report
+Generated by Airport Bottleneck Prediction System
+================================================================================

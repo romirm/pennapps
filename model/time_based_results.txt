@@ -1,0 +1,3062 @@
+================================================================================
+TIME-BASED BOTTLENECK ANALYSIS RESULTS
+================================================================================
+Airport: KJFK
+Analysis Date: 2025-09-20 17:21:15
+Analysis Type: Time-Based Bottleneck Detection
+Minimum Aircraft Threshold: 2 aircraft per time window
+Time Window Size: 15 minutes
+
+ANALYSIS SUMMARY
+----------------------------------------
+Total Bottleneck Periods: 72
+Analysis Period: 2025-09-19 00:00:00 to 2025-09-19 22:45:00
+Total Aircraft Affected: 839
+Average Aircraft per Bottleneck: 11.7
+
+DETAILED TIME-BASED BOTTLENECK ANALYSIS
+----------------------------------------
+
+BOTTLENECK #1
+Type: Arrival Congestion
+Time Window: 2025-09-19 00:00
+Start Time: 2025-09-19 00:02:55
+End Time: 2025-09-19 00:14:34
+Duration: 11.7 minutes
+Location: 40.639816, -73.778884
+Aircraft Count: 4
+
+Aircraft Types:
+  B737: 4 aircraft
+
+Airlines:
+  JBU: 2 flights
+  DAL: 1 flights
+  MMD: 1 flights
+
+Affected Flight Numbers:
+  JBU924
+  MMD5276
+  DAL246
+  JBU2348
+
+Sample Aircraft Positions:
+  DAL246 (B737): 40.639813, -73.778887
+  JBU924 (B737): 40.639813, -73.778887
+  MMD5276 (B737): 40.639824, -73.778876
+  JBU2348 (B737): 40.639814, -73.778886
+----------------------------------------
+
+BOTTLENECK #2
+Type: Arrival Congestion
+Time Window: 2025-09-19 00:15
+Start Time: 2025-09-19 00:16:47
+End Time: 2025-09-19 00:29:57
+Duration: 13.2 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 7
+
+Aircraft Types:
+  B737: 7 aircraft
+
+Airlines:
+  DAL: 2 flights
+  NBT: 1 flights
+  JBU: 1 flights
+  CMP: 1 flights
+  AAL: 1 flights
+  GLG: 1 flights
+
+Affected Flight Numbers:
+  DAL363
+  GLG7396
+  JBU1516
+  AAL4
+  CMP804
+  DAL2386
+  NBT30T
+
+Sample Aircraft Positions:
+  NBT30T (B737): 40.639809, -73.778891
+  JBU1516 (B737): 40.639809, -73.778891
+  DAL2386 (B737): 40.639816, -73.778884
+  DAL363 (B737): 40.639822, -73.778878
+  CMP804 (B737): 40.639805, -73.778895
+----------------------------------------
+
+BOTTLENECK #3
+Type: Arrival Congestion
+Time Window: 2025-09-19 00:30
+Start Time: 2025-09-19 00:31:58
+End Time: 2025-09-19 00:42:34
+Duration: 10.6 minutes
+Location: 40.639814, -73.778886
+Aircraft Count: 7
+
+Aircraft Types:
+  B737: 7 aircraft
+
+Airlines:
+  DAL: 3 flights
+  JBU: 2 flights
+  AVA: 1 flights
+  FFT: 1 flights
+
+Affected Flight Numbers:
+  DAL697
+  AVA245
+  JBU1329
+  DAL1969
+  DAL552
+  JBU60
+  FFT4818
+
+Sample Aircraft Positions:
+  AVA245 (B737): 40.639809, -73.778891
+  JBU1329 (B737): 40.639812, -73.778888
+  DAL697 (B737): 40.639817, -73.778883
+  DAL1969 (B737): 40.639819, -73.778881
+  FFT4818 (B737): 40.639812, -73.778888
+----------------------------------------
+
+BOTTLENECK #4
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 00:45
+Start Time: 2025-09-19 00:47:50
+End Time: 2025-09-19 00:59:12
+Duration: 11.4 minutes
+Location: 40.639811, -73.778889
+Aircraft Count: 5
+
+Aircraft Types:
+  B737: 4 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  BOX: 1 flights
+  THY: 1 flights
+  NBT: 1 flights
+  JBU: 1 flights
+  RPA: 1 flights
+
+Affected Flight Numbers:
+  JBU824
+  RPA5820
+  NBT40S
+  THY12
+  BOX451
+
+Sample Aircraft Positions:
+  BOX451 (A320): 40.639808, -73.778892
+  THY12 (B737): 40.639810, -73.778890
+  NBT40S (B737): 40.639809, -73.778891
+  JBU824 (B737): 40.639812, -73.778888
+  RPA5820 (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #5
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 01:00
+Start Time: 2025-09-19 01:04:57
+End Time: 2025-09-19 01:06:02
+Duration: 1.1 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 2
+
+Aircraft Types:
+  B737: 2 aircraft
+
+Airlines:
+  KAL: 1 flights
+  DAL: 1 flights
+
+Affected Flight Numbers:
+  DAL1387
+  KAL086
+
+Sample Aircraft Positions:
+  KAL086 (B737): 40.639808, -73.778892
+  DAL1387 (B737): 40.639817, -73.778883
+----------------------------------------
+
+BOTTLENECK #6
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 01:15
+Start Time: 2025-09-19 01:21:05
+End Time: 2025-09-19 01:24:53
+Duration: 3.8 minutes
+Location: 40.639811, -73.778889
+Aircraft Count: 2
+
+Aircraft Types:
+  B737: 2 aircraft
+
+Airlines:
+  BWA: 1 flights
+  TAI: 1 flights
+
+Affected Flight Numbers:
+  BWA551
+  TAI566
+
+Sample Aircraft Positions:
+  BWA551 (B737): 40.639810, -73.778890
+  TAI566 (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #7
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 01:30
+Start Time: 2025-09-19 01:35:00
+End Time: 2025-09-19 01:42:58
+Duration: 8.0 minutes
+Location: 40.639811, -73.778889
+Aircraft Count: 2
+
+Aircraft Types:
+  B737: 2 aircraft
+
+Airlines:
+  CAL: 1 flights
+  TAI: 1 flights
+
+Affected Flight Numbers:
+  CAL011
+  TAI570
+
+Sample Aircraft Positions:
+  CAL011 (B737): 40.639810, -73.778890
+  TAI570 (B737): 40.639812, -73.778888
+----------------------------------------
+
+BOTTLENECK #8
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 01:45
+Start Time: 2025-09-19 01:48:59
+End Time: 2025-09-19 01:59:22
+Duration: 10.4 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 4
+
+Aircraft Types:
+  B737: 4 aircraft
+
+Airlines:
+  AAR: 1 flights
+  EVA: 1 flights
+  DAL: 1 flights
+  EAL: 1 flights
+
+Affected Flight Numbers:
+  DAL1719
+  AAR223
+  EVA031
+  EAL36
+
+Sample Aircraft Positions:
+  AAR223 (B737): 40.639810, -73.778890
+  EVA031 (B737): 40.639810, -73.778890
+  DAL1719 (B737): 40.639815, -73.778885
+  EAL36 (B737): 40.639812, -73.778888
+----------------------------------------
+
+BOTTLENECK #9
+Type: Departure Congestion
+Time Window: 2025-09-19 02:00
+Start Time: 2025-09-19 02:00:59
+End Time: 2025-09-19 02:13:59
+Duration: 13.0 minutes
+Location: 40.639810, -73.778890
+Aircraft Count: 4
+
+Aircraft Types:
+  B737: 4 aircraft
+
+Airlines:
+  ANA: 1 flights
+  PAL: 1 flights
+  JAL: 1 flights
+  FFT: 1 flights
+
+Affected Flight Numbers:
+  FFT3548
+  PAL127
+  ANA159
+  JAL3
+
+Sample Aircraft Positions:
+  ANA159 (B737): 40.639810, -73.778890
+  PAL127 (B737): 40.639810, -73.778890
+  JAL3 (B737): 40.639809, -73.778891
+  FFT3548 (B737): 40.639812, -73.778888
+----------------------------------------
+
+BOTTLENECK #10
+Type: Departure Congestion
+Time Window: 2025-09-19 02:15
+Start Time: 2025-09-19 02:15:12
+End Time: 2025-09-19 02:21:30
+Duration: 6.3 minutes
+Location: 40.639810, -73.778890
+Aircraft Count: 2
+
+Aircraft Types:
+  B737: 2 aircraft
+
+Airlines:
+  CMP: 1 flights
+  CPA: 1 flights
+
+Affected Flight Numbers:
+  CMP807
+  CPA843
+
+Sample Aircraft Positions:
+  CMP807 (B737): 40.639809, -73.778891
+  CPA843 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #11
+Type: Arrival Congestion
+Time Window: 2025-09-19 04:00
+Start Time: 2025-09-19 04:05:50
+End Time: 2025-09-19 04:09:29
+Duration: 3.6 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 2
+
+Aircraft Types:
+  B737: 2 aircraft
+
+Airlines:
+  JBU: 1 flights
+  THY: 1 flights
+
+Affected Flight Numbers:
+  THY4KG
+  JBU1966
+
+Sample Aircraft Positions:
+  JBU1966 (B737): 40.639812, -73.778888
+  THY4KG (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #12
+Type: Arrival Congestion
+Time Window: 2025-09-19 04:15
+Start Time: 2025-09-19 04:20:55
+End Time: 2025-09-19 04:27:28
+Duration: 6.5 minutes
+Location: 40.639815, -73.778885
+Aircraft Count: 3
+
+Aircraft Types:
+  B737: 3 aircraft
+
+Airlines:
+  GTI: 1 flights
+  JBU: 1 flights
+  EJM: 1 flights
+
+Affected Flight Numbers:
+  EJM618
+  GTI8119
+  JBU1770
+
+Sample Aircraft Positions:
+  GTI8119 (B737): 40.639809, -73.778891
+  JBU1770 (B737): 40.639813, -73.778887
+  EJM618 (B737): 40.639823, -73.778877
+----------------------------------------
+
+BOTTLENECK #13
+Type: Arrival Congestion
+Time Window: 2025-09-19 04:30
+Start Time: 2025-09-19 04:35:09
+End Time: 2025-09-19 04:39:29
+Duration: 4.3 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 2
+
+Aircraft Types:
+  B737: 2 aircraft
+
+Airlines:
+  JBU: 1 flights
+  AVA: 1 flights
+
+Affected Flight Numbers:
+  AVA042
+  JBU1524
+
+Sample Aircraft Positions:
+  JBU1524 (B737): 40.639812, -73.778888
+  AVA042 (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #14
+Type: Arrival Congestion
+Time Window: 2025-09-19 04:45
+Start Time: 2025-09-19 04:50:44
+End Time: 2025-09-19 04:59:09
+Duration: 8.4 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 5
+
+Aircraft Types:
+  B737: 5 aircraft
+
+Airlines:
+  AIZ: 1 flights
+  JBU: 1 flights
+  BWA: 1 flights
+  UPS: 1 flights
+  ELY: 1 flights
+
+Affected Flight Numbers:
+  ELY003
+  BWA520
+  JBU1848
+  UPS1114
+  AIZ993
+
+Sample Aircraft Positions:
+  AIZ993 (B737): 40.639813, -73.778887
+  JBU1848 (B737): 40.639813, -73.778887
+  BWA520 (B737): 40.639812, -73.778888
+  UPS1114 (B737): 40.639815, -73.778885
+  ELY003 (B737): 40.639814, -73.778886
+----------------------------------------
+
+BOTTLENECK #15
+Type: Arrival Congestion
+Time Window: 2025-09-19 05:00
+Start Time: 2025-09-19 05:05:00
+End Time: 2025-09-19 05:14:55
+Duration: 9.9 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 3
+
+Aircraft Types:
+  B737: 2 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  BWA: 1 flights
+  DHK: 1 flights
+  TAI: 1 flights
+
+Affected Flight Numbers:
+  DHK366
+  TAI568
+  BWA527
+
+Sample Aircraft Positions:
+  BWA527 (B737): 40.639810, -73.778890
+  DHK366 (A320): 40.639813, -73.778887
+  TAI568 (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #16
+Type: Arrival Congestion
+Time Window: 2025-09-19 05:15
+Start Time: 2025-09-19 05:15:21
+End Time: 2025-09-19 05:25:33
+Duration: 10.2 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 6
+
+Aircraft Types:
+  B737: 6 aircraft
+
+Airlines:
+  JBU: 3 flights
+  AAL: 1 flights
+  CPA: 1 flights
+  AVA: 1 flights
+
+Affected Flight Numbers:
+  JBU359
+  JBU616
+  AVA020
+  AAL293
+  JBU2
+  CPA3298
+
+Sample Aircraft Positions:
+  JBU2 (B737): 40.639809, -73.778891
+  AAL293 (B737): 40.639812, -73.778888
+  CPA3298 (B737): 40.639813, -73.778887
+  AVA020 (B737): 40.639818, -73.778882
+  JBU616 (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #17
+Type: Arrival Congestion
+Time Window: 2025-09-19 05:30
+Start Time: 2025-09-19 05:30:10
+End Time: 2025-09-19 05:43:33
+Duration: 13.4 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 8
+
+Aircraft Types:
+  B737: 8 aircraft
+
+Airlines:
+  DAL: 3 flights
+  HAL: 1 flights
+  ELY: 1 flights
+  FDX: 1 flights
+  JBU: 1 flights
+  UPS: 1 flights
+
+Affected Flight Numbers:
+  ELY001
+  DAL2112
+  DAL758
+  JBU1190
+  UPS1112
+  HAL1604
+  DAL960
+  FDX1431
+
+Sample Aircraft Positions:
+  HAL1604 (B737): 40.639810, -73.778890
+  ELY001 (B737): 40.639812, -73.778888
+  FDX1431 (B737): 40.639813, -73.778887
+  JBU1190 (B737): 40.639813, -73.778887
+  DAL2112 (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #18
+Type: Arrival Congestion
+Time Window: 2025-09-19 05:45
+Start Time: 2025-09-19 05:45:56
+End Time: 2025-09-19 05:59:34
+Duration: 13.6 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 7
+
+Aircraft Types:
+  B737: 7 aircraft
+
+Airlines:
+  JBU: 3 flights
+  FFT: 1 flights
+  AAL: 1 flights
+  CPA: 1 flights
+  KAL: 1 flights
+
+Affected Flight Numbers:
+  AAL2996
+  FFT3238
+  JBU9001
+  KAL251
+  JBU136
+  JBU1436
+  CPA844
+
+Sample Aircraft Positions:
+  JBU9001 (B737): 40.639810, -73.778890
+  JBU1436 (B737): 40.639809, -73.778891
+  FFT3238 (B737): 40.639813, -73.778887
+  AAL2996 (B737): 40.639813, -73.778887
+  CPA844 (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #19
+Type: Arrival Congestion
+Time Window: 2025-09-19 06:00
+Start Time: 2025-09-19 06:03:40
+End Time: 2025-09-19 06:14:11
+Duration: 10.5 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 10
+
+Aircraft Types:
+  B737: 8 aircraft
+  B777: 1 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  AAL: 3 flights
+  JBU: 2 flights
+  DAL: 2 flights
+  A7A: 1 flights
+  UPS: 1 flights
+  BCS: 1 flights
+
+Affected Flight Numbers:
+  AAL954
+  BCS364
+  AAL76
+  DAL705
+  DAL548
+  A7AAH
+  AAL655
+  JBU1377
+  UPS1126
+  JBU123
+
+Sample Aircraft Positions:
+  AAL655 (B737): 40.639810, -73.778890
+  AAL76 (B737): 40.639810, -73.778890
+  JBU123 (B737): 40.639810, -73.778890
+  DAL548 (B737): 40.639812, -73.778888
+  A7AAH (B777): 40.639812, -73.778888
+----------------------------------------
+
+BOTTLENECK #20
+Type: Arrival Congestion
+Time Window: 2025-09-19 06:15
+Start Time: 2025-09-19 06:15:25
+End Time: 2025-09-19 06:29:23
+Duration: 14.0 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 16
+
+Aircraft Types:
+  B737: 16 aircraft
+
+Airlines:
+  JBU: 6 flights
+  DAL: 2 flights
+  FDX: 2 flights
+  FFT: 1 flights
+  RPA: 1 flights
+  AAL: 1 flights
+  EDV: 1 flights
+  FXC: 1 flights
+  ASA: 1 flights
+
+Affected Flight Numbers:
+  AAL171
+  JBU372
+  FXC33
+  JBU189
+  RPA5765
+  DAL452
+  JBU604
+  DAL2286
+  ASA36
+  FDX1483
+  JBU1760
+  FDX1712
+  JBU115
+  EDV5318
+  JBU917
+  FFT4817
+
+Sample Aircraft Positions:
+  JBU115 (B737): 40.639810, -73.778890
+  FFT4817 (B737): 40.639810, -73.778890
+  DAL2286 (B737): 40.639810, -73.778890
+  JBU189 (B737): 40.639810, -73.778890
+  RPA5765 (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #21
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 06:30
+Start Time: 2025-09-19 06:31:11
+End Time: 2025-09-19 06:43:48
+Duration: 12.6 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 10
+
+Aircraft Types:
+  B737: 10 aircraft
+
+Airlines:
+  JBU: 6 flights
+  RPA: 1 flights
+  CAL: 1 flights
+  AAL: 1 flights
+  EDV: 1 flights
+
+Affected Flight Numbers:
+  CAL5312
+  EDV5363
+  RPA4538
+  JBU2536
+  AAL950
+  JBU411
+  JBU383
+  JBU268
+  JBU1024
+  JBU953
+
+Sample Aircraft Positions:
+  JBU411 (B737): 40.639810, -73.778890
+  JBU268 (B737): 40.639810, -73.778890
+  RPA4538 (B737): 40.639812, -73.778888
+  JBU953 (B737): 40.639810, -73.778890
+  JBU383 (B737): 40.639809, -73.778891
+----------------------------------------
+
+BOTTLENECK #22
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 06:45
+Start Time: 2025-09-19 06:45:45
+End Time: 2025-09-19 06:57:29
+Duration: 11.7 minutes
+Location: 40.639811, -73.778889
+Aircraft Count: 15
+
+Aircraft Types:
+  B737: 14 aircraft
+  B777: 1 aircraft
+
+Airlines:
+  HAL: 2 flights
+  AAL: 2 flights
+  EJM: 1 flights
+  EJA: 1 flights
+  JBU: 1 flights
+  AVA: 1 flights
+  FFT: 1 flights
+  JZA: 1 flights
+  DAL: 1 flights
+  EDV: 1 flights
+  RPA: 1 flights
+  QAF: 1 flights
+  ASA: 1 flights
+
+Affected Flight Numbers:
+  JBU518
+  AAL1280
+  EJM618
+  RPA4360
+  EJA367
+  JZA551
+  AAL2643
+  FFT3547
+  QAF6
+  HAL1605
+  AVA043
+  EDV5265
+  ASA22
+  DAL676
+  HAL50
+
+Sample Aircraft Positions:
+  EJM618 (B737): 40.639813, -73.778887
+  EJA367 (B737): 40.639811, -73.778889
+  JBU518 (B737): 40.639809, -73.778891
+  HAL1605 (B737): 40.639810, -73.778890
+  AVA043 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #23
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 07:00
+Start Time: 2025-09-19 07:00:29
+End Time: 2025-09-19 07:14:41
+Duration: 14.2 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 20
+
+Aircraft Types:
+  B737: 20 aircraft
+
+Airlines:
+  JBU: 6 flights
+  DAL: 4 flights
+  AAL: 4 flights
+  RPA: 3 flights
+  FXC: 1 flights
+  TAI: 1 flights
+  KQA: 1 flights
+
+Affected Flight Numbers:
+  FXC33
+  DAL1230
+  AAL2369
+  RPA5767
+  DAL892
+  KQA002
+  TAI569
+  RPA4335
+  JBU1285
+  JBU454
+  AAL2303
+  JBU66
+  RPA4587
+  AAL1
+  DAL2320
+  JBU2001
+  AAL276
+  JBU254
+  DAL2390
+  JBU151
+
+Sample Aircraft Positions:
+  DAL1230 (B737): 40.639810, -73.778890
+  AAL2369 (B737): 40.639810, -73.778890
+  DAL2390 (B737): 40.639810, -73.778890
+  FXC33 (B737): 40.639821, -73.778879
+  TAI569 (B737): 40.639811, -73.778889
+----------------------------------------
+
+BOTTLENECK #24
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 07:15
+Start Time: 2025-09-19 07:15:36
+End Time: 2025-09-19 07:29:45
+Duration: 14.2 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 16
+
+Aircraft Types:
+  B737: 16 aircraft
+
+Airlines:
+  DAL: 6 flights
+  JBU: 3 flights
+  EDV: 2 flights
+  RPA: 2 flights
+  FFT: 1 flights
+  TAM: 1 flights
+  AAL: 1 flights
+
+Affected Flight Numbers:
+  JBU1198
+  FFT2504
+  DAL568
+  RPA4401
+  DAL3087
+  RPA4805
+  DAL742
+  DAL426
+  JBU223
+  DAL2042
+  EDV5052
+  EDV5445
+  AAL28
+  DAL699
+  TAM8180
+  JBU1601
+
+Sample Aircraft Positions:
+  DAL742 (B737): 40.639810, -73.778890
+  DAL2042 (B737): 40.639810, -73.778890
+  DAL699 (B737): 40.639810, -73.778890
+  DAL3087 (B737): 40.639810, -73.778890
+  EDV5052 (B737): 40.639809, -73.778891
+----------------------------------------
+
+BOTTLENECK #25
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 07:30
+Start Time: 2025-09-19 07:31:23
+End Time: 2025-09-19 07:44:52
+Duration: 13.5 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 17
+
+Aircraft Types:
+  B737: 16 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  JBU: 6 flights
+  EDV: 4 flights
+  DAL: 2 flights
+  DHK: 1 flights
+  AAL: 1 flights
+  N41: 1 flights
+  ABX: 1 flights
+  FFT: 1 flights
+
+Affected Flight Numbers:
+  N411EP
+  EDV5080
+  EDV5176
+  FFT1872
+  JBU1057
+  JBU1529
+  DHK367
+  EDV5066
+  DAL1166
+  ABX552
+  JBU676
+  EDV5079
+  AAL1444
+  DAL668
+  JBU225
+  JBU1602
+  JBU1419
+
+Sample Aircraft Positions:
+  EDV5080 (B737): 40.639810, -73.778890
+  JBU225 (B737): 40.639810, -73.778890
+  JBU1602 (B737): 40.639810, -73.778890
+  DAL668 (B737): 40.639811, -73.778889
+  DAL1166 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #26
+Type: Departure Congestion
+Time Window: 2025-09-19 07:45
+Start Time: 2025-09-19 07:45:41
+End Time: 2025-09-19 07:59:04
+Duration: 13.4 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 17
+
+Aircraft Types:
+  B737: 17 aircraft
+
+Airlines:
+  JBU: 5 flights
+  DAL: 4 flights
+  AAL: 2 flights
+  RPA: 2 flights
+  BWA: 1 flights
+  UPS: 1 flights
+  FFT: 1 flights
+  ASA: 1 flights
+
+Affected Flight Numbers:
+  BWA521
+  RPA4551
+  AAL2017
+  JBU75
+  JBU8510
+  DAL1422
+  FFT3237
+  ASA30
+  JBU710
+  UPS2115
+  DAL607
+  AAL1073
+  DAL1528
+  DAL319
+  JBU264
+  JBU417
+  RPA4370
+
+Sample Aircraft Positions:
+  BWA521 (B737): 40.639810, -73.778890
+  UPS2115 (B737): 40.639811, -73.778889
+  DAL1528 (B737): 40.639810, -73.778890
+  FFT3237 (B737): 40.639810, -73.778890
+  AAL2017 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #27
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 08:00
+Start Time: 2025-09-19 08:00:06
+End Time: 2025-09-19 08:13:43
+Duration: 13.6 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 17
+
+Aircraft Types:
+  B737: 15 aircraft
+  A320: 1 aircraft
+  B777: 1 aircraft
+
+Airlines:
+  JBU: 5 flights
+  DAL: 4 flights
+  EDV: 2 flights
+  AAL: 1 flights
+  RPA: 1 flights
+  AVA: 1 flights
+  UPS: 1 flights
+  BAW: 1 flights
+  A7A: 1 flights
+
+Affected Flight Numbers:
+  EDV5351
+  UPS5125
+  JBU162
+  AVA021
+  DAL2693
+  AAL3210
+  A7AAH
+  JBU948
+  DAL1368
+  DAL226
+  JBU1129
+  RPA4416
+  JBU816
+  JBU137
+  DAL915
+  EDV5277
+  BAW178
+
+Sample Aircraft Positions:
+  AAL3210 (B737): 40.639810, -73.778890
+  DAL1368 (B737): 40.639810, -73.778890
+  JBU137 (B737): 40.639810, -73.778890
+  RPA4416 (B737): 40.639813, -73.778887
+  AVA021 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #28
+Type: Departure Congestion
+Time Window: 2025-09-19 08:15
+Start Time: 2025-09-19 08:15:45
+End Time: 2025-09-19 08:29:53
+Duration: 14.1 minutes
+Location: 40.639811, -73.778889
+Aircraft Count: 18
+
+Aircraft Types:
+  B737: 18 aircraft
+
+Airlines:
+  DAL: 6 flights
+  JBU: 6 flights
+  AAL: 2 flights
+  FDX: 1 flights
+  CPA: 1 flights
+  ASA: 1 flights
+  EDV: 1 flights
+
+Affected Flight Numbers:
+  CPA3085
+  FDX442
+  DAL791
+  JBU307
+  JBU2677
+  JBU168
+  DAL1955
+  ASA21
+  EDV5014
+  JBU538
+  JBU1515
+  DAL1966
+  DAL2611
+  DAL2018
+  AAL2234
+  AAL2557
+  JBU1273
+  DAL613
+
+Sample Aircraft Positions:
+  DAL1966 (B737): 40.639810, -73.778890
+  DAL1955 (B737): 40.639810, -73.778890
+  JBU168 (B737): 40.639810, -73.778890
+  JBU1273 (B737): 40.639810, -73.778890
+  FDX442 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #29
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 08:30
+Start Time: 2025-09-19 08:30:52
+End Time: 2025-09-19 08:44:42
+Duration: 13.8 minutes
+Location: 40.639811, -73.778889
+Aircraft Count: 20
+
+Aircraft Types:
+  B737: 20 aircraft
+
+Airlines:
+  JBU: 8 flights
+  DAL: 4 flights
+  RPA: 3 flights
+  EDV: 3 flights
+  CHG: 1 flights
+  ETH: 1 flights
+
+Affected Flight Numbers:
+  DAL2227
+  RPA4552
+  JBU1678
+  JBU1915
+  CHG551
+  JBU183
+  DAL1907
+  EDV5044
+  EDV5239
+  JBU1302
+  DAL1829
+  EDV5008
+  JBU1497
+  DAL621
+  JBU1963
+  ETH508
+  RPA4559
+  RPA5795
+  JBU323
+  JBU818
+
+Sample Aircraft Positions:
+  JBU1915 (B737): 40.639810, -73.778890
+  JBU1497 (B737): 40.639809, -73.778891
+  JBU183 (B737): 40.639810, -73.778890
+  DAL1829 (B737): 40.639811, -73.778889
+  JBU323 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #30
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 08:45
+Start Time: 2025-09-19 08:46:20
+End Time: 2025-09-19 08:59:06
+Duration: 12.8 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 18
+
+Aircraft Types:
+  B737: 15 aircraft
+  B777: 2 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  JBU: 6 flights
+  EDV: 4 flights
+  QAF: 1 flights
+  DAL: 1 flights
+  VIR: 1 flights
+  AAL: 1 flights
+  ETD: 1 flights
+  LPE: 1 flights
+  CGJ: 1 flights
+  QTR: 1 flights
+
+Affected Flight Numbers:
+  JBU536
+  ETD1
+  JBU854
+  VIR26Q
+  LPE2468
+  EDV5216
+  JBU1224
+  AAL2459
+  QTR703
+  QAF6
+  EDV4959
+  EDV4932
+  JBU1107
+  JBU215
+  CGJVM
+  EDV5272
+  JBU2285
+  DAL617
+
+Sample Aircraft Positions:
+  JBU1107 (B737): 40.639809, -73.778891
+  JBU2285 (B737): 40.639810, -73.778890
+  QAF6 (B777): 40.639810, -73.778890
+  DAL617 (B737): 40.639810, -73.778890
+  JBU215 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #31
+Type: Departure Congestion
+Time Window: 2025-09-19 09:00
+Start Time: 2025-09-19 09:00:13
+End Time: 2025-09-19 09:14:20
+Duration: 14.1 minutes
+Location: 40.639818, -73.778882
+Aircraft Count: 14
+
+Aircraft Types:
+  B737: 14 aircraft
+
+Airlines:
+  EDV: 3 flights
+  DAL: 3 flights
+  RPA: 3 flights
+  JBU: 2 flights
+  N41: 1 flights
+  N92: 1 flights
+  LAN: 1 flights
+
+Affected Flight Numbers:
+  N411EP
+  RPA5657
+  EDV5032
+  DAL1845
+  N920PD
+  LAN532
+  JBU1603
+  DAL552
+  RPA4653
+  EDV5207
+  DAL2294
+  JBU310
+  RPA4714
+  EDV5330
+
+Sample Aircraft Positions:
+  EDV5207 (B737): 40.639810, -73.778890
+  DAL552 (B737): 40.639810, -73.778890
+  EDV5330 (B737): 40.639810, -73.778890
+  RPA4714 (B737): 40.639813, -73.778887
+  DAL1845 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #32
+Type: Departure Congestion
+Time Window: 2025-09-19 09:15
+Start Time: 2025-09-19 09:16:16
+End Time: 2025-09-19 09:29:39
+Duration: 13.4 minutes
+Location: 40.639811, -73.778889
+Aircraft Count: 13
+
+Aircraft Types:
+  B737: 13 aircraft
+
+Airlines:
+  DAL: 4 flights
+  EDV: 3 flights
+  RPA: 2 flights
+  JBU: 2 flights
+  JZA: 1 flights
+  FFT: 1 flights
+
+Affected Flight Numbers:
+  DAL409
+  DAL1833
+  JBU126
+  EDV5223
+  JZA899
+  RPA4385
+  EDV5436
+  FFT4058
+  RPA4671
+  JBU779
+  DAL713
+  EDV4985
+  DAL2420
+
+Sample Aircraft Positions:
+  DAL409 (B737): 40.639810, -73.778890
+  EDV5436 (B737): 40.639810, -73.778890
+  DAL1833 (B737): 40.639811, -73.778889
+  RPA4385 (B737): 40.639813, -73.778887
+  JZA899 (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #33
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 09:30
+Start Time: 2025-09-19 09:30:35
+End Time: 2025-09-19 09:44:19
+Duration: 13.7 minutes
+Location: 40.639811, -73.778889
+Aircraft Count: 19
+
+Aircraft Types:
+  B737: 18 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  JBU: 6 flights
+  DAL: 4 flights
+  FFT: 2 flights
+  RPA: 2 flights
+  EDV: 1 flights
+  CAL: 1 flights
+  BCS: 1 flights
+  SVA: 1 flights
+  AAL: 1 flights
+
+Affected Flight Numbers:
+  JBU1188
+  JBU1111
+  EDV5097
+  DAL1058
+  BCS361
+  AAL525
+  JBU361
+  JBU2584
+  JBU255
+  DAL1942
+  CAL5311
+  FFT4871
+  DAL1993
+  SVA021
+  RPA4631
+  FFT1871
+  DAL2165
+  JBU1120
+  RPA5704
+
+Sample Aircraft Positions:
+  JBU1120 (B737): 40.639810, -73.778890
+  JBU255 (B737): 40.639810, -73.778890
+  DAL1058 (B737): 40.639810, -73.778890
+  EDV5097 (B737): 40.639810, -73.778890
+  JBU361 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #34
+Type: Departure Congestion
+Time Window: 2025-09-19 09:45
+Start Time: 2025-09-19 09:45:57
+End Time: 2025-09-19 09:58:43
+Duration: 12.8 minutes
+Location: 40.639816, -73.778884
+Aircraft Count: 18
+
+Aircraft Types:
+  B737: 18 aircraft
+
+Airlines:
+  JBU: 7 flights
+  DAL: 4 flights
+  RPA: 2 flights
+  EDV: 1 flights
+  AAL: 1 flights
+  ASA: 1 flights
+  AAR: 1 flights
+  N92: 1 flights
+
+Affected Flight Numbers:
+  JBU2091
+  DAL2019
+  JBU523
+  DAL1924
+  JBU1009
+  AAR222
+  N920PD
+  EDV5007
+  DAL2475
+  JBU1681
+  AAL255
+  JBU406
+  JBU1338
+  ASA227
+  RPA4378
+  JBU163
+  DAL2702
+  RPA4657
+
+Sample Aircraft Positions:
+  RPA4378 (B737): 40.639813, -73.778887
+  JBU2091 (B737): 40.639810, -73.778890
+  JBU523 (B737): 40.639810, -73.778890
+  EDV5007 (B737): 40.639810, -73.778890
+  JBU1681 (B737): 40.639809, -73.778891
+----------------------------------------
+
+BOTTLENECK #35
+Type: Departure Congestion
+Time Window: 2025-09-19 10:00
+Start Time: 2025-09-19 10:00:40
+End Time: 2025-09-19 10:14:34
+Duration: 13.9 minutes
+Location: 40.639811, -73.778889
+Aircraft Count: 21
+
+Aircraft Types:
+  B737: 21 aircraft
+
+Airlines:
+  JBU: 8 flights
+  EDV: 4 flights
+  DAL: 2 flights
+  AAL: 2 flights
+  FFT: 2 flights
+  RPA: 1 flights
+  JZA: 1 flights
+  SCX: 1 flights
+
+Affected Flight Numbers:
+  EDV5370
+  EDV5018
+  EDV5015
+  JBU149
+  SCX567
+  JBU1533
+  AAL493
+  FFT4872
+  AAL142
+  RPA5771
+  JBU2904
+  DAL625
+  EDV4976
+  FFT1810
+  JBU117
+  JBU1793
+  JZA552
+  JBU1074
+  JBU320
+  JBU511
+  DAL773
+
+Sample Aircraft Positions:
+  EDV5370 (B737): 40.639810, -73.778890
+  RPA5771 (B737): 40.639813, -73.778887
+  EDV5018 (B737): 40.639809, -73.778891
+  DAL773 (B737): 40.639810, -73.778890
+  EDV5015 (B737): 40.639809, -73.778891
+----------------------------------------
+
+BOTTLENECK #36
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 10:15
+Start Time: 2025-09-19 10:16:18
+End Time: 2025-09-19 10:28:29
+Duration: 12.2 minutes
+Location: 40.639815, -73.778885
+Aircraft Count: 13
+
+Aircraft Types:
+  B737: 13 aircraft
+
+Airlines:
+  EDV: 4 flights
+  JBU: 3 flights
+  ASA: 1 flights
+  LXJ: 1 flights
+  RPA: 1 flights
+  ANA: 1 flights
+  UZB: 1 flights
+  AFR: 1 flights
+
+Affected Flight Numbers:
+  EDV5124
+  RPA5680
+  JBU1051
+  ASA35
+  EDV5316
+  ANA110
+  EDV4916
+  LXJ358
+  JBU1
+  EDV5284
+  UZB101
+  JBU741
+  AFR002
+
+Sample Aircraft Positions:
+  JBU741 (B737): 40.639810, -73.778890
+  EDV5316 (B737): 40.639810, -73.778890
+  ASA35 (B737): 40.639810, -73.778890
+  JBU1 (B737): 40.639809, -73.778891
+  LXJ358 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #37
+Type: Arrival Congestion
+Time Window: 2025-09-19 10:30
+Start Time: 2025-09-19 10:30:09
+End Time: 2025-09-19 10:42:47
+Duration: 12.6 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 11
+
+Aircraft Types:
+  B737: 11 aircraft
+
+Airlines:
+  JBU: 3 flights
+  RPA: 3 flights
+  DAL: 2 flights
+  EDV: 1 flights
+  JAL: 1 flights
+  KAL: 1 flights
+
+Affected Flight Numbers:
+  RPA4808
+  JBU905
+  DAL1854
+  JAL6
+  KAL081
+  JBU2220
+  DAL2969
+  RPA5733
+  EDV4990
+  RPA4566
+  JBU1457
+
+Sample Aircraft Positions:
+  JBU905 (B737): 40.639809, -73.778891
+  RPA5733 (B737): 40.639813, -73.778887
+  EDV4990 (B737): 40.639810, -73.778890
+  JBU1457 (B737): 40.639810, -73.778890
+  RPA4808 (B737): 40.639816, -73.778884
+----------------------------------------
+
+BOTTLENECK #38
+Type: Arrival Congestion
+Time Window: 2025-09-19 10:45
+Start Time: 2025-09-19 10:45:24
+End Time: 2025-09-19 10:58:30
+Duration: 13.1 minutes
+Location: 40.639819, -73.778881
+Aircraft Count: 13
+
+Aircraft Types:
+  B737: 12 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  JBU: 5 flights
+  RPA: 2 flights
+  N92: 1 flights
+  CGJ: 1 flights
+  AIC: 1 flights
+  THY: 1 flights
+  BAW: 1 flights
+  DAL: 1 flights
+
+Affected Flight Numbers:
+  THY3
+  DAL1034
+  RPA5720
+  JBU418
+  N920PD
+  BAW17R
+  JBU1737
+  JBU1117
+  RPA4362
+  CGJVM
+  JBU1964
+  AIC101
+  JBU1901
+
+Sample Aircraft Positions:
+  RPA4362 (B737): 40.639811, -73.778889
+  N920PD (B737): 40.639899, -73.778801
+  JBU418 (B737): 40.639809, -73.778891
+  JBU1737 (B737): 40.639810, -73.778890
+  CGJVM (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #39
+Type: Departure Congestion
+Time Window: 2025-09-19 11:00
+Start Time: 2025-09-19 11:04:02
+End Time: 2025-09-19 11:13:57
+Duration: 9.9 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 9
+
+Aircraft Types:
+  B737: 9 aircraft
+
+Airlines:
+  JBU: 3 flights
+  RPA: 2 flights
+  DAL: 2 flights
+  AAL: 1 flights
+  JZA: 1 flights
+
+Affected Flight Numbers:
+  JBU503
+  RPA4376
+  DAL129
+  JBU186
+  JBU627
+  AAL3
+  RPA4588
+  JZA553
+  DAL219
+
+Sample Aircraft Positions:
+  RPA4376 (B737): 40.639811, -73.778889
+  AAL3 (B737): 40.639809, -73.778891
+  JBU503 (B737): 40.639810, -73.778890
+  JBU627 (B737): 40.639810, -73.778890
+  JZA553 (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #40
+Type: Departure Congestion
+Time Window: 2025-09-19 11:15
+Start Time: 2025-09-19 11:15:31
+End Time: 2025-09-19 11:28:59
+Duration: 13.5 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 11
+
+Aircraft Types:
+  B737: 11 aircraft
+
+Airlines:
+  EDV: 3 flights
+  JBU: 2 flights
+  DAL: 2 flights
+  AAL: 2 flights
+  FFT: 1 flights
+  NBT: 1 flights
+
+Affected Flight Numbers:
+  NBT50K
+  DAL305
+  EDV5294
+  AAL2584
+  EDV4650
+  JBU279
+  FFT4057
+  AAL688
+  JBU1173
+  EDV5017
+  DAL1574
+
+Sample Aircraft Positions:
+  JBU1173 (B737): 40.639809, -73.778891
+  EDV4650 (B737): 40.639810, -73.778890
+  JBU279 (B737): 40.639810, -73.778890
+  EDV5017 (B737): 40.639810, -73.778890
+  DAL305 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #41
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 11:30
+Start Time: 2025-09-19 11:30:59
+End Time: 2025-09-19 11:43:50
+Duration: 12.8 minutes
+Location: 40.639817, -73.778883
+Aircraft Count: 18
+
+Aircraft Types:
+  B737: 18 aircraft
+
+Airlines:
+  DAL: 9 flights
+  AAL: 3 flights
+  JBU: 2 flights
+  FFT: 2 flights
+  MSR: 1 flights
+  N92: 1 flights
+
+Affected Flight Numbers:
+  DAL363
+  AAL683
+  AAL1186
+  DAL47
+  JBU9007
+  MSR985
+  DAL454
+  N920PD
+  DAL1514
+  AAL1628
+  FFT4732
+  FFT1809
+  DAL1622
+  JBU2110
+  DAL1480
+  DAL287
+  DAL917
+  DAL767
+
+Sample Aircraft Positions:
+  JBU9007 (B737): 40.639809, -73.778891
+  DAL917 (B737): 40.639810, -73.778890
+  DAL363 (B737): 40.639810, -73.778890
+  FFT1809 (B737): 40.639809, -73.778891
+  AAL1186 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #42
+Type: Arrival Congestion
+Time Window: 2025-09-19 11:45
+Start Time: 2025-09-19 11:45:08
+End Time: 2025-09-19 11:59:28
+Duration: 14.3 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 14
+
+Aircraft Types:
+  B737: 13 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  RPA: 3 flights
+  EDV: 3 flights
+  AAL: 2 flights
+  JBU: 1 flights
+  CSG: 1 flights
+  VIR: 1 flights
+  DAL: 1 flights
+  SIA: 1 flights
+  CXA: 1 flights
+
+Affected Flight Numbers:
+  RPA4765
+  JBU1869
+  AAL2292
+  AAL101
+  EDV5356
+  CSG2567
+  EDV4919
+  CXA849
+  RPA4670
+  DAL1411
+  EDV5052
+  SIA26
+  VIR3N
+  RPA5726
+
+Sample Aircraft Positions:
+  RPA4670 (B737): 40.639813, -73.778887
+  EDV4919 (B737): 40.639810, -73.778890
+  RPA5726 (B737): 40.639813, -73.778887
+  JBU1869 (B737): 40.639809, -73.778891
+  AAL101 (B737): 40.639816, -73.778884
+----------------------------------------
+
+BOTTLENECK #43
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 12:00
+Start Time: 2025-09-19 12:00:01
+End Time: 2025-09-19 12:14:51
+Duration: 14.8 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 20
+
+Aircraft Types:
+  B737: 20 aircraft
+
+Airlines:
+  DAL: 5 flights
+  JBU: 4 flights
+  RPA: 4 flights
+  EDV: 2 flights
+  FFT: 1 flights
+  SCX: 1 flights
+  ASA: 1 flights
+  KAP: 1 flights
+  AAL: 1 flights
+
+Affected Flight Numbers:
+  JBU51
+  RPA4552
+  RPA5792
+  RPA4782
+  EDV5330
+  AAL95
+  DAL2414
+  JBU508
+  DAL267
+  ASA23
+  DAL2323
+  EDV5223
+  SCX568
+  DAL491
+  KAP68
+  RPA4712
+  FFT2503
+  JBU919
+  DAL601
+  JBU1339
+
+Sample Aircraft Positions:
+  JBU508 (B737): 40.639809, -73.778891
+  FFT2503 (B737): 40.639809, -73.778891
+  SCX568 (B737): 40.639810, -73.778890
+  RPA4782 (B737): 40.639813, -73.778887
+  DAL2323 (B737): 40.639811, -73.778889
+----------------------------------------
+
+BOTTLENECK #44
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 12:15
+Start Time: 2025-09-19 12:15:24
+End Time: 2025-09-19 12:29:11
+Duration: 13.8 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 10
+
+Aircraft Types:
+  B737: 10 aircraft
+
+Airlines:
+  JBU: 4 flights
+  AAL: 2 flights
+  WUP: 1 flights
+  DAL: 1 flights
+  EDV: 1 flights
+  FAM: 1 flights
+
+Affected Flight Numbers:
+  FAMUS07
+  JBU423
+  DAL273
+  WUP826
+  AAL495
+  JBU2786
+  JBU1211
+  JBU1328
+  AAL2812
+  EDV5436
+
+Sample Aircraft Positions:
+  JBU423 (B737): 40.639810, -73.778890
+  JBU1211 (B737): 40.639810, -73.778890
+  JBU1328 (B737): 40.639810, -73.778890
+  AAL495 (B737): 40.639811, -73.778889
+  WUP826 (B737): 40.639811, -73.778889
+----------------------------------------
+
+BOTTLENECK #45
+Type: Arrival Congestion
+Time Window: 2025-09-19 12:30
+Start Time: 2025-09-19 12:30:21
+End Time: 2025-09-19 12:44:52
+Duration: 14.5 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 14
+
+Aircraft Types:
+  B737: 13 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  JBU: 4 flights
+  DAL: 2 flights
+  EDV: 2 flights
+  RPA: 2 flights
+  AFR: 1 flights
+  SWR: 1 flights
+  N41: 1 flights
+  BAW: 1 flights
+
+Affected Flight Numbers:
+  N411EP
+  SWR16F
+  AFR004
+  DAL1961
+  RPA4489
+  JBU83
+  RPA5598
+  JBU184
+  BAW7NY
+  DAL93
+  EDV5399
+  JBU2474
+  EDV5096
+  JBU479
+
+Sample Aircraft Positions:
+  DAL1961 (B737): 40.639811, -73.778889
+  EDV5399 (B737): 40.639809, -73.778891
+  RPA5598 (B737): 40.639813, -73.778887
+  JBU479 (B737): 40.639810, -73.778890
+  JBU83 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #46
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 12:45
+Start Time: 2025-09-19 12:50:45
+End Time: 2025-09-19 12:59:53
+Duration: 9.1 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 7
+
+Aircraft Types:
+  B737: 7 aircraft
+
+Airlines:
+  EDV: 2 flights
+  JBU: 1 flights
+  AAL: 1 flights
+  RPA: 1 flights
+  DAL: 1 flights
+  BEL: 1 flights
+
+Affected Flight Numbers:
+  BEL1CP
+  JBU803
+  EDV5151
+  DAL205
+  EDV5315
+  AAL2440
+  RPA5703
+
+Sample Aircraft Positions:
+  EDV5315 (B737): 40.639810, -73.778890
+  EDV5151 (B737): 40.639811, -73.778889
+  JBU803 (B737): 40.639810, -73.778890
+  AAL2440 (B737): 40.639813, -73.778887
+  RPA5703 (B737): 40.639812, -73.778888
+----------------------------------------
+
+BOTTLENECK #47
+Type: Arrival Congestion
+Time Window: 2025-09-19 13:00
+Start Time: 2025-09-19 13:00:54
+End Time: 2025-09-19 13:13:35
+Duration: 12.7 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 13
+
+Aircraft Types:
+  B737: 13 aircraft
+
+Airlines:
+  DAL: 3 flights
+  FFT: 1 flights
+  KAP: 1 flights
+  JBU: 1 flights
+  AVA: 1 flights
+  EIN: 1 flights
+  N62: 1 flights
+  BWA: 1 flights
+  ITY: 1 flights
+  EDV: 1 flights
+  GTI: 1 flights
+
+Affected Flight Numbers:
+  DAL908
+  AVA210
+  KAP68
+  JBU1118
+  BWA015
+  DAL1068
+  EIN105
+  N622TP
+  ITY602
+  GTI8977
+  DAL247
+  FFT4731
+  EDV5002
+
+Sample Aircraft Positions:
+  FFT4731 (B737): 40.639811, -73.778889
+  KAP68 (B737): 40.639814, -73.778886
+  DAL1068 (B737): 40.639810, -73.778890
+  JBU1118 (B737): 40.639810, -73.778890
+  DAL247 (B737): 40.639812, -73.778888
+----------------------------------------
+
+BOTTLENECK #48
+Type: Arrival Congestion
+Time Window: 2025-09-19 13:15
+Start Time: 2025-09-19 13:15:24
+End Time: 2025-09-19 13:29:36
+Duration: 14.2 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 19
+
+Aircraft Types:
+  B737: 19 aircraft
+
+Airlines:
+  JBU: 6 flights
+  DAL: 5 flights
+  EDV: 3 flights
+  AAL: 2 flights
+  N41: 1 flights
+  ASA: 1 flights
+  N94: 1 flights
+
+Affected Flight Numbers:
+  EDV5370
+  AAL1289
+  ASA114
+  DAL217
+  JBU9
+  N411EP
+  DAL954
+  JBU2678
+  DAL2342
+  EDV4641
+  JBU354
+  JBU717
+  N94JD
+  JBU1054
+  EDV5098
+  AAL1628
+  DAL2042
+  JBU1060
+  DAL2049
+
+Sample Aircraft Positions:
+  DAL2342 (B737): 40.639811, -73.778889
+  N411EP (B737): 40.639811, -73.778889
+  ASA114 (B737): 40.639810, -73.778890
+  JBU9 (B737): 40.639809, -73.778891
+  EDV4641 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #49
+Type: Arrival Congestion
+Time Window: 2025-09-19 13:30
+Start Time: 2025-09-19 13:31:07
+End Time: 2025-09-19 13:44:29
+Duration: 13.4 minutes
+Location: 40.639814, -73.778886
+Aircraft Count: 18
+
+Aircraft Types:
+  B737: 16 aircraft
+  A320: 2 aircraft
+
+Airlines:
+  DAL: 5 flights
+  EDV: 2 flights
+  JBU: 1 flights
+  N62: 1 flights
+  CFG: 1 flights
+  AAL: 1 flights
+  KAC: 1 flights
+  CMP: 1 flights
+  BWA: 1 flights
+  DLH: 1 flights
+  N80: 1 flights
+  ITY: 1 flights
+  RPA: 1 flights
+
+Affected Flight Numbers:
+  BWA528
+  CMP809
+  EDV5262
+  JBU125
+  DAL546
+  DLH400
+  KAC117
+  DAL49
+  AAL199
+  DAL1940
+  N622TP
+  EDV5316
+  N801VW
+  DAL1435
+  RPA5649
+  DAL183
+  ITY608
+  CFG2016
+
+Sample Aircraft Positions:
+  JBU125 (B737): 40.639809, -73.778891
+  N622TP (B737): 40.639816, -73.778884
+  CFG2016 (A320): 40.639816, -73.778884
+  EDV5262 (B737): 40.639813, -73.778887
+  AAL199 (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #50
+Type: Arrival Congestion
+Time Window: 2025-09-19 13:45
+Start Time: 2025-09-19 13:45:29
+End Time: 2025-09-19 13:59:30
+Duration: 14.0 minutes
+Location: 40.639814, -73.778886
+Aircraft Count: 21
+
+Aircraft Types:
+  B737: 21 aircraft
+
+Airlines:
+  RPA: 4 flights
+  AAL: 4 flights
+  JBU: 4 flights
+  DAL: 4 flights
+  FAM: 1 flights
+  RJA: 1 flights
+  EDV: 1 flights
+  N84: 1 flights
+  VIV: 1 flights
+
+Affected Flight Numbers:
+  EDV5018
+  RJA953
+  JBU1530
+  N84BL
+  RPA4350
+  JBU72
+  AAL1766
+  RPA4609
+  AAL118
+  JBU1902
+  RPA4721
+  AAL2829
+  DAL2
+  RPA4687
+  DAL233
+  VIV100
+  DAL263
+  JBU1119
+  FAMUS07
+  AAL374
+  DAL934
+
+Sample Aircraft Positions:
+  RPA4687 (B737): 40.639810, -73.778890
+  AAL2829 (B737): 40.639810, -73.778890
+  RPA4350 (B737): 40.639813, -73.778887
+  RPA4609 (B737): 40.639813, -73.778887
+  FAMUS07 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #51
+Type: Arrival Congestion
+Time Window: 2025-09-19 14:00
+Start Time: 2025-09-19 14:00:08
+End Time: 2025-09-19 14:14:30
+Duration: 14.4 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 18
+
+Aircraft Types:
+  B737: 17 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  EDV: 3 flights
+  RPA: 3 flights
+  DAL: 3 flights
+  JBU: 2 flights
+  N80: 1 flights
+  N84: 1 flights
+  AMX: 1 flights
+  SWR: 1 flights
+  BAW: 1 flights
+  GTI: 1 flights
+  EJA: 1 flights
+
+Affected Flight Numbers:
+  AMX408
+  GTI8609
+  EDV5296
+  SWR22D
+  BAW173A
+  RPA4592
+  DAL245
+  EJA367
+  DAL2380
+  DAL107
+  RPA5642
+  N801VW
+  RPA4388
+  EDV5287
+  EDV5207
+  JBU1436
+  N84BL
+  JBU2902
+
+Sample Aircraft Positions:
+  EDV5296 (B737): 40.639810, -73.778890
+  EDV5287 (B737): 40.639811, -73.778889
+  N801VW (B737): 40.639813, -73.778887
+  JBU2902 (B737): 40.639810, -73.778890
+  N84BL (B737): 40.639821, -73.778879
+----------------------------------------
+
+BOTTLENECK #52
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 14:15
+Start Time: 2025-09-19 14:15:19
+End Time: 2025-09-19 14:29:30
+Duration: 14.2 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 15
+
+Aircraft Types:
+  B737: 15 aircraft
+
+Airlines:
+  EDV: 4 flights
+  RPA: 3 flights
+  DAL: 2 flights
+  AAL: 2 flights
+  JBU: 2 flights
+  WUP: 1 flights
+  N45: 1 flights
+
+Affected Flight Numbers:
+  EDV5328
+  AAL234
+  EDV5015
+  AAL2038
+  RPA5808
+  RPA4338
+  EDV4802
+  EDV4984
+  WUP826
+  JBU176
+  DAL616
+  N45RT
+  RPA4568
+  JBU677
+  DAL1029
+
+Sample Aircraft Positions:
+  EDV4984 (B737): 40.639809, -73.778891
+  DAL1029 (B737): 40.639810, -73.778890
+  EDV5328 (B737): 40.639811, -73.778889
+  AAL2038 (B737): 40.639811, -73.778889
+  JBU677 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #53
+Type: Arrival Congestion
+Time Window: 2025-09-19 14:30
+Start Time: 2025-09-19 14:30:15
+End Time: 2025-09-19 14:44:56
+Duration: 14.7 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 13
+
+Aircraft Types:
+  B737: 13 aircraft
+
+Airlines:
+  JBU: 3 flights
+  EDV: 3 flights
+  RPA: 2 flights
+  MVP: 1 flights
+  UAE: 1 flights
+  NOS: 1 flights
+  CNS: 1 flights
+  DAL: 1 flights
+
+Affected Flight Numbers:
+  EDV5301
+  RPA4522
+  JBU1501
+  CNS125
+  RPA5706
+  EDV4976
+  NOS786
+  DAL2018
+  MVP347
+  JBU20
+  JBU485
+  UAE69R
+  EDV5200
+
+Sample Aircraft Positions:
+  JBU1501 (B737): 40.639809, -73.778891
+  EDV5200 (B737): 40.639810, -73.778890
+  EDV5301 (B737): 40.639809, -73.778891
+  RPA5706 (B737): 40.639815, -73.778885
+  MVP347 (B737): 40.639808, -73.778892
+----------------------------------------
+
+BOTTLENECK #54
+Type: Arrival Congestion
+Time Window: 2025-09-19 14:45
+Start Time: 2025-09-19 14:46:21
+End Time: 2025-09-19 14:57:51
+Duration: 11.5 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 14
+
+Aircraft Types:
+  B737: 12 aircraft
+  A320: 2 aircraft
+
+Airlines:
+  DAL: 5 flights
+  AAL: 2 flights
+  JBU: 2 flights
+  RPA: 1 flights
+  EDV: 1 flights
+  IBE: 1 flights
+  VIR: 1 flights
+  DLH: 1 flights
+
+Affected Flight Numbers:
+  EDV5012
+  JBU483
+  DAL99
+  RPA4734
+  JBU116
+  AAL320
+  VIR45W
+  DAL1368
+  AAL2
+  DLH410
+  DAL127
+  IBE02WM
+  DAL510
+  DAL979
+
+Sample Aircraft Positions:
+  AAL320 (B737): 40.639810, -73.778890
+  RPA4734 (B737): 40.639813, -73.778887
+  JBU483 (B737): 40.639809, -73.778891
+  EDV5012 (B737): 40.639810, -73.778890
+  DAL127 (B737): 40.639817, -73.778883
+----------------------------------------
+
+BOTTLENECK #55
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 15:00
+Start Time: 2025-09-19 15:00:25
+End Time: 2025-09-19 15:14:39
+Duration: 14.2 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 13
+
+Aircraft Types:
+  B737: 13 aircraft
+
+Airlines:
+  RPA: 3 flights
+  JBU: 3 flights
+  DAL: 2 flights
+  AAL: 2 flights
+  EJA: 1 flights
+  EDV: 1 flights
+  RJA: 1 flights
+
+Affected Flight Numbers:
+  RJA953
+  JBU142
+  RPA5798
+  DAL1839
+  EJA367
+  RPA5802
+  AAL45
+  RPA4709
+  JBU448
+  JBU268
+  DAL1010
+  AAL67
+  EDV5415
+
+Sample Aircraft Positions:
+  EJA367 (B737): 40.639811, -73.778889
+  DAL1010 (B737): 40.639810, -73.778890
+  RPA4709 (B737): 40.639813, -73.778887
+  RPA5802 (B737): 40.639813, -73.778887
+  RPA5798 (B737): 40.639813, -73.778887
+----------------------------------------
+
+BOTTLENECK #56
+Type: Arrival Congestion
+Time Window: 2025-09-19 15:15
+Start Time: 2025-09-19 15:15:06
+End Time: 2025-09-19 15:29:39
+Duration: 14.6 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 15
+
+Aircraft Types:
+  B737: 15 aircraft
+
+Airlines:
+  DAL: 4 flights
+  RPA: 2 flights
+  EDV: 2 flights
+  AAL: 2 flights
+  ASA: 2 flights
+  N45: 1 flights
+  JBU: 1 flights
+  KLM: 1 flights
+
+Affected Flight Numbers:
+  JBU407
+  AAL3179
+  DAL451
+  DAL45
+  AAL2303
+  DAL405
+  KLM641
+  DAL1419
+  ASA24
+  ASA18
+  N45RT
+  RPA4359
+  EDV5315
+  RPA4697
+  EDV5067
+
+Sample Aircraft Positions:
+  RPA4359 (B737): 40.639813, -73.778887
+  EDV5067 (B737): 40.639810, -73.778890
+  N45RT (B737): 40.639813, -73.778887
+  DAL1419 (B737): 40.639810, -73.778890
+  AAL3179 (B737): 40.639810, -73.778890
+----------------------------------------
+
+BOTTLENECK #57
+Type: Arrival Congestion
+Time Window: 2025-09-19 15:30
+Start Time: 2025-09-19 15:30:50
+End Time: 2025-09-19 15:44:58
+Duration: 14.1 minutes
+Location: 40.639815, -73.778885
+Aircraft Count: 16
+
+Aircraft Types:
+  B737: 15 aircraft
+  B777: 1 aircraft
+
+Airlines:
+  DAL: 4 flights
+  EDV: 3 flights
+  JBU: 3 flights
+  RPA: 1 flights
+  OSP: 1 flights
+  LOT: 1 flights
+  QTR: 1 flights
+  SAS: 1 flights
+  AFR: 1 flights
+
+Affected Flight Numbers:
+  DAL1643
+  DAL231
+  EDV4909
+  EDV5106
+  JBU617
+  DAL367
+  RPA4658
+  LOT6JK
+  QTR6F
+  SAS923
+  OSPREY31
+  JBU152
+  JBU124
+  AFR006
+  DAL2952
+  EDV4883
+
+Sample Aircraft Positions:
+  DAL1643 (B737): 40.639810, -73.778890
+  EDV5106 (B737): 40.639810, -73.778890
+  EDV4883 (B737): 40.639810, -73.778890
+  DAL2952 (B737): 40.639810, -73.778890
+  EDV4909 (B737): 40.639809, -73.778891
+----------------------------------------
+
+BOTTLENECK #58
+Type: Arrival Congestion
+Time Window: 2025-09-19 15:45
+Start Time: 2025-09-19 15:46:02
+End Time: 2025-09-19 15:58:55
+Duration: 12.9 minutes
+Location: 40.639814, -73.778886
+Aircraft Count: 15
+
+Aircraft Types:
+  B737: 12 aircraft
+  A320: 2 aircraft
+  B777: 1 aircraft
+
+Airlines:
+  AAL: 3 flights
+  DAL: 3 flights
+  RPA: 2 flights
+  JBU: 2 flights
+  BAW: 1 flights
+  EDV: 1 flights
+  UBT: 1 flights
+  QAF: 1 flights
+  CKK: 1 flights
+
+Affected Flight Numbers:
+  BAW04A
+  UBT70A
+  QAF10
+  JBU164
+  CKK231
+  RPA4489
+  AAL1959
+  DAL203
+  JBU2473
+  DAL1166
+  RPA4767
+  AAL307
+  EDV5399
+  DAL429
+  AAL2026
+
+Sample Aircraft Positions:
+  RPA4767 (B737): 40.639813, -73.778887
+  RPA4489 (B737): 40.639813, -73.778887
+  JBU2473 (B737): 40.639809, -73.778891
+  AAL1959 (B737): 40.639811, -73.778889
+  BAW04A (A320): 40.639816, -73.778884
+----------------------------------------
+
+BOTTLENECK #59
+Type: Arrival Congestion
+Time Window: 2025-09-19 16:00
+Start Time: 2025-09-19 16:00:28
+End Time: 2025-09-19 16:14:44
+Duration: 14.3 minutes
+Location: 40.639814, -73.778886
+Aircraft Count: 14
+
+Aircraft Types:
+  B737: 14 aircraft
+
+Airlines:
+  JBU: 4 flights
+  DAL: 2 flights
+  N94: 1 flights
+  EDV: 1 flights
+  KUG: 1 flights
+  ASA: 1 flights
+  N62: 1 flights
+  ETD: 1 flights
+  RPA: 1 flights
+  AMX: 1 flights
+
+Affected Flight Numbers:
+  N628AL
+  JBU1084
+  DAL157
+  KUG002
+  JBU419
+  DAL1230
+  ETD11B
+  EDV5068
+  JBU1385
+  RPA4351
+  AMX402
+  N94JD
+  JBU2289
+  ASA26
+
+Sample Aircraft Positions:
+  JBU419 (B737): 40.639809, -73.778891
+  N94JD (B737): 40.639809, -73.778891
+  JBU1385 (B737): 40.639810, -73.778890
+  EDV5068 (B737): 40.639810, -73.778890
+  KUG002 (B737): 40.639812, -73.778888
+----------------------------------------
+
+BOTTLENECK #60
+Type: Arrival Congestion
+Time Window: 2025-09-19 16:15
+Start Time: 2025-09-19 16:16:28
+End Time: 2025-09-19 16:29:58
+Duration: 13.5 minutes
+Location: 40.639814, -73.778886
+Aircraft Count: 16
+
+Aircraft Types:
+  B737: 14 aircraft
+  A320: 2 aircraft
+
+Airlines:
+  JBU: 4 flights
+  DAL: 3 flights
+  VIR: 2 flights
+  EDV: 2 flights
+  SWR: 1 flights
+  AAL: 1 flights
+  EIN: 1 flights
+  QFA: 1 flights
+  WJA: 1 flights
+
+Affected Flight Numbers:
+  DAL53
+  EDV5238
+  JBU226
+  EDV5151
+  AAL2339
+  JBU316
+  EIN1LH
+  QFA3
+  DAL209
+  SWR14V
+  JBU53
+  WJA1680
+  VIR127C
+  DAL2661
+  JBU318
+  VIR9J
+
+Sample Aircraft Positions:
+  JBU318 (B737): 40.639810, -73.778890
+  JBU53 (B737): 40.639810, -73.778890
+  VIR127C (A320): 40.639818, -73.778882
+  DAL53 (B737): 40.639818, -73.778882
+  VIR9J (A320): 40.639818, -73.778882
+----------------------------------------
+
+BOTTLENECK #61
+Type: Arrival Congestion
+Time Window: 2025-09-19 16:30
+Start Time: 2025-09-19 16:31:15
+End Time: 2025-09-19 16:44:30
+Duration: 13.2 minutes
+Location: 40.639814, -73.778886
+Aircraft Count: 12
+
+Aircraft Types:
+  B737: 12 aircraft
+
+Airlines:
+  JBU: 3 flights
+  EDV: 3 flights
+  RPA: 2 flights
+  DAL: 2 flights
+  AAL: 1 flights
+  JZA: 1 flights
+
+Affected Flight Numbers:
+  DAL289
+  EDV5227
+  JZA554
+  AAL168
+  EDV4919
+  JBU710
+  EDV5395
+  JBU906
+  RPA4710
+  DAL386
+  JBU2195
+  RPA4781
+
+Sample Aircraft Positions:
+  JBU2195 (B737): 40.639809, -73.778891
+  EDV5395 (B737): 40.639810, -73.778890
+  RPA4710 (B737): 40.639813, -73.778887
+  AAL168 (B737): 40.639813, -73.778887
+  DAL386 (B737): 40.639815, -73.778885
+----------------------------------------
+
+BOTTLENECK #62
+Type: Arrival Congestion
+Time Window: 2025-09-19 16:45
+Start Time: 2025-09-19 16:45:55
+End Time: 2025-09-19 16:59:33
+Duration: 13.6 minutes
+Location: 40.639814, -73.778886
+Aircraft Count: 18
+
+Aircraft Types:
+  B737: 18 aircraft
+
+Airlines:
+  DAL: 5 flights
+  JBU: 4 flights
+  AAL: 3 flights
+  RPA: 2 flights
+  N62: 1 flights
+  EDV: 1 flights
+  SAS: 1 flights
+  ATN: 1 flights
+
+Affected Flight Numbers:
+  DAL1957
+  RPA5620
+  N628AL
+  DAL333
+  SAS915
+  RPA5699
+  AAL1517
+  AAL235
+  JBU1802
+  JBU92
+  DAL29
+  DAL620
+  ATN3344
+  JBU2901
+  AAL9781
+  EDV5287
+  DAL2170
+  JBU436
+
+Sample Aircraft Positions:
+  RPA5620 (B737): 40.639813, -73.778887
+  DAL2170 (B737): 40.639809, -73.778891
+  N628AL (B737): 40.639809, -73.778891
+  RPA5699 (B737): 40.639813, -73.778887
+  DAL1957 (B737): 40.639811, -73.778889
+----------------------------------------
+
+BOTTLENECK #63
+Type: Arrival Congestion
+Time Window: 2025-09-19 17:00
+Start Time: 2025-09-19 17:01:29
+End Time: 2025-09-19 17:14:27
+Duration: 13.0 minutes
+Location: 40.639815, -73.778885
+Aircraft Count: 12
+
+Aircraft Types:
+  B737: 11 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  DAL: 3 flights
+  JBU: 3 flights
+  EDV: 2 flights
+  CNS: 1 flights
+  RJA: 1 flights
+  EUK: 1 flights
+  AAL: 1 flights
+
+Affected Flight Numbers:
+  AAL606
+  CNS125
+  DAL1058
+  EUK9MC
+  EDV4818
+  JBU920
+  JBU1498
+  DAL235
+  EDV5275
+  DAL2398
+  JBU1174
+  RJA261G
+
+Sample Aircraft Positions:
+  CNS125 (B737): 40.639813, -73.778887
+  DAL2398 (B737): 40.639813, -73.778887
+  JBU1498 (B737): 40.639817, -73.778883
+  EDV5275 (B737): 40.639812, -73.778888
+  DAL235 (B737): 40.639815, -73.778885
+----------------------------------------
+
+BOTTLENECK #64
+Type: Narrow Body Congestion
+Time Window: 2025-09-19 17:15
+Start Time: 2025-09-19 17:16:22
+End Time: 2025-09-19 17:28:22
+Duration: 12.0 minutes
+Location: 40.639814, -73.778886
+Aircraft Count: 10
+
+Aircraft Types:
+  B737: 10 aircraft
+
+Airlines:
+  RPA: 3 flights
+  DAL: 3 flights
+  JBU: 2 flights
+  EDV: 1 flights
+  AAL: 1 flights
+
+Affected Flight Numbers:
+  DAL1829
+  JBU168
+  RPA4337
+  RPA4690
+  RPA4449
+  DAL265
+  EDV5299
+  DAL2443
+  JBU156
+  AAL3120
+
+Sample Aircraft Positions:
+  EDV5299 (B737): 40.639813, -73.778887
+  AAL3120 (B737): 40.639809, -73.778891
+  RPA4449 (B737): 40.639813, -73.778887
+  DAL2443 (B737): 40.639810, -73.778890
+  RPA4337 (B737): 40.639815, -73.778885
+----------------------------------------
+
+BOTTLENECK #65
+Type: Arrival Congestion
+Time Window: 2025-09-19 17:30
+Start Time: 2025-09-19 17:30:38
+End Time: 2025-09-19 17:43:12
+Duration: 12.6 minutes
+Location: 40.639816, -73.778884
+Aircraft Count: 12
+
+Aircraft Types:
+  B737: 11 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  DAL: 4 flights
+  JBU: 3 flights
+  JZA: 1 flights
+  EDV: 1 flights
+  VJA: 1 flights
+  ASA: 1 flights
+  BAW: 1 flights
+
+Affected Flight Numbers:
+  ASA113
+  DAL2934
+  JZA555
+  EDV5250
+  VJA302
+  DAL1622
+  JBU1202
+  JBU780
+  JBU1058
+  DAL958
+  BAW15K
+  DAL2294
+
+Sample Aircraft Positions:
+  JBU1202 (B737): 40.639814, -73.778886
+  JZA555 (B737): 40.639819, -73.778881
+  EDV5250 (B737): 40.639814, -73.778886
+  VJA302 (B737): 40.639816, -73.778884
+  DAL2934 (B737): 40.639816, -73.778884
+----------------------------------------
+
+BOTTLENECK #66
+Type: Arrival Congestion
+Time Window: 2025-09-19 17:45
+Start Time: 2025-09-19 17:45:08
+End Time: 2025-09-19 17:59:32
+Duration: 14.4 minutes
+Location: 40.639815, -73.778885
+Aircraft Count: 11
+
+Aircraft Types:
+  B737: 9 aircraft
+  B777: 1 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  DAL: 4 flights
+  JBU: 2 flights
+  EEV: 1 flights
+  QAF: 1 flights
+  BAW: 1 flights
+  AEA: 1 flights
+  ASL: 1 flights
+
+Affected Flight Numbers:
+  QAF10
+  AEA091
+  JBU280
+  DAL305
+  DAL790
+  DAL185
+  BAW2273
+  JBU130
+  ASL500
+  EEV5150
+  DAL396
+
+Sample Aircraft Positions:
+  EEV5150 (B737): 40.639813, -73.778887
+  QAF10 (B777): 40.639809, -73.778891
+  BAW2273 (A320): 40.639816, -73.778884
+  JBU130 (B737): 40.639816, -73.778884
+  AEA091 (B737): 40.639816, -73.778884
+----------------------------------------
+
+BOTTLENECK #67
+Type: Arrival Congestion
+Time Window: 2025-09-19 18:00
+Start Time: 2025-09-19 18:01:30
+End Time: 2025-09-19 18:14:37
+Duration: 13.1 minutes
+Location: 40.639815, -73.778885
+Aircraft Count: 12
+
+Aircraft Types:
+  B737: 12 aircraft
+
+Airlines:
+  JBU: 4 flights
+  EDV: 3 flights
+  DAL: 2 flights
+  KUG: 1 flights
+  THY: 1 flights
+  UPS: 1 flights
+
+Affected Flight Numbers:
+  DAL1833
+  DAL1822
+  EDV5029
+  EDV5289
+  JBU2984
+  KUG002
+  JBU424
+  JBU618
+  THY1
+  UPS5114
+  EDV4641
+  JBU904
+
+Sample Aircraft Positions:
+  EDV5029 (B737): 40.639809, -73.778891
+  KUG002 (B737): 40.639814, -73.778886
+  JBU618 (B737): 40.639812, -73.778888
+  JBU2984 (B737): 40.639816, -73.778884
+  THY1 (B737): 40.639815, -73.778885
+----------------------------------------
+
+BOTTLENECK #68
+Type: Arrival Congestion
+Time Window: 2025-09-19 18:15
+Start Time: 2025-09-19 18:15:30
+End Time: 2025-09-19 18:29:48
+Duration: 14.3 minutes
+Location: 40.639821, -73.778879
+Aircraft Count: 14
+
+Aircraft Types:
+  B737: 13 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  RPA: 3 flights
+  AAL: 2 flights
+  EDV: 2 flights
+  JBU: 2 flights
+  DAL: 2 flights
+  N92: 1 flights
+  VIR: 1 flights
+  JAL: 1 flights
+
+Affected Flight Numbers:
+  EDV5301
+  RPA4708
+  N920PD
+  DAL149
+  JBU1604
+  VIR47M
+  JAL4
+  RPA5713
+  RPA5648
+  AAL1922
+  AAL238
+  JBU190
+  EDV4957
+  DAL383
+
+Sample Aircraft Positions:
+  RPA4708 (B737): 40.639819, -73.778881
+  N920PD (B737): 40.639903, -73.778797
+  RPA5713 (B737): 40.639815, -73.778885
+  AAL1922 (B737): 40.639816, -73.778884
+  EDV4957 (B737): 40.639816, -73.778884
+----------------------------------------
+
+BOTTLENECK #69
+Type: Arrival Congestion
+Time Window: 2025-09-19 18:30
+Start Time: 2025-09-19 18:31:23
+End Time: 2025-09-19 18:42:57
+Duration: 11.6 minutes
+Location: 40.639816, -73.778884
+Aircraft Count: 8
+
+Aircraft Types:
+  B737: 8 aircraft
+
+Airlines:
+  RPA: 2 flights
+  RAM: 1 flights
+  JBU: 1 flights
+  AAL: 1 flights
+  ITY: 1 flights
+  AFR: 1 flights
+  IBE: 1 flights
+
+Affected Flight Numbers:
+  JBU1188
+  AFR008
+  RPA4387
+  RAM200N
+  RPA4359
+  AAL16
+  ITY610
+  IBE03SP
+
+Sample Aircraft Positions:
+  RAM200N (B737): 40.639816, -73.778884
+  RPA4387 (B737): 40.639815, -73.778885
+  JBU1188 (B737): 40.639815, -73.778885
+  AAL16 (B737): 40.639816, -73.778884
+  ITY610 (B737): 40.639816, -73.778884
+----------------------------------------
+
+BOTTLENECK #70
+Type: Arrival Congestion
+Time Window: 2025-09-19 18:45
+Start Time: 2025-09-19 18:45:01
+End Time: 2025-09-19 18:59:52
+Duration: 14.8 minutes
+Location: 40.639838, -73.778862
+Aircraft Count: 11
+
+Aircraft Types:
+  B737: 10 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  JBU: 4 flights
+  DAL: 2 flights
+  BAW: 1 flights
+  RPA: 1 flights
+  ICE: 1 flights
+  UAE: 1 flights
+  SIA: 1 flights
+
+Affected Flight Numbers:
+  RPA4350
+  DAL938
+  JBU1052
+  DAL2466
+  JBU1528
+  JBU1254
+  ICE615
+  UAE4PV
+  JBU517
+  SIA24
+  BAW33K
+
+Sample Aircraft Positions:
+  BAW33K (A320): 40.639883, -73.778817
+  DAL2466 (B737): 40.640000, -73.778700
+  JBU1528 (B737): 40.639816, -73.778884
+  RPA4350 (B737): 40.639815, -73.778885
+  ICE615 (B737): 40.639817, -73.778883
+----------------------------------------
+
+BOTTLENECK #71
+Type: Departure Congestion
+Time Window: 2025-09-19 22:30
+Start Time: 2025-09-19 22:38:51
+End Time: 2025-09-19 22:41:01
+Duration: 2.2 minutes
+Location: 40.639812, -73.778888
+Aircraft Count: 2
+
+Aircraft Types:
+  B777: 1 aircraft
+  B737: 1 aircraft
+
+Airlines:
+  QTR: 1 flights
+  JBU: 1 flights
+
+Affected Flight Numbers:
+  JBU59
+  QTR59P
+
+Sample Aircraft Positions:
+  QTR59P (B777): 40.639813, -73.778887
+  JBU59 (B737): 40.639811, -73.778889
+----------------------------------------
+
+BOTTLENECK #72
+Type: Departure Congestion
+Time Window: 2025-09-19 22:45
+Start Time: 2025-09-19 22:49:21
+End Time: 2025-09-19 22:54:57
+Duration: 5.6 minutes
+Location: 40.639813, -73.778887
+Aircraft Count: 3
+
+Aircraft Types:
+  B737: 2 aircraft
+  A320: 1 aircraft
+
+Airlines:
+  DAL: 1 flights
+  JBU: 1 flights
+  DLH: 1 flights
+
+Affected Flight Numbers:
+  JBU2637
+  DLH405
+  DAL1975
+
+Sample Aircraft Positions:
+  DAL1975 (B737): 40.639813, -73.778887
+  JBU2637 (B737): 40.639813, -73.778887
+  DLH405 (A320): 40.639812, -73.778888
+----------------------------------------
+
+================================================================================
+End of Time-Based Analysis Report
+Generated by Airport Bottleneck Prediction System
+================================================================================

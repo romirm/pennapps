@@ -1,0 +1,226 @@
+{
+  "timestamp": "2025-09-20T17:01:11.654993",
+  "airport": "KJFK",
+  "analysis_radius_nm": 3,
+  "total_aircraft_monitored": 849,
+  "bottleneck_predictions": [
+    {
+      "bottleneck_id": "taxiway_intersection_849",
+      "location": {
+        "zone": "taxiway_intersection",
+        "coordinates": [
+          40.63980103,
+          -73.77890015
+        ]
+      },
+      "type": "taxiway_intersection",
+      "probability": 1.0,
+      "severity": 1,
+      "timing": {
+        "predicted_onset_minutes": 0,
+        "estimated_duration_minutes": 0.0,
+        "resolution_confidence": 1.0
+      },
+      "aircraft_affected": [
+        {
+          "flight_id": "DAL1975",
+          "aircraft_type": "B737",
+          "estimated_passengers": 123,
+          "delay_contribution": 0.0,
+          "current_phase": "approach"
+        },
+        {
+          "flight_id": "JBU2637",
+          "aircraft_type": "B737",
+          "estimated_passengers": 140,
+          "delay_contribution": 0.0,
+          "current_phase": "cruise"
+        },
+        {
+          "flight_id": "DLH405",
+          "aircraft_type": "A320",
+          "estimated_passengers": 110,
+          "delay_contribution": 0.0,
+          "current_phase": "cruise"
+        },
+        {
+          "flight_id": "QTR59P",
+          "aircraft_type": "B777",
+          "estimated_passengers": 341,
+          "delay_contribution": 0.0,
+          "current_phase": "approach"
+        },
+        {
+          "flight_id": "JBU59",
+          "aircraft_type": "B737",
+          "estimated_passengers": 139,
+          "delay_contribution": 0.0,
+          "current_phase": "approach"
+        }
+      ],
+      "impact_analysis": {
+        "passengers_affected": 127350,
+        "total_delay_minutes": 0.0,
+        "fuel_waste_gallons": 2.7273625980614784e-26,
+        "fuel_cost_estimate": 9.545769093215174e-26,
+        "co2_emissions_lbs": 5.754735081909719e-25,
+        "economic_impact_estimate": 9.545769093215174e-26
+      },
+      "recommended_mitigations": [
+        {
+          "action": "Optimize taxiway sequencing",
+          "priority": "medium",
+          "estimated_effectiveness": 0.6,
+          "implementation_time": 3.0
+        }
+      ]
+    },
+    {
+      "bottleneck_id": "gate_area_849",
+      "location": {
+        "zone": "gate_area",
+        "coordinates": [
+          40.63980103,
+          -73.77890015
+        ]
+      },
+      "type": "gate_area",
+      "probability": 1.0,
+      "severity": 1,
+      "timing": {
+        "predicted_onset_minutes": 0,
+        "estimated_duration_minutes": 0.0,
+        "resolution_confidence": 1.0
+      },
+      "aircraft_affected": [
+        {
+          "flight_id": "DAL1975",
+          "aircraft_type": "B737",
+          "estimated_passengers": 123,
+          "delay_contribution": 0.0,
+          "current_phase": "approach"
+        },
+        {
+          "flight_id": "JBU2637",
+          "aircraft_type": "B737",
+          "estimated_passengers": 140,
+          "delay_contribution": 0.0,
+          "current_phase": "cruise"
+        },
+        {
+          "flight_id": "DLH405",
+          "aircraft_type": "A320",
+          "estimated_passengers": 110,
+          "delay_contribution": 0.0,
+          "current_phase": "cruise"
+        },
+        {
+          "flight_id": "QTR59P",
+          "aircraft_type": "B777",
+          "estimated_passengers": 341,
+          "delay_contribution": 0.0,
+          "current_phase": "approach"
+        },
+        {
+          "flight_id": "JBU59",
+          "aircraft_type": "B737",
+          "estimated_passengers": 139,
+          "delay_contribution": 0.0,
+          "current_phase": "approach"
+        }
+      ],
+      "impact_analysis": {
+        "passengers_affected": 127350,
+        "total_delay_minutes": 0.0,
+        "fuel_waste_gallons": 2.7273625980614784e-26,
+        "fuel_cost_estimate": 9.545769093215174e-26,
+        "co2_emissions_lbs": 5.754735081909719e-25,
+        "economic_impact_estimate": 9.545769093215174e-26
+      },
+      "recommended_mitigations": [
+        {
+          "action": "Reassign gate operations",
+          "priority": "medium",
+          "estimated_effectiveness": 0.7,
+          "implementation_time": 10.0
+        }
+      ]
+    },
+    {
+      "bottleneck_id": "departure_queue_849",
+      "location": {
+        "zone": "departure_queue",
+        "coordinates": [
+          40.63980103,
+          -73.77890015
+        ]
+      },
+      "type": "departure_queue",
+      "probability": 1.0,
+      "severity": 1,
+      "timing": {
+        "predicted_onset_minutes": 0,
+        "estimated_duration_minutes": 0.0,
+        "resolution_confidence": 1.0
+      },
+      "aircraft_affected": [
+        {
+          "flight_id": "DAL1975",
+          "aircraft_type": "B737",
+          "estimated_passengers": 123,
+          "delay_contribution": 0.0,
+          "current_phase": "approach"
+        },
+        {
+          "flight_id": "JBU2637",
+          "aircraft_type": "B737",
+          "estimated_passengers": 140,
+          "delay_contribution": 0.0,
+          "current_phase": "cruise"
+        },
+        {
+          "flight_id": "DLH405",
+          "aircraft_type": "A320",
+          "estimated_passengers": 110,
+          "delay_contribution": 0.0,
+          "current_phase": "cruise"
+        },
+        {
+          "flight_id": "QTR59P",
+          "aircraft_type": "B777",
+          "estimated_passengers": 341,
+          "delay_contribution": 0.0,
+          "current_phase": "approach"
+        },
+        {
+          "flight_id": "JBU59",
+          "aircraft_type": "B737",
+          "estimated_passengers": 139,
+          "delay_contribution": 0.0,
+          "current_phase": "approach"
+        }
+      ],
+      "impact_analysis": {
+        "passengers_affected": 127350,
+        "total_delay_minutes": 0.0,
+        "fuel_waste_gallons": 2.7273625980614784e-26,
+        "fuel_cost_estimate": 9.545769093215174e-26,
+        "co2_emissions_lbs": 5.754735081909719e-25,
+        "economic_impact_estimate": 9.545769093215174e-26
+      },
+      "recommended_mitigations": []
+    }
+  ],
+  "airport_summary": {
+    "total_bottlenecks_predicted": 3,
+    "highest_severity_level": 1,
+    "total_passengers_at_risk": 382050,
+    "total_fuel_waste_estimate": 8.182087794184435e-26,
+    "overall_delay_risk": "low"
+  },
+  "model_info": {
+    "model_type": "Simple MLP",
+    "version": "1.0",
+    "is_trained": false
+  }
+}

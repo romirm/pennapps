@@ -1,0 +1,191 @@
+{
+  "timestamp": "2025-09-20T16:59:20.460715",
+  "airport": "KJFK",
+  "analysis_radius_nm": 3,
+  "total_aircraft_monitored": 3,
+  "bottleneck_predictions": [
+    {
+      "bottleneck_id": "runway_approach_3",
+      "location": {
+        "zone": "runway_approach",
+        "coordinates": [
+          40.63980103,
+          -73.77890015
+        ]
+      },
+      "type": "runway_approach",
+      "probability": 1.0,
+      "severity": 5,
+      "timing": {
+        "predicted_onset_minutes": 0,
+        "estimated_duration_minutes": 7.4681159389911045e-06,
+        "resolution_confidence": 1.0
+      },
+      "aircraft_affected": [
+        {
+          "flight_id": "UAL123",
+          "aircraft_type": "B737",
+          "estimated_passengers": 119,
+          "delay_contribution": 2.4893719796637015e-06,
+          "current_phase": "departure"
+        },
+        {
+          "flight_id": "DAL456",
+          "aircraft_type": "A320",
+          "estimated_passengers": 165,
+          "delay_contribution": 2.4893719796637015e-06,
+          "current_phase": "departure"
+        },
+        {
+          "flight_id": "SWA789",
+          "aircraft_type": "B737",
+          "estimated_passengers": 124,
+          "delay_contribution": 2.4893719796637015e-06,
+          "current_phase": "departure"
+        }
+      ],
+      "impact_analysis": {
+        "passengers_affected": 0,
+        "total_delay_minutes": 7.4681159389911045e-06,
+        "fuel_waste_gallons": 100.0,
+        "fuel_cost_estimate": 350.0,
+        "co2_emissions_lbs": 2110.0,
+        "economic_impact_estimate": 350.0
+      },
+      "recommended_mitigations": [
+        {
+          "action": "Increase runway separation",
+          "priority": "high",
+          "estimated_effectiveness": 0.8,
+          "implementation_time": 5.0
+        }
+      ]
+    },
+    {
+      "bottleneck_id": "taxiway_intersection_3",
+      "location": {
+        "zone": "taxiway_intersection",
+        "coordinates": [
+          40.63980103,
+          -73.77890015
+        ]
+      },
+      "type": "taxiway_intersection",
+      "probability": 1.0,
+      "severity": 5,
+      "timing": {
+        "predicted_onset_minutes": 0,
+        "estimated_duration_minutes": 7.4681159389911045e-06,
+        "resolution_confidence": 1.0
+      },
+      "aircraft_affected": [
+        {
+          "flight_id": "UAL123",
+          "aircraft_type": "B737",
+          "estimated_passengers": 119,
+          "delay_contribution": 2.4893719796637015e-06,
+          "current_phase": "departure"
+        },
+        {
+          "flight_id": "DAL456",
+          "aircraft_type": "A320",
+          "estimated_passengers": 165,
+          "delay_contribution": 2.4893719796637015e-06,
+          "current_phase": "departure"
+        },
+        {
+          "flight_id": "SWA789",
+          "aircraft_type": "B737",
+          "estimated_passengers": 124,
+          "delay_contribution": 2.4893719796637015e-06,
+          "current_phase": "departure"
+        }
+      ],
+      "impact_analysis": {
+        "passengers_affected": 0,
+        "total_delay_minutes": 7.4681159389911045e-06,
+        "fuel_waste_gallons": 100.0,
+        "fuel_cost_estimate": 350.0,
+        "co2_emissions_lbs": 2110.0,
+        "economic_impact_estimate": 350.0
+      },
+      "recommended_mitigations": [
+        {
+          "action": "Optimize taxiway sequencing",
+          "priority": "medium",
+          "estimated_effectiveness": 0.6,
+          "implementation_time": 3.0
+        }
+      ]
+    },
+    {
+      "bottleneck_id": "gate_area_3",
+      "location": {
+        "zone": "gate_area",
+        "coordinates": [
+          40.63980103,
+          -73.77890015
+        ]
+      },
+      "type": "gate_area",
+      "probability": 1.0,
+      "severity": 5,
+      "timing": {
+        "predicted_onset_minutes": 0,
+        "estimated_duration_minutes": 7.4681159389911045e-06,
+        "resolution_confidence": 1.0
+      },
+      "aircraft_affected": [
+        {
+          "flight_id": "UAL123",
+          "aircraft_type": "B737",
+          "estimated_passengers": 119,
+          "delay_contribution": 2.4893719796637015e-06,
+          "current_phase": "departure"
+        },
+        {
+          "flight_id": "DAL456",
+          "aircraft_type": "A320",
+          "estimated_passengers": 165,
+          "delay_contribution": 2.4893719796637015e-06,
+          "current_phase": "departure"
+        },
+        {
+          "flight_id": "SWA789",
+          "aircraft_type": "B737",
+          "estimated_passengers": 124,
+          "delay_contribution": 2.4893719796637015e-06,
+          "current_phase": "departure"
+        }
+      ],
+      "impact_analysis": {
+        "passengers_affected": 0,
+        "total_delay_minutes": 7.4681159389911045e-06,
+        "fuel_waste_gallons": 100.0,
+        "fuel_cost_estimate": 350.0,
+        "co2_emissions_lbs": 2110.0,
+        "economic_impact_estimate": 350.0
+      },
+      "recommended_mitigations": [
+        {
+          "action": "Reassign gate operations",
+          "priority": "medium",
+          "estimated_effectiveness": 0.7,
+          "implementation_time": 10.0
+        }
+      ]
+    }
+  ],
+  "airport_summary": {
+    "total_bottlenecks_predicted": 3,
+    "highest_severity_level": 5,
+    "total_passengers_at_risk": 0,
+    "total_fuel_waste_estimate": 300.0,
+    "overall_delay_risk": "critical"
+  },
+  "model_info": {
+    "model_type": "Simple MLP",
+    "version": "1.0",
+    "is_trained": false
+  }
+}
