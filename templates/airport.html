@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ airport.name }} - ATC Visualizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 150, 255, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid #333;
+            padding: 10px 20px 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            height: 65px;
+        }
+
+        .back-button {
+            background: rgba(30, 30, 30, 0.8);
+            color: #e0e0e0;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 255, 0, 0.1);
+            border-color: #00ff00;
+            color: #00ff00;
+        }
+
+        .airport-info {
+            text-align: center;
+            flex: 1;
+        }
+
+        .airport-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #00ff00;
+            margin-bottom: 2px;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+        }
+
+        .airport-name {
+            font-size: 0.9em;
+            color: #e0e0e0;
+            font-weight: 500;
+            margin-bottom: 1px;
+        }
+
+        .airport-location {
+            font-size: 0.75em;
+            color: #888;
+            font-weight: 300;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .control-button {
+            background: rgba(30, 30, 30, 0.8);
+            color: #e0e0e0;
+            border: 1px solid #444;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75em;
+            transition: all 0.3s ease;
+        }
+
+        .control-button:hover {
+            background: rgba(0, 255, 0, 0.1);
+            border-color: #00ff00;
+            color: #00ff00;
+        }
+
+        .visualization-container {
+            position: fixed;
+            top: 65px;
+            left: 0;
+            right: 320px; /* Fixed space for info panel */
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .airport-canvas {
+            flex: 1;
+            border: none;
+            background: #000;
+            cursor: crosshair;
+            width: 100%;
+            height: 100%;
+        }
+
+        .info-panel {
+            position: fixed;
+            top: 65px;
+            right: 0;
+            width: 320px;
+            height: calc(100vh - 65px);
+            background: rgba(8, 8, 8, 0.98);
+            border-left: 2px solid #00ff00;
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            overflow-y: auto;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-header {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.15) 0%, rgba(0, 200, 0, 0.05) 100%);
+            padding: 16px 20px;
+            border-bottom: 2px solid #00ff00;
+            flex-shrink: 0;
+        }
+
+        .panel-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #00ff00;
+            margin-bottom: 5px;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+        }
+
+        .panel-subtitle {
+            font-size: 0.85em;
+            color: #aaa;
+            font-weight: 400;
+        }
+
+        .panel-content {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .legend {
+            margin-bottom: 25px;
+            background: rgba(15, 15, 15, 0.8);
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #333;
+        }
+
+        .legend h3 {
+            color: #00ff00;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.85em;
+            color: #ddd;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 3px;
+            margin-right: 12px;
+            border-radius: 2px;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+        }
+
+        .runway-color {
+            background-color: #ffffff;
+        }
+
+        .taxiway-color {
+            background-color: #999999;
+        }
+
+        .runway-info {
+            background: rgba(12, 12, 12, 0.9);
+            padding: 18px;
+            border-radius: 6px;
+            margin: 20px 0;
+            border: 1px solid #333;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .runway-info h3 {
+            color: #00ff00;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .runway-item {
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .runway-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .runway-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #00ff00;
+            font-size: 0.95em;
+            margin-bottom: 5px;
+            text-shadow: 0 0 4px rgba(0, 255, 0, 0.2);
+        }
+
+        .runway-details {
+            color: #ccc;
+            font-size: 0.8em;
+            line-height: 1.4;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .stat-item {
+            background: rgba(15, 15, 15, 0.8);
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #333;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #00ff00;
+            margin-bottom: 4px;
+            text-shadow: 0 0 6px rgba(0, 255, 0, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.7em;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            border-top: 1px solid #333;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75em;
+            color: #666;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .status-left {
+            display: flex;
+            gap: 20px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #00ff00;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .coordinates {
+            position: fixed;
+            bottom: 40px;
+            left: 20px;
+            background: rgba(15, 15, 15, 0.9);
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8em;
+            color: #888;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/" class="back-button">← Back to Search</a>
+        <div class="airport-info">
+            <div class="airport-code">{{ airport_code }}</div>
+            <div class="airport-name">{{ airport.name }}</div>
+            <div class="airport-location">{{ airport.city }}, {{ airport.country }}</div>
+        </div>
+        <div class="controls">
+            <button class="control-button" onclick="resetView()">Reset View</button>
+        </div>
+    </div>
+
+    <div class="visualization-container">
+        <canvas id="airportCanvas" class="airport-canvas"></canvas>
+    </div>
+
+    <div id="infoPanel" class="info-panel">
+        <div class="panel-header">
+            <div class="panel-title">Airport Data</div>
+            <div class="panel-subtitle">{{ airport_code }} - {{ airport.city }}</div>
+        </div>
+        <div class="panel-content">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">{{ airport.runways|length }}</div>
+                    <div class="stat-label">Runways</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">{{ airport.taxiways|length }}</div>
+                    <div class="stat-label">Taxiways</div>
+                </div>
+            </div>
+
+            <div class="legend">
+                <h3>Legend</h3>
+                <div class="legend-item">
+                    <div class="legend-color runway-color"></div>
+                    <span>Runways</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color taxiway-color"></div>
+                    <span>Taxiways</span>
+                </div>
+            </div>
+
+            <div class="runway-info">
+                <h3>Runway Information</h3>
+                {% for runway in airport.runways %}
+                <div class="runway-item">
+                    <div class="runway-id">Runway {{ runway.id }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="coordinates" id="coordinates">
+        X: 0, Y: 0
+    </div>
+
+    <div class="status-bar">
+        <div class="status-left">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>Live View</span>
+            </div>
+            <div>{{ airport_code }} Active</div>
+            <div>Scale: 1:1000</div>
+        </div>
+        <div>ATC Visualizer v2.0</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('airportCanvas');
+        const ctx = canvas.getContext('2d');
+        const coordinates = document.getElementById('coordinates');
+        const infoPanel = document.getElementById('infoPanel');
+        
+        // Airport data from server
+        const airportData = {{ airport | tojson }};
+        
+        // Canvas setup
+        function resizeCanvas() {
+            canvas.width = window.innerWidth - 320; // Fixed space for info panel
+            canvas.height = window.innerHeight - 65; // Account for header
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Drawing variables
+        let scale = 1;
+        
+        // Set canvas background
+        function clearCanvas() {
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        // Draw taxiways as subtle background
+        function drawTaxiways() {
+            ctx.strokeStyle = '#999999'; // Brighter gray for better visibility
+            ctx.lineWidth = 1.5;
+            ctx.lineCap = 'round';
+            ctx.globalAlpha = 0.6; // More visible background
+            
+            airportData.taxiways.forEach((taxiway, index) => {
+                ctx.beginPath();
+                
+                // Fixed positioning - no pan/zoom
+                taxiway.points.forEach((point, pointIndex) => {
+                    // Scale to fill more of the canvas with proper centering
+                    const scaledX = (point[0] * 1.2) + (canvas.width * 0.1);
+                    const scaledY = (point[1] * 0.9) + (canvas.height * 0.15);
+                    
+                    if (pointIndex === 0) {
+                        ctx.moveTo(scaledX, scaledY);
+                    } else {
+                        ctx.lineTo(scaledX, scaledY);
+                    }
+                });
+                ctx.stroke();
+                
+                // Draw taxiway labels (only for major taxiways to avoid clutter)
+                if (index % 8 === 0 && taxiway.points.length > 0) {
+                    const x = (taxiway.points[0][0] * 1.2) + (canvas.width * 0.1) + 8;
+                    const y = (taxiway.points[0][1] * 0.9) + (canvas.height * 0.15) - 8;
+                    
+                    ctx.fillStyle = '#aaaaaa';
+                    ctx.font = `10px JetBrains Mono`;
+                    ctx.fillText(taxiway.id, x, y);
+                }
+            });
+            
+            ctx.globalAlpha = 1.0; // Reset alpha
+        }
+        
+        // Draw runways with ATC-style prominence
+        function drawRunways() {
+            const totalRunways = airportData.runways.length;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            
+            airportData.runways.forEach((runway, index) => {
+                const length = Math.min((runway.length / 8), canvas.width * 0.4);
+                const width = (runway.width / 1.2);
+                const heading = runway.heading * Math.PI / 180;
+                
+                // Calculate runway position based on heading and index
+                let runwayX = centerX;
+                let runwayY = centerY;
+                
+                // Offset parallel runways
+                if (totalRunways > 1) {
+                    const spacing = 80; // Distance between parallel runways
+                    if (Math.abs(Math.sin(heading)) > 0.7) { // Nearly vertical runways
+                        runwayX = centerX + (index - (totalRunways - 1) / 2) * spacing;
+                    } else { // Nearly horizontal runways
+                        runwayY = centerY + (index - (totalRunways - 1) / 2) * spacing;
+                    }
+                }
+                
+                // Draw runway surface with dark background
+                ctx.save();
+                ctx.translate(runwayX, runwayY);
+                ctx.rotate(heading);
+                
+                // Runway surface
+                ctx.fillStyle = '#1a1a1a';
+                ctx.globalAlpha = 0.9;
+                ctx.fillRect(-length/2, -width/2, length, width);
+                
+                // Runway outline - bright white
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 4;
+                ctx.globalAlpha = 1.0;
+                ctx.strokeRect(-length/2, -width/2, length, width);
+                
+                // Runway center line - neon green
+                ctx.strokeStyle = '#00ff00';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(-length/2 + 10, 0);
+                ctx.lineTo(length/2 - 10, 0);
+                ctx.stroke();
+                
+                // Runway threshold markings
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                for (let i = 0; i < 4; i++) {
+                    const x = -length/2 + 15 + (i * 20);
+                    ctx.moveTo(x, -width/2 + 5);
+                    ctx.lineTo(x, width/2 - 5);
+                }
+                ctx.stroke();
+                
+                ctx.restore();
+                
+                // Draw runway ID with neon green background
+                ctx.fillStyle = '#00ff00';
+                ctx.globalAlpha = 0.9;
+                ctx.fillRect(runwayX - 30, runwayY - 35, 60, 20);
+                
+                ctx.fillStyle = '#000000';
+                ctx.font = `bold 14px JetBrains Mono`;
+                ctx.textAlign = 'center';
+                ctx.globalAlpha = 1.0;
+                ctx.fillText(runway.id, runwayX, runwayY - 22);
+                
+                ctx.textAlign = 'left';
+            });
+        }
+        
+        // Draw airport name
+        function drawAirportName() {
+            ctx.fillStyle = '#ffffff';
+            ctx.font = `bold ${18 * scale}px Inter`;
+            ctx.textAlign = 'center';
+            ctx.fillText(airportData.name, canvas.width / 2, 40 * scale);
+            
+            // Add airport code below
+            ctx.fillStyle = '#00ff00';
+            ctx.font = `bold ${14 * scale}px JetBrains Mono`;
+            ctx.fillText(airportData.city + ', ' + airportData.country, canvas.width / 2, 60 * scale);
+            ctx.textAlign = 'left';
+        }
+        
+        // Draw compass rose
+        function drawCompassRose() {
+            const x = canvas.width - 90;
+            const y = 120;
+            const size = 35;
+            
+            ctx.strokeStyle = '#666';
+            ctx.lineWidth = 1;
+            
+            // Draw compass circle
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, 2 * Math.PI);
+            ctx.stroke();
+            
+            // Draw cardinal directions
+            ctx.fillStyle = '#888';
+            ctx.font = `9px JetBrains Mono`;
+            ctx.textAlign = 'center';
+            
+            ctx.fillText('N', x, y - size - 6);
+            ctx.fillText('S', x, y + size + 14);
+            ctx.fillText('E', x + size + 6, y + 4);
+            ctx.fillText('W', x - size - 6, y + 4);
+            
+            // Draw north arrow
+            ctx.strokeStyle = '#00ff00';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(x, y - size + 6);
+            ctx.lineTo(x, y - 6);
+            ctx.lineTo(x - 4, y - 3);
+            ctx.moveTo(x, y - 6);
+            ctx.lineTo(x + 4, y - 3);
+            ctx.stroke();
+            
+            ctx.textAlign = 'left';
+        }
+        
+        // Draw scale reference
+        function drawScaleReference() {
+            const scaleX = 50;
+            const scaleY = canvas.height - 50;
+            const scaleLength = 100;
+            
+            // Draw scale line
+            ctx.strokeStyle = '#888888';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(scaleX, scaleY);
+            ctx.lineTo(scaleX + scaleLength, scaleY);
+            ctx.stroke();
+            
+            // Draw scale markers
+            ctx.beginPath();
+            ctx.moveTo(scaleX, scaleY - 10);
+            ctx.lineTo(scaleX, scaleY + 10);
+            ctx.moveTo(scaleX + scaleLength, scaleY - 10);
+            ctx.lineTo(scaleX + scaleLength, scaleY + 10);
+            ctx.stroke();
+            
+            // Draw scale label
+            ctx.fillStyle = '#888888';
+            ctx.font = `10px JetBrains Mono`;
+            ctx.textAlign = 'center';
+            ctx.fillText('1000m', scaleX + scaleLength / 2, scaleY - 15);
+            ctx.textAlign = 'left';
+        }
+        
+        
+        // Main draw function
+        function draw() {
+            clearCanvas();
+            drawTaxiways();
+            drawRunways();
+            drawScaleReference();
+        }
+        
+        // Control functions
+        function resetView() {
+            draw();
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'r':
+                case 'R':
+                    resetView();
+                    break;
+                case 'Escape':
+                    window.location.href = '/';
+                    break;
+            }
+        });
+        
+        // Initial draw
+        draw();
+        
+        // Professional ATC layout - info panel always visible
+        // No auto-hide for professional ATC interface
+    </script>
+</body>
+</html>
