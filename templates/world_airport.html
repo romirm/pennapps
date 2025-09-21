@@ -141,6 +141,7 @@
             margin-bottom: 25px;
             padding-bottom: 20px;
             border-bottom: 1px solid #333;
+            position: relative;
         }
 
         .panel-section:last-child {
@@ -234,6 +235,37 @@
             border-radius: 4px;
             padding: 10px;
             margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bottleneck-item:hover {
+            background: rgba(255, 0, 0, 0.15);
+            border-color: #ff6666;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(255, 68, 68, 0.2);
+        }
+
+        .bottleneck-item:active {
+            transform: scale(0.98);
+            transition: transform 0.1s ease;
+        }
+
+        .bottleneck-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .bottleneck-item:hover::before {
+            left: 100%;
         }
 
         .bottleneck-severity {
@@ -247,6 +279,169 @@
             font-size: 0.7em;
             margin-top: 4px;
         }
+
+        /* Bottleneck detail view styles */
+        .bottleneck-detail-view {
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+
+        .bottleneck-detail-view.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+            position: relative;
+        }
+
+        /* Panel sections transition */
+        .panel-section {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .panel-section.slide-out {
+            transform: translateX(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Info panel container for animation */
+        .info-panel {
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .detail-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2em;
+            color: #ff4444;
+            font-weight: 700;
+        }
+
+        .back-button {
+            background: rgba(30, 30, 30, 0.8);
+            color: #e0e0e0;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7em;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 255, 0, 0.1);
+            border-color: #00ff00;
+            color: #00ff00;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .detail-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            color: #ff4444;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-content {
+            color: #e0e0e0;
+            font-size: 0.8em;
+            line-height: 1.4;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: #888;
+            font-size: 0.8em;
+        }
+
+        .metric-value {
+            color: #ff4444;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+
+        /* Detail content animations */
+        .detail-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            transition-delay: 0.1s;
+        }
+
+        .bottleneck-detail-view.active .detail-section {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bottleneck-detail-view.active .detail-section:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+
+        .bottleneck-detail-view.active .detail-section:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        .bottleneck-detail-view.active .detail-section:nth-child(4) {
+            transition-delay: 0.3s;
+        }
+
+        /* Metric rows animation */
+        .metric-row {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.2s ease;
+        }
+
+        .bottleneck-detail-view.active .metric-row {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .bottleneck-detail-view.active .metric-row:nth-child(1) { transition-delay: 0.4s; }
+        .bottleneck-detail-view.active .metric-row:nth-child(2) { transition-delay: 0.5s; }
+        .bottleneck-detail-view.active .metric-row:nth-child(3) { transition-delay: 0.6s; }
+        .bottleneck-detail-view.active .metric-row:nth-child(4) { transition-delay: 0.7s; }
 
         .controls {
             display: flex;
@@ -416,6 +611,35 @@
                 <div class="section-title">Bottlenecks</div>
                 <div id="bottlenecks-list">
                     <!-- Bottleneck items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Bottleneck Detail View -->
+            <div id="bottleneck-detail-view" class="bottleneck-detail-view">
+                <div class="detail-header">
+                    <div class="detail-title" id="detail-title">Bottleneck Details</div>
+                    <button class="back-button" onclick="showNormalSidebar()">← Back</button>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="section-title">Overview</div>
+                    <div class="section-content" id="detail-overview">
+                        <!-- Overview content will be populated here -->
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="section-title">Impact Metrics</div>
+                    <div id="detail-metrics">
+                        <!-- Metrics will be populated here -->
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="section-title">Recommended Actions</div>
+                    <div class="section-content" id="detail-actions">
+                        <!-- Actions will be populated here -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -867,43 +1091,181 @@
             aircraftList.innerHTML = aircraftHTML;
         }
 
-        // Update bottlenecks with real data
+        // Test bottleneck data
+        const testBottlenecks = [
+            {
+                id: 'runway-congestion',
+                severity: 'HIGH',
+                title: 'Runway Congestion',
+                description: 'Runway 09L/27R experiencing heavy traffic',
+                overview: 'Current runway utilization exceeds 85% capacity with 12 aircraft in queue. Average wait time has increased to 18 minutes, causing significant delays for departing and arriving flights.',
+                metrics: [
+                    { label: 'Average Delay', value: '18 min' },
+                    { label: 'Aircraft in Queue', value: '12' },
+                    { label: 'Capacity Utilization', value: '87%' },
+                    { label: 'Passengers Affected', value: '1,200' }
+                ],
+                actions: [
+                    'Implement ground stop for 15 minutes',
+                    'Redirect 3 flights to Runway 09R/27L',
+                    'Increase separation between departures',
+                    'Coordinate with approach control for spacing'
+                ]
+            },
+            {
+                id: 'gate-availability',
+                severity: 'MEDIUM',
+                title: 'Gate Availability',
+                description: 'Limited gate space causing delays',
+                overview: 'Only 3 gates available for incoming flights. 8 aircraft are currently holding on taxiways waiting for gate assignments. This is causing backup in the taxiway system.',
+                metrics: [
+                    { label: 'Available Gates', value: '3' },
+                    { label: 'Aircraft Waiting', value: '8' },
+                    { label: 'Average Wait Time', value: '12 min' },
+                    { label: 'Gate Utilization', value: '94%' }
+                ],
+                actions: [
+                    'Expedite aircraft turnarounds',
+                    'Use remote parking positions',
+                    'Coordinate gate assignments with ground crew',
+                    'Consider offloading passengers via bus'
+                ]
+            },
+            {
+                id: 'weather-delay',
+                severity: 'LOW',
+                title: 'Weather Advisory',
+                description: 'Light precipitation affecting operations',
+                overview: 'Light rain and reduced visibility (3/4 mile) is causing minor delays. All aircraft are operating under IFR conditions with increased separation requirements.',
+                metrics: [
+                    { label: 'Visibility', value: '3/4 mile' },
+                    { label: 'Precipitation', value: 'Light rain' },
+                    { label: 'Wind Speed', value: '12 kts' },
+                    { label: 'Delays', value: '5-8 min' }
+                ],
+                actions: [
+                    'Monitor weather conditions closely',
+                    'Maintain increased separation',
+                    'Prepare for potential holding patterns',
+                    'Update NOTAMs as needed'
+                ]
+            }
+        ];
+
+        // Update bottlenecks with test data
         function updateBottlenecks(data) {
             const bottlenecksList = document.getElementById('bottlenecks-list');
             let bottlenecksHTML = '';
             
-            // Create bottlenecks based on aircraft density and changes
-            if (data.total_aircraft > 15) {
+            // Always show test bottlenecks
+            testBottlenecks.forEach(bottleneck => {
                 bottlenecksHTML += `
-                    <div class="bottleneck-item">
-                        <div class="bottleneck-severity">HIGH</div>
-                        <div class="bottleneck-description">High aircraft density detected</div>
+                    <div class="bottleneck-item" onclick="showBottleneckDetail('${bottleneck.id}')">
+                        <div class="bottleneck-severity">${bottleneck.severity}</div>
+                        <div class="bottleneck-description">${bottleneck.description}</div>
                     </div>
                 `;
-            } else if (data.total_aircraft > 8) {
-                bottlenecksHTML += `
-                    <div class="bottleneck-item">
-                        <div class="bottleneck-severity">MODERATE</div>
-                        <div class="bottleneck-description">Moderate traffic congestion</div>
-                    </div>
-                `;
-            }
-            
-            if (data.changes.entered.length > 3) {
-                bottlenecksHTML += `
-                    <div class="bottleneck-item">
-                        <div class="bottleneck-severity">MEDIUM</div>
-                        <div class="bottleneck-description">High arrival rate detected</div>
-                    </div>
-                `;
-            }
-            
-            if (bottlenecksHTML === '') {
-                bottlenecksHTML = '<div style="color: #00ff00; font-size: 0.8em; text-align: center; padding: 20px;">No bottlenecks detected</div>';
-            }
+            });
             
             bottlenecksList.innerHTML = bottlenecksHTML;
         }
+
+        // Show bottleneck detail view
+        function showBottleneckDetail(bottleneckId) {
+            const bottleneck = testBottlenecks.find(b => b.id === bottleneckId);
+            if (!bottleneck) return;
+
+            // Get elements
+            const panelSections = document.querySelectorAll('.panel-section');
+            const detailView = document.getElementById('bottleneck-detail-view');
+            const detailSections = detailView.querySelectorAll('.detail-section');
+
+            // Reset detail sections animation state
+            detailSections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+            });
+
+            // Start slide-out animation for panel sections
+            panelSections.forEach(section => {
+                section.classList.add('slide-out');
+            });
+
+            // Populate detail content immediately (before animation)
+            document.getElementById('detail-title').textContent = bottleneck.title;
+            document.getElementById('detail-overview').textContent = bottleneck.overview;
+
+            // Populate metrics
+            const metricsContainer = document.getElementById('detail-metrics');
+            metricsContainer.innerHTML = '';
+            bottleneck.metrics.forEach(metric => {
+                const metricRow = document.createElement('div');
+                metricRow.className = 'metric-row';
+                metricRow.style.opacity = '0';
+                metricRow.style.transform = 'translateX(-10px)';
+                metricRow.innerHTML = `
+                    <span class="metric-label">${metric.label}</span>
+                    <span class="metric-value">${metric.value}</span>
+                `;
+                metricsContainer.appendChild(metricRow);
+            });
+
+            // Populate actions
+            const actionsContainer = document.getElementById('detail-actions');
+            actionsContainer.innerHTML = bottleneck.actions.map(action => `• ${action}`).join('<br>');
+
+            // Start slide-in animation for detail view
+            setTimeout(() => {
+                detailView.classList.add('active');
+                
+                // Animate detail sections with staggered delays
+                detailSections.forEach((section, index) => {
+                    setTimeout(() => {
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                    }, 200 + (index * 100));
+                });
+
+                // Animate metric rows with staggered delays
+                const metricRows = metricsContainer.querySelectorAll('.metric-row');
+                metricRows.forEach((row, index) => {
+                    setTimeout(() => {
+                        row.style.opacity = '1';
+                        row.style.transform = 'translateX(0)';
+                    }, 500 + (index * 100));
+                });
+            }, 200);
+
+            // Hide panel sections after animation completes
+            setTimeout(() => {
+                panelSections.forEach(section => {
+                    section.style.display = 'none';
+                    section.classList.remove('slide-out');
+                });
+            }, 400);
+        }
+
+        // Show normal sidebar
+        function showNormalSidebar() {
+            // Get elements
+            const detailView = document.getElementById('bottleneck-detail-view');
+            const panelSections = document.querySelectorAll('.panel-section');
+
+            // Start slide-out animation for detail view
+            detailView.classList.remove('active');
+
+            // Show panel sections after a brief delay
+            setTimeout(() => {
+                panelSections.forEach(section => {
+                    section.style.display = 'block';
+                    // Trigger reflow to ensure the element is rendered
+                    section.offsetHeight;
+                    // Remove slide-out class to trigger slide-in animation
+                    section.classList.remove('slide-out');
+                });
+            }, 200);
+        }
+
 
         // Load initial data
         function loadInitialData() {
@@ -913,6 +1275,13 @@
         
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
+            // Check if bottleneck detail view is active
+            const detailView = document.getElementById('bottleneck-detail-view');
+            if (detailView && detailView.classList.contains('active') && e.key === 'Escape') {
+                showNormalSidebar();
+                return; // Don't process other Escape actions
+            }
+            
             switch(e.key) {
                 case 'r':
                 case 'R':
