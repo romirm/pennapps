@@ -434,8 +434,212 @@ class PlaneMonitor:
             self.airport_centroid = AIRPORT_CENTROIDS['KJFK']
             print(f"⚠️ Airport {self.airport_code} not found in mapping, using JFK coordinates")
         
+        # Enhanced filtering parameters for arrivals and ground operations
+        self.filter_config = {
+            'max_altitude_ft': 5000,      # Only aircraft below 5000ft (arrivals/approach)
+            'max_distance_nm': 15,        # Within 15nm of airport
+            'min_speed_kts': 0,           # Include stationary aircraft
+            'max_speed_kts': 200,         # Exclude high-speed departures
+            'approach_altitude_ft': 3000,  # Consider approach aircraft below 3000ft
+            'ground_speed_threshold': 30, # Ground aircraft moving slowly
+            'departure_exclusion_alt': 2000, # Exclude aircraft above 2000ft climbing
+            'departure_exclusion_speed': 150  # Exclude aircraft >150kts climbing
+        }
+    
+    def _calculate_distance_nm(self, lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+        """Calculate distance between two points in nautical miles"""
+        import math
+        
+        # Convert to radians
+        lat1_rad = math.radians(lat1)
+        lon1_rad = math.radians(lon1)
+        lat2_rad = math.radians(lat2)
+        lon2_rad = math.radians(lon2)
+        
+        # Haversine formula
+        dlat = lat2_rad - lat1_rad
+        dlon = lon2_rad - lon1_rad
+        
+        a = math.sin(dlat/2)**2 + math.cos(lat1_rad) * math.cos(lat2_rad) * math.sin(dlon/2)**2
+        c = 2 * math.asin(math.sqrt(a))
+        
+        # Earth's radius in nautical miles
+        r = 3440.065
+        distance_nm = r * c
+        
+        return distance_nm
+    
+    def _is_aircraft_arriving(self, aircraft_data: dict) -> bool:
+        """Determine if aircraft is arriving (not departing) based on altitude, speed, and heading"""
+        
+        altitude = aircraft_data.get('alt_baro')
+        speed = aircraft_data.get('gs', 0)
+        heading = aircraft_data.get('track', 0)
+        lat = aircraft_data.get('lat')
+        lon = aircraft_data.get('lon')
+        
+        # Skip if missing essential data
+        if altitude is None or lat is None or lon is None:
+            return False
+        
+        # Ground aircraft are always considered (could be arrivals taxiing)
+        if altitude == "ground":
+            return True
+        
+        # Convert altitude to numeric if possible
+        try:
+            alt_ft = float(altitude) if altitude != "ground" else 0
+        except (ValueError, TypeError):
+            return False
+        
+        # Calculate distance from airport
+        airport_lat = self.airport_centroid['lat']
+        airport_lon = self.airport_centroid['lon']
+        distance_nm = self._calculate_distance_nm(lat, lon, airport_lat, airport_lon)
+        
+        # Filter criteria for arrivals:
+        
+        # 1. Altitude filter - exclude high altitude departures
+        if alt_ft > self.filter_config['max_altitude_ft']:
+            return False
+        
+        # 2. Distance filter - must be reasonably close to airport
+        if distance_nm > self.filter_config['max_distance_nm']:
+            return False
+        
+        # 3. Speed filter - exclude very fast aircraft (likely departures)
+        if speed > self.filter_config['max_speed_kts']:
+            return False
+        
+        # 4. Departure exclusion - aircraft climbing rapidly at low altitude
+        if (alt_ft > self.filter_config['departure_exclusion_alt'] and 
+            speed > self.filter_config['departure_exclusion_speed']):
+            return False
+        
+        # 5. Approach pattern detection - aircraft descending toward airport
+        if alt_ft < self.filter_config['approach_altitude_ft']:
+            # Low altitude aircraft near airport are likely arrivals
+            return True
+        
+        # 6. Ground operations - slow moving aircraft
+        if alt_ft < 1000 and speed < self.filter_config['ground_speed_threshold']:
+            return True
+        
+        # Default: include if passes basic filters
+        return True
+    
+    def _categorize_aircraft(self, aircraft_data: dict) -> str:
+        """Categorize aircraft as ground, approach, or low_altitude"""
+        
+        altitude = aircraft_data.get('alt_baro')
+        
+        if altitude == "ground":
+            return "ground"
+        
+        try:
+            alt_ft = float(altitude) if altitude != "ground" else 0
+        except (ValueError, TypeError):
+            return "unknown"
+        
+        if alt_ft < 1000:
+            return "approach"  # Very low altitude - likely on approach
+        elif alt_ft < self.filter_config['approach_altitude_ft']:
+            return "low_altitude"  # Low altitude - could be approach or departure
+        else:
+            return "unknown"
+    
+    def filter_aircraft_for_arrivals(self, aircraft_list: list) -> dict:
+        """Filter aircraft data to focus on arrivals and ground operations"""
+        
+        filtered_aircraft = {
+            'ground': {},
+            'approach': {},
+            'low_altitude': {},
+            'filtered_out': [],
+            'filter_stats': {
+                'total_received': len(aircraft_list),
+                'arrivals_included': 0,
+                'departures_excluded': 0,
+                'high_altitude_excluded': 0,
+                'distant_excluded': 0
+            }
+        }
+        
+        for ac in aircraft_list:
+            # Check if aircraft is arriving
+            if self._is_aircraft_arriving(ac):
+                flight_number = ac.get('flight', 'N/A')
+                aircraft_type = ac.get('t', 'N/A')
+                lat = ac.get('lat', 'N/A')
+                lon = ac.get('lon', 'N/A')
+                
+                # Categorize the aircraft
+                category = self._categorize_aircraft(ac)
+                
+                aircraft_info = {
+                    'aircraft_type': aircraft_type,
+                    'lat': lat,
+                    'lon': lon,
+                    'speed': ac.get('gs', 'N/A'),
+                    'altitude': ac.get('alt_baro', 'N/A'),
+                    'heading': ac.get('track', 'N/A'),
+                    'distance_nm': self._calculate_distance_nm(
+                        lat, lon, 
+                        self.airport_centroid['lat'], 
+                        self.airport_centroid['lon']
+                    ) if lat != 'N/A' and lon != 'N/A' else 'N/A'
+                }
+                
+                filtered_aircraft[category][flight_number] = aircraft_info
+                filtered_aircraft['filter_stats']['arrivals_included'] += 1
+                
+            else:
+                # Track why aircraft was filtered out
+                altitude = ac.get('alt_baro')
+                speed = ac.get('gs', 0)
+                lat = ac.get('lat')
+                lon = ac.get('lon')
+                
+                filter_reason = "unknown"
+                
+                if altitude != "ground":
+                    try:
+                        alt_ft = float(altitude)
+                        if alt_ft > self.filter_config['max_altitude_ft']:
+                            filter_reason = "high_altitude"
+                            filtered_aircraft['filter_stats']['high_altitude_excluded'] += 1
+                        elif speed > self.filter_config['max_speed_kts']:
+                            filter_reason = "high_speed"
+                            filtered_aircraft['filter_stats']['departures_excluded'] += 1
+                    except (ValueError, TypeError):
+                        pass
+                
+                if lat and lon:
+                    distance_nm = self._calculate_distance_nm(
+                        lat, lon, 
+                        self.airport_centroid['lat'], 
+                        self.airport_centroid['lon']
+                    )
+                    if distance_nm > self.filter_config['max_distance_nm']:
+                        filter_reason = "too_distant"
+                        filtered_aircraft['filter_stats']['distant_excluded'] += 1
+                
+                filtered_aircraft['filtered_out'].append({
+                    'flight': ac.get('flight', 'N/A'),
+                    'reason': filter_reason,
+                    'altitude': altitude,
+                    'speed': speed,
+                    'distance_nm': self._calculate_distance_nm(
+                        lat, lon, 
+                        self.airport_centroid['lat'], 
+                        self.airport_centroid['lon']
+                    ) if lat and lon else 'N/A'
+                })
+        
+        return filtered_aircraft
+        
     async def fetch_planes(self):
-        """Fetch planes at the specified airport and detect entering/leaving aircraft"""
+        """Fetch planes at the specified airport with enhanced arrival filtering"""
         try:
             async with ADSBExchangeGroundClient() as client:
                 # Use the correct ICAO code format
@@ -444,36 +648,15 @@ class PlaneMonitor:
                 aircraft = await client.fetch_airport_data(icao_code, self.airport_centroid)
                 
                 if aircraft:
-                    # Create current state similar to run() function structure
-                    current_planes = {'ground': {}, 'air': {}}
+                    # Apply enhanced filtering for arrivals and ground operations
+                    filtered_data = self.filter_aircraft_for_arrivals(aircraft)
                     
-                    for ac in aircraft:
-                        if ac.get('alt_baro') != "ground":
-                            flight_number = ac.get('flight', 'N/A')
-                            aircraft_type = ac.get('t', 'N/A')
-                            lat = ac.get('lat', 'N/A')
-                            lon = ac.get('lon', 'N/A')
-                            current_planes['air'][flight_number] = {
-                                'aircraft_type': aircraft_type,
-                                'lat': lat,
-                                'lon': lon,
-                                'speed': ac.get('gs', 'N/A'),
-                                'altitude': ac.get('alt_baro', 'N/A'),
-                                'heading': ac.get('track', 'N/A')
-                            }
-                        else:
-                            flight_number = ac.get('flight', 'N/A')
-                            aircraft_type = ac.get('t', 'N/A')
-                            lat = ac.get('lat', 'N/A')
-                            lon = ac.get('lon', 'N/A')
-                            current_planes['ground'][flight_number] = {
-                                'aircraft_type': aircraft_type,
-                                'lat': lat,
-                                'lon': lon,
-                                'speed': ac.get('gs', 'N/A'),
-                                'altitude': ac.get('alt_baro', 'N/A'),
-                                'heading': ac.get('track', 'N/A')
-                            }
+                    # Create current state with filtered aircraft
+                    current_planes = {
+                        'ground': filtered_data['ground'],
+                        'approach': filtered_data['approach'], 
+                        'low_altitude': filtered_data['low_altitude']
+                    }
                     
                     # Detect changes (entering/leaving aircraft)
                     changes = self._detect_changes(current_planes)
@@ -481,33 +664,55 @@ class PlaneMonitor:
                     # Update previous state
                     self.previous_planes = current_planes
                     
-                    # Return current state with change information
+                    # Return current state with change information and filter stats
                     return {
                         'current_planes': current_planes,
                         'changes': changes,
                         'timestamp': datetime.now().isoformat(),
-                        'total_aircraft': len(aircraft)
+                        'total_aircraft': len(aircraft),
+                        'filtered_aircraft': len(filtered_data['ground']) + len(filtered_data['approach']) + len(filtered_data['low_altitude']),
+                        'filter_stats': filtered_data['filter_stats'],
+                        'filtered_out': filtered_data['filtered_out'][:10],  # Show first 10 filtered aircraft
+                        'filter_config': self.filter_config
                     }
                 else:
                     # No aircraft found
-                    changes = self._detect_changes({'ground': {}, 'air': {}})
-                    self.previous_planes = {'ground': {}, 'air': {}}
+                    changes = self._detect_changes({'ground': {}, 'approach': {}, 'low_altitude': {}})
+                    self.previous_planes = {'ground': {}, 'approach': {}, 'low_altitude': {}}
                     
                     return {
-                        'current_planes': {'ground': {}, 'air': {}},
+                        'current_planes': {'ground': {}, 'approach': {}, 'low_altitude': {}},
                         'changes': changes,
                         'timestamp': datetime.now().isoformat(),
-                        'total_aircraft': 0
+                        'total_aircraft': 0,
+                        'filtered_aircraft': 0,
+                        'filter_stats': {
+                            'total_received': 0,
+                            'arrivals_included': 0,
+                            'departures_excluded': 0,
+                            'high_altitude_excluded': 0,
+                            'distant_excluded': 0
+                        },
+                        'filtered_out': [],
+                        'filter_config': self.filter_config
                     }
                     
         except Exception as e:
             print(f"❌ Error in fetch_planes: {e}")
             return {
-                'current_planes': {'ground': {}, 'air': {}},
+                'current_planes': {'ground': {}, 'approach': {}, 'low_altitude': {}},
                 'changes': {'entered': [], 'left': []},
                 'timestamp': datetime.now().isoformat(),
                 'total_aircraft': 0,
-                'error': str(e)
+                'filtered_aircraft': 0,
+                'error': str(e),
+                'filter_stats': {
+                    'total_received': 0,
+                    'arrivals_included': 0,
+                    'departures_excluded': 0,
+                    'high_altitude_excluded': 0,
+                    'distant_excluded': 0
+                }
             }
     
     def _detect_changes(self, current_planes):
@@ -515,10 +720,10 @@ class PlaneMonitor:
         entered = []
         left = []
         
-        # Check for aircraft that entered
-        for category in ['ground', 'air']:
+        # Check for aircraft that entered (all categories)
+        for category in ['ground', 'approach', 'low_altitude']:
             for flight_number, plane_data in current_planes[category].items():
-                if flight_number not in self.previous_planes[category]:
+                if flight_number not in self.previous_planes.get(category, {}):
                     entered.append({
                         'flight_number': flight_number,
                         'category': category,
@@ -526,10 +731,10 @@ class PlaneMonitor:
                         'action': 'entered'
                     })
         
-        # Check for aircraft that left
-        for category in ['ground', 'air']:
-            for flight_number, plane_data in self.previous_planes[category].items():
-                if flight_number not in current_planes[category]:
+        # Check for aircraft that left (all categories)
+        for category in ['ground', 'approach', 'low_altitude']:
+            for flight_number, plane_data in self.previous_planes.get(category, {}).items():
+                if flight_number not in current_planes.get(category, {}):
                     left.append({
                         'flight_number': flight_number,
                         'category': category,

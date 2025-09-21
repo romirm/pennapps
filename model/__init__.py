@@ -1,21 +1,23 @@
 """
-Simple Bottleneck Predictor
+Air Traffic Bottleneck Prediction System
 
-A lightweight bottleneck prediction system that analyzes aircraft traffic patterns
-and predicts potential bottlenecks using either the Cerebras API or simple heuristic algorithms.
+A comprehensive system that processes flight data from data.json and generates 
+detailed bottleneck analysis reports using advanced clustering algorithms.
 """
 
-# Import the agentic AI bottleneck predictor
-from .agentic_bottleneck_predictor import AgenticBottleneckPredictor, AgenticCerebrasAnalyzer, AircraftDatabase, AircraftInfo, BottleneckImpact, PilotCommunication
+# Import the main system components
+from .main import AirTrafficBottleneckSystem
+from .flight_processor import AirportDatabase, FlightProcessor, FlightPosition
+from .bottleneck_analyzer import BottleneckAnalyzer, Bottleneck
 
-__version__ = "5.0.0"
-__author__ = "Agentic AI Bottleneck Prediction System with Comprehensive Analysis"
+__version__ = "1.0.0"
+__author__ = "Air Traffic Bottleneck Prediction System"
 
 __all__ = [
-    "AgenticBottleneckPredictor",
-    "AgenticCerebrasAnalyzer", 
-    "AircraftDatabase",
-    "AircraftInfo",
-    "BottleneckImpact",
-    "PilotCommunication"
+    "AirTrafficBottleneckSystem",
+    "AirportDatabase",
+    "FlightProcessor", 
+    "FlightPosition",
+    "BottleneckAnalyzer",
+    "Bottleneck"
 ]
