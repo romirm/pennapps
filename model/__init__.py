@@ -1,59 +1,21 @@
 """
-Simplified MLP Airport Bottleneck Prediction System
+Simple Bottleneck Predictor
 
-A simple Multi-Layer Perceptron model that analyzes aircraft data from ADS-B.lol API 
-to predict operational bottlenecks, resolution times, passenger impact, and fuel waste estimates.
-
-Replaces the complex GNN-KAN hybrid with a straightforward neural network approach.
+A lightweight bottleneck prediction system that analyzes aircraft traffic patterns
+and predicts potential bottlenecks using either the Cerebras API or simple heuristic algorithms.
 """
 
-# Import simplified components
-from .simple_mlp_predictor import SimpleMLPPredictor, SimpleBottleneckPredictor, BottleneckPrediction
-from .simple_airport_model import SimpleAirportBottleneckModel, AirportBottleneckModel
-from .simple_config import SIMPLE_BOTTLENECK_CONFIG, BOTTLENECK_CONFIG, MODEL_CONFIG
+# Import the agentic AI bottleneck predictor
+from .agentic_bottleneck_predictor import AgenticBottleneckPredictor, AgenticCerebrasAnalyzer, AircraftDatabase, AircraftInfo, BottleneckImpact, PilotCommunication
 
-# Import remaining components (still needed)
-from .flight_metadata import FlightMetadataProcessor
-from .impact_calculator import ImpactCalculator
-
-# Backward compatibility imports
-try:
-    from .adsb_processor import ADSBDataProcessor
-except ImportError:
-    ADSBDataProcessor = None
-
-try:
-    from .bottleneck_gnn import BottleneckGNN
-except ImportError:
-    BottleneckGNN = None
-
-try:
-    from .kan_predictor import BottleneckKANPredictor
-except ImportError:
-    BottleneckKANPredictor = None
-
-__version__ = "2.0.0"
-__author__ = "Simplified Airport Bottleneck Prediction System"
+__version__ = "5.0.0"
+__author__ = "Agentic AI Bottleneck Prediction System with Comprehensive Analysis"
 
 __all__ = [
-    # New simplified components
-    "SimpleMLPPredictor",
-    "SimpleBottleneckPredictor", 
-    "BottleneckPrediction",
-    "SimpleAirportBottleneckModel",
-    "AirportBottleneckModel",
-    
-    # Configuration
-    "SIMPLE_BOTTLENECK_CONFIG",
-    "BOTTLENECK_CONFIG",
-    "MODEL_CONFIG",
-    
-    # Remaining components
-    "FlightMetadataProcessor",
-    "ImpactCalculator",
-    
-    # Backward compatibility (if available)
-    "ADSBDataProcessor",
-    "BottleneckGNN",
-    "BottleneckKANPredictor"
+    "AgenticBottleneckPredictor",
+    "AgenticCerebrasAnalyzer", 
+    "AircraftDatabase",
+    "AircraftInfo",
+    "BottleneckImpact",
+    "PilotCommunication"
 ]

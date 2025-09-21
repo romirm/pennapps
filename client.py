@@ -252,26 +252,65 @@ class ADSBExchangeGroundClient:
             'avg_altitude_ft': sum(altitudes) / len(altitudes) if altitudes else 0
         }
 
-# Predefined airport centroids for ADS-B Exchange
+# Comprehensive airport centroids for ADS-B Exchange
 AIRPORT_CENTROIDS = {
-    'KPHL': {  # Philadelphia International Airport
-        'lat': 39.8720, 'lon': -75.2407
-    },
-    'KJFK': {  # John F. Kennedy International Airport
-        'lat': 40.6413, 'lon': -73.7781
-    },
-    'KLGA': {  # LaGuardia Airport
-        'lat': 40.7769, 'lon': -73.8740
-    },
-    'KEWR': {  # Newark Liberty International Airport
-        'lat': 40.6895, 'lon': -74.1745
-    },
-    'KLAX': {  # Los Angeles International Airport
-        'lat': 33.9425, 'lon': -118.4081
-    },
-    'KORD': {  # Chicago O'Hare International Airport
-        'lat': 41.9786, 'lon': -87.9048
-    }
+    # Major US Airports
+    'KJFK': {'lat': 40.6413, 'lon': -73.7781, 'name': 'John F. Kennedy International Airport', 'city': 'New York'},
+    'KPHL': {'lat': 39.8720, 'lon': -75.2407, 'name': 'Philadelphia International Airport', 'city': 'Philadelphia'},
+    'KLAX': {'lat': 33.9425, 'lon': -118.4081, 'name': 'Los Angeles International Airport', 'city': 'Los Angeles'},
+    'KORD': {'lat': 41.9786, 'lon': -87.9048, 'name': 'Chicago O\'Hare International Airport', 'city': 'Chicago'},
+    'KDFW': {'lat': 32.8968, 'lon': -97.0380, 'name': 'Dallas/Fort Worth International Airport', 'city': 'Dallas'},
+    'KATL': {'lat': 33.6407, 'lon': -84.4277, 'name': 'Hartsfield-Jackson Atlanta International Airport', 'city': 'Atlanta'},
+    'KDEN': {'lat': 39.8561, 'lon': -104.6737, 'name': 'Denver International Airport', 'city': 'Denver'},
+    'KSFO': {'lat': 37.6213, 'lon': -122.3790, 'name': 'San Francisco International Airport', 'city': 'San Francisco'},
+    'KBOS': {'lat': 42.3656, 'lon': -71.0096, 'name': 'Logan International Airport', 'city': 'Boston'},
+    'KSEA': {'lat': 47.4502, 'lon': -122.3088, 'name': 'Seattle-Tacoma International Airport', 'city': 'Seattle'},
+    'KLAS': {'lat': 36.0840, 'lon': -115.1537, 'name': 'McCarran International Airport', 'city': 'Las Vegas'},
+    'KMCO': {'lat': 28.4312, 'lon': -81.3081, 'name': 'Orlando International Airport', 'city': 'Orlando'},
+    'KMIA': {'lat': 25.7959, 'lon': -80.2870, 'name': 'Miami International Airport', 'city': 'Miami'},
+    'KLGA': {'lat': 40.7769, 'lon': -73.8740, 'name': 'LaGuardia Airport', 'city': 'New York'},
+    'KEWR': {'lat': 40.6895, 'lon': -74.1745, 'name': 'Newark Liberty International Airport', 'city': 'Newark'},
+    
+    # International Airports
+    'EGLL': {'lat': 51.4700, 'lon': -0.4543, 'name': 'London Heathrow Airport', 'city': 'London'},
+    'LHR': {'lat': 51.4700, 'lon': -0.4543, 'name': 'London Heathrow Airport', 'city': 'London'},
+    'LFPG': {'lat': 49.0097, 'lon': 2.5479, 'name': 'Charles de Gaulle Airport', 'city': 'Paris'},
+    'CDG': {'lat': 49.0097, 'lon': 2.5479, 'name': 'Charles de Gaulle Airport', 'city': 'Paris'},
+    'RJAA': {'lat': 35.7720, 'lon': 140.3928, 'name': 'Narita International Airport', 'city': 'Tokyo'},
+    'NRT': {'lat': 35.7720, 'lon': 140.3928, 'name': 'Narita International Airport', 'city': 'Tokyo'},
+    'RKSI': {'lat': 37.4602, 'lon': 126.4407, 'name': 'Incheon International Airport', 'city': 'Seoul'},
+    'ICN': {'lat': 37.4602, 'lon': 126.4407, 'name': 'Incheon International Airport', 'city': 'Seoul'},
+    'OMDB': {'lat': 25.2532, 'lon': 55.3657, 'name': 'Dubai International Airport', 'city': 'Dubai'},
+    'DXB': {'lat': 25.2532, 'lon': 55.3657, 'name': 'Dubai International Airport', 'city': 'Dubai'},
+    'WSSS': {'lat': 1.3644, 'lon': 103.9915, 'name': 'Singapore Changi Airport', 'city': 'Singapore'},
+    'SIN': {'lat': 1.3644, 'lon': 103.9915, 'name': 'Singapore Changi Airport', 'city': 'Singapore'},
+    'VHHH': {'lat': 22.3080, 'lon': 113.9185, 'name': 'Hong Kong International Airport', 'city': 'Hong Kong'},
+    'HKG': {'lat': 22.3080, 'lon': 113.9185, 'name': 'Hong Kong International Airport', 'city': 'Hong Kong'},
+    'EDDF': {'lat': 50.0379, 'lon': 8.5622, 'name': 'Frankfurt Airport', 'city': 'Frankfurt'},
+    'EHAM': {'lat': 52.3105, 'lon': 4.7683, 'name': 'Amsterdam Airport Schiphol', 'city': 'Amsterdam'},
+    'LEMD': {'lat': 40.4839, 'lon': -3.5680, 'name': 'Madrid-Barajas Airport', 'city': 'Madrid'},
+    'LIRF': {'lat': 41.8003, 'lon': 12.2389, 'name': 'Leonardo da Vinci International Airport', 'city': 'Rome'},
+    'EGKK': {'lat': 51.1481, 'lon': -0.1903, 'name': 'London Gatwick Airport', 'city': 'London'},
+    'LOWW': {'lat': 48.1103, 'lon': 16.5697, 'name': 'Vienna International Airport', 'city': 'Vienna'},
+    'LSGG': {'lat': 46.2381, 'lon': 6.1090, 'name': 'Geneva Airport', 'city': 'Geneva'},
+    'LFPB': {'lat': 48.9694, 'lon': 2.4414, 'name': 'Paris-Le Bourget Airport', 'city': 'Paris'},
+    
+    # Additional US Airports
+    'KIAH': {'lat': 29.9844, 'lon': -95.3414, 'name': 'George Bush Intercontinental Airport', 'city': 'Houston'},
+    'KDTW': {'lat': 42.2162, 'lon': -83.3554, 'name': 'Detroit Metropolitan Airport', 'city': 'Detroit'},
+    'KMSP': {'lat': 44.8848, 'lon': -93.2223, 'name': 'Minneapolis-Saint Paul International Airport', 'city': 'Minneapolis'},
+    'KCLT': {'lat': 35.2144, 'lon': -80.9473, 'name': 'Charlotte Douglas International Airport', 'city': 'Charlotte'},
+    'KPHX': {'lat': 33.4342, 'lon': -112.0116, 'name': 'Phoenix Sky Harbor International Airport', 'city': 'Phoenix'},
+    'KBWI': {'lat': 39.1774, 'lon': -76.6684, 'name': 'Baltimore/Washington International Airport', 'city': 'Baltimore'},
+    'KSLC': {'lat': 40.7899, 'lon': -111.9791, 'name': 'Salt Lake City International Airport', 'city': 'Salt Lake City'},
+    'KSTL': {'lat': 38.7487, 'lon': -90.3700, 'name': 'St. Louis Lambert International Airport', 'city': 'St. Louis'},
+    'KTPA': {'lat': 27.9755, 'lon': -82.5332, 'name': 'Tampa International Airport', 'city': 'Tampa'},
+    'KPDX': {'lat': 45.5898, 'lon': -122.5951, 'name': 'Portland International Airport', 'city': 'Portland'},
+    'KSAN': {'lat': 32.7338, 'lon': -117.1933, 'name': 'San Diego International Airport', 'city': 'San Diego'},
+    'KAUS': {'lat': 30.1945, 'lon': -97.6699, 'name': 'Austin-Bergstrom International Airport', 'city': 'Austin'},
+    'KNASH': {'lat': 36.1245, 'lon': -86.6782, 'name': 'Nashville International Airport', 'city': 'Nashville'},
+    'KIND': {'lat': 39.7173, 'lon': -86.2944, 'name': 'Indianapolis International Airport', 'city': 'Indianapolis'},
+    'KCMH': {'lat': 40.0018, 'lon': -82.8919, 'name': 'John Glenn Columbus International Airport', 'city': 'Columbus'}
 }
 
 # Usage example with adsb.lol API
@@ -383,16 +422,29 @@ async def run():
         print(f"❌ Test failed: {e}")
 
 class PlaneMonitor:
-    def __init__(self):
+    def __init__(self, airport_code: str = "JFK"):
         self.previous_planes = {'ground': {}, 'air': {}}
-        self.kjfk_centroid = AIRPORT_CENTROIDS['KJFK']
+        self.airport_code = airport_code.upper()
+        
+        # Handle different airport code formats
+        # Try K{code} first (US airports), then try the code directly (international)
+        if f"K{self.airport_code}" in AIRPORT_CENTROIDS:
+            self.airport_centroid = AIRPORT_CENTROIDS[f"K{self.airport_code}"]
+        elif self.airport_code in AIRPORT_CENTROIDS:
+            self.airport_centroid = AIRPORT_CENTROIDS[self.airport_code]
+        else:
+            # Fallback to JFK if not found
+            self.airport_centroid = AIRPORT_CENTROIDS['KJFK']
+            print(f"⚠️ Airport {self.airport_code} not found in mapping, using JFK coordinates")
         
     async def fetch_planes(self):
-        """Fetch planes at KJFK every 10 seconds and detect entering/leaving aircraft"""
+        """Fetch planes at the specified airport and detect entering/leaving aircraft"""
         try:
             async with ADSBExchangeGroundClient() as client:
-                client.register_airport("KJFK", self.kjfk_centroid)
-                aircraft = await client.fetch_airport_data("KJFK", self.kjfk_centroid)
+                # Use the correct ICAO code format
+                icao_code = f"K{self.airport_code}" if f"K{self.airport_code}" in AIRPORT_CENTROIDS else self.airport_code
+                client.register_airport(icao_code, self.airport_centroid)
+                aircraft = await client.fetch_airport_data(icao_code, self.airport_centroid)
                 
                 if aircraft:
                     # Create current state similar to run() function structure
@@ -462,7 +514,7 @@ class PlaneMonitor:
             }
     
     def _detect_changes(self, current_planes):
-        """Detect aircraft that entered or left the KJFK area"""
+        """Detect aircraft that entered or left the airport area"""
         entered = []
         left = []
         
@@ -496,12 +548,17 @@ class PlaneMonitor:
 # Global monitor instance for the standalone fetch_planes function
 _plane_monitor = PlaneMonitor()
 
-async def fetch_planes():
+async def fetch_planes(airport_code: str = "JFK"):
     """
-    Standalone function to fetch planes at KJFK every 10 seconds.
+    Standalone function to fetch planes at specified airport.
     Returns a dictionary with the same structure as run() function,
     but includes additional change detection information.
     """
+    # Update the global monitor with the new airport if different
+    global _plane_monitor
+    if _plane_monitor.airport_code != airport_code.upper():
+        _plane_monitor = PlaneMonitor(airport_code)
+    
     return await _plane_monitor.fetch_planes()
 
 class CerebrasClient:
