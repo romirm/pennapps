@@ -11,8 +11,10 @@ from model.gemini_bottleneck_predictor import GeminiBottleneckPredictor
 import os
 import asyncio
 import threading
+import time
 from datetime import datetime
 from inference import CerebrasClient
+# from ifa_transcriber_lite import get_ifa_lite  # Abandoned - using file-based approach
 
 # Load environment variables from cerebras_config.env
 if os.path.exists("cerebras_config.env"):
@@ -43,10 +45,17 @@ plane_monitor = PlaneMonitor(current_airport)
 cerebras_client = CerebrasClient()
 bottleneck_predictor = AgenticBottleneckPredictor()
 gemini_bottleneck_predictor = GeminiBottleneckPredictor()
+# ifa_lite = get_ifa_lite()  # Abandoned - using file-based approach instead
 
 # Bottleneck tracking for deduplication
 active_bottlenecks = {}  # Dict to track active bottlenecks by key
 bottleneck_timeout_minutes = 15  # Consider bottleneck resolved after 15 minutes of no detection (reduced for better deduplication)
+
+# Gemini API call caching and rate limiting
+gemini_last_call_time = 0
+gemini_call_cache = {}  # Cache results to avoid duplicate calls
+gemini_cache_duration_seconds = 120  # Cache results for 2 minutes
+min_seconds_between_calls = 60  # Minimum 1 minute between Gemini calls
 latest_aircraft_data = {
     "current_planes": {"ground": {}, "air": {}},
     "changes": {"entered": [], "left": []},
@@ -55,6 +64,83 @@ latest_aircraft_data = {
     "airport": current_airport,
 }
 data_lock = threading.Lock()
+
+
+def should_call_gemini_api(aircraft_data_hash: str) -> tuple[bool, str]:
+    """
+    Check if we should make a Gemini API call based on rate limiting and caching
+    Returns (should_call, reason)
+    """
+    global gemini_last_call_time, gemini_call_cache
+
+    current_time = time.time()
+
+    # Check if we have cached results for this exact aircraft data
+    if aircraft_data_hash in gemini_call_cache:
+        cache_entry = gemini_call_cache[aircraft_data_hash]
+        if current_time - cache_entry["timestamp"] < gemini_cache_duration_seconds:
+            return (
+                False,
+                f"Using cached result (age: {int(current_time - cache_entry['timestamp'])}s)",
+            )
+
+    # Check rate limiting
+    if current_time - gemini_last_call_time < min_seconds_between_calls:
+        time_to_wait = min_seconds_between_calls - (
+            current_time - gemini_last_call_time
+        )
+        return False, f"Rate limited (wait {int(time_to_wait)}s more)"
+
+    return True, "API call allowed"
+
+
+def call_gemini_with_cache(aircraft_data, current_airport):
+    """
+    Call Gemini API with caching and rate limiting
+    """
+    global gemini_last_call_time, gemini_call_cache
+    import hashlib
+    import json
+
+    # Create a hash of the aircraft data for caching
+    aircraft_data_str = json.dumps(aircraft_data, sort_keys=True)
+    aircraft_data_hash = hashlib.md5(aircraft_data_str.encode()).hexdigest()
+
+    should_call, reason = should_call_gemini_api(aircraft_data_hash)
+
+    if not should_call:
+        print(f"🚫 Skipping Gemini call: {reason}")
+        if aircraft_data_hash in gemini_call_cache:
+            print(f"📋 Returning cached result")
+            return gemini_call_cache[aircraft_data_hash]["result"]
+        else:
+            print(f"⚠️ No cached result available, skipping this cycle")
+            return None
+
+    print(f"✅ Making Gemini API call: {reason}")
+
+    # Make the actual API call
+    loop = asyncio.get_event_loop()
+    prediction_results = loop.run_until_complete(
+        gemini_bottleneck_predictor.predict_bottlenecks(aircraft_data, current_airport)
+    )
+
+    # Update cache and timing
+    current_time = time.time()
+    gemini_last_call_time = current_time
+    gemini_call_cache[aircraft_data_hash] = {
+        "timestamp": current_time,
+        "result": prediction_results,
+    }
+
+    # Clean old cache entries (keep only last 10 entries)
+    if len(gemini_call_cache) > 10:
+        oldest_key = min(
+            gemini_call_cache.keys(), key=lambda k: gemini_call_cache[k]["timestamp"]
+        )
+        del gemini_call_cache[oldest_key]
+
+    return prediction_results
 
 
 def switch_airport(airport_code: str):
@@ -485,16 +571,19 @@ def enhanced_bottleneck_monitor():
                     f"🔧 DEBUG: Gemini predictor has predict_bottlenecks: {hasattr(gemini_bottleneck_predictor, 'predict_bottlenecks')}"
                 )
 
-                # Predict bottlenecks using GeminiBottleneckPredictor
-                prediction_results = loop.run_until_complete(
-                    gemini_bottleneck_predictor.predict_bottlenecks(
-                        aircraft_data, current_airport
-                    )
+                # Predict bottlenecks using GeminiBottleneckPredictor with caching
+                prediction_results = call_gemini_with_cache(
+                    aircraft_data, current_airport
                 )
 
                 print("🔧 DEBUG: Gemini prediction completed")
                 print(f"🔧 DEBUG: Prediction results type: {type(prediction_results)}")
                 print(f"🔧 DEBUG: Prediction results: {prediction_results}")
+
+                # Skip processing if no results (rate limited or cached skip)
+                if prediction_results is None:
+                    print("⏭️ Skipping bottleneck processing this cycle")
+                    continue
 
                 # Parse the raw JSON response from Gemini
                 import json
@@ -545,7 +634,9 @@ def enhanced_bottleneck_monitor():
                                 )
 
                                 if should_create_new:
-                                    # Feed the JSON from bottleneck directly into advise()
+                                    print("📻 Using file-based ATC chatter context for bottleneck analysis")
+                                    
+                                    # Feed the JSON from bottleneck directly into advise() - reads from transcribed_chatter.txt
                                     cerebras_advice = cerebras_client.advise(
                                         bottleneck, ""
                                     )
@@ -660,6 +751,8 @@ def enhanced_bottleneck_monitor():
                             )
 
                             if should_create_new:
+                                print("📻 Using file-based ATC chatter context for bottleneck analysis")
+
                                 cerebras_advice = cerebras_client.advise(
                                     prediction_data, ""
                                 )
@@ -767,11 +860,11 @@ def enhanced_bottleneck_monitor():
                 traceback.print_exc()
                 print(f"❌ Error in enhanced bottleneck monitoring: {e}")
 
-            print(f"🔧 DEBUG: Waiting 30 seconds before next cycle...")
-            # Wait 30 seconds before next cycle
+            print(f"🔧 DEBUG: Waiting 300 seconds (5 minutes) before next cycle...")
+            # Wait 5 minutes before next cycle to reduce API calls
             import time
 
-            time.sleep(30)
+            time.sleep(300)  # Changed from 30 to 300 seconds (5 minutes)
 
     print("🔧 DEBUG: Starting background thread...")
     # Start background thread
@@ -4207,12 +4300,17 @@ def get_enhanced_bottleneck_prediction():
             current_monitor.fetch_aircrafts_for_bottlenecks()
         )
 
-        # Predict bottlenecks using GeminiBottleneckPredictor
-        prediction_results = loop.run_until_complete(
-            gemini_bottleneck_predictor.predict_bottlenecks(
-                aircraft_data, current_airport
+        # Predict bottlenecks using GeminiBottleneckPredictor with caching
+        prediction_results = call_gemini_with_cache(aircraft_data, current_airport)
+
+        if prediction_results is None:
+            return jsonify(
+                {
+                    "status": "skipped",
+                    "message": "Gemini call skipped due to rate limiting or caching",
+                    "timestamp": datetime.now().isoformat(),
+                }
             )
-        )
 
         return jsonify(
             {
@@ -4248,12 +4346,17 @@ def get_bottlenecks():
             current_monitor.fetch_aircrafts_for_bottlenecks()
         )
 
-        # Predict bottlenecks using GeminiBottleneckPredictor
-        prediction_results = loop.run_until_complete(
-            gemini_bottleneck_predictor.predict_bottlenecks(
-                aircraft_data, current_airport
+        # Predict bottlenecks using GeminiBottleneckPredictor with caching
+        prediction_results = call_gemini_with_cache(aircraft_data, current_airport)
+
+        if prediction_results is None:
+            return jsonify(
+                {
+                    "status": "skipped",
+                    "message": "Gemini call skipped due to rate limiting or caching",
+                    "timestamp": datetime.now().isoformat(),
+                }
             )
-        )
 
         # Check if bottleneck is detected
         bottleneck_likelihood = prediction_results.severity_score
@@ -4291,8 +4394,12 @@ def get_bottlenecks():
                 ],
             }
 
-            # Get Cerebras action plan
-            cerebras_advice = cerebras_client.advise(bottleneck_data, "")
+            print("📻 Using file-based ATC chatter context for manual bottleneck analysis")
+
+            # Get Cerebras action plan - reads from transcribed_chatter.txt
+            cerebras_advice = cerebras_client.advise(
+                bottleneck_data, ""
+            )
 
             # Parse Cerebras advice if it's JSON - apply same cleaning as predict_bottlenecks
             try:
@@ -4341,6 +4448,28 @@ def get_bottlenecks():
 
     except Exception as e:
         return jsonify({"error": f"Failed to get bottlenecks: {str(e)}"}), 500
+
+
+# File-based ATC Chatter API endpoints
+@app.route("/api/atc-chatter-file", methods=["GET"])
+def get_atc_chatter_from_file():
+    """Get ATC chatter from transcribed_chatter.txt file"""
+    try:
+        minutes_back = request.args.get("minutes", 15, type=int)
+        
+        # Use the same function as Cerebras client
+        chatter_content = cerebras_client._read_transcribed_chatter(minutes_back)
+        
+        return jsonify({
+            "status": "success",
+            "chatter_content": chatter_content,
+            "minutes_back": minutes_back,
+            "timestamp": datetime.now().isoformat()
+        })
+    except Exception as e:
+        return jsonify({"error": f"Failed to read ATC chatter file: {str(e)}"}), 500
+
+
 
 
 if __name__ == "__main__":
