@@ -651,7 +651,6 @@
             <div class="controls">
                 <button class="control-button" onclick="resetView()">Reset View</button>
                 <button class="control-button" onclick="loadSampleAircraftData()">Load Aircraft</button>
-                <button class="control-button" onclick="loadSampleBottleneckData()">Test Bottlenecks</button>
                 <button class="control-button" onclick="clearBottleneckData()">Clear Bottlenecks</button>
             </div>
     </div>
@@ -798,18 +797,6 @@
 
     <div class="coordinates" id="coordinates">
         X: 0, Y: 0
-    </div>
-
-    <div class="status-bar">
-        <div class="status-left">
-            <div class="status-indicator">
-                <div class="status-dot"></div>
-                <span>Live View</span>
-            </div>
-            <div>{{ airport_code }} Active</div>
-            <div>Scale: 1:1000</div>
-        </div>
-        <div>ATC Visualizer v2.0</div>
     </div>
 
     <script>
@@ -1335,52 +1322,6 @@
             draw(); // Redraw without bottlenecks
         }
 
-        // Demo function to load sample bottleneck data
-        function loadSampleBottleneckData() {
-            const sampleData = {
-                bottlenecks: [
-                    {
-                        id: "taxiway_intersection",
-                        type: "taxiway_intersection",
-                        canvas_x: canvas.width / 2 + 50,
-                        canvas_y: canvas.height / 2 - 30,
-                        radius_pixels: 40,
-                        color: "#ffaa44",
-                        opacity: 0.8,
-                        severity: 3,
-                        probability: 0.75,
-                        aircraft_count: 2,
-                        passengers_affected: 180,
-                        fuel_waste: 45.0,
-                        economic_impact: 5250.00,
-                        recommendations: [
-                            {
-                                action: "Implement ground traffic sequencing",
-                                priority: "medium",
-                                estimated_effectiveness: 0.7,
-                                implementation_time: 3.0
-                            }
-                        ]
-                    }
-                ],
-                impact_summary: {
-                    total_passengers_affected: 180,
-                    total_fuel_waste_gallons: 45.0,
-                    total_economic_impact_usd: 5250.00,
-                    total_co2_emissions_lbs: 950.0,
-                    average_delay_minutes: 12
-                },
-                airport_summary: {
-                    total_bottlenecks_predicted: 1,
-                    highest_severity_level: 3,
-                    total_passengers_at_risk: 180,
-                    total_fuel_waste_estimate: 45.0,
-                    overall_delay_risk: "medium"
-                }
-            };
-            
-            loadBottleneckData(sampleData);
-        }
 
         // Main draw function
         function draw() {

@@ -3489,3 +3489,2260 @@ Risk Assessment:
   - AI Risk Assessment: N/A...
 
 ================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:38:08.224045 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 15
+  - Ground: 12
+  - Low Altitude: 2
+  - High Altitude: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2700
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:38:09.424928 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 15
+  - Ground: 12
+  - Low Altitude: 2
+  - High Altitude: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2700
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:38:43.140409 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 15
+  - Ground: 12
+  - Low Altitude: 1
+  - High Altitude: 2
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2700
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:38:43.654988 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 15
+  - Ground: 12
+  - Low Altitude: 1
+  - High Altitude: 2
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2700
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:39:18.075838 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 12
+  - Low Altitude: 1
+  - High Altitude: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:39:18.618609 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 12
+  - Low Altitude: 1
+  - High Altitude: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:39:52.326920 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 12
+  - Low Altitude: 1
+  - High Altitude: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:39:52.849542 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 12
+  - Low Altitude: 1
+  - High Altitude: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:40:26.872518 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 12
+  - Low Altitude: 0
+  - High Altitude: 2
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:40:27.696983 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 12
+  - Low Altitude: 0
+  - High Altitude: 2
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:41:01.955512 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 13
+  - Low Altitude: 0
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:41:01.955565 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 13
+  - Low Altitude: 0
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:41:36.216631 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 13
+  - Low Altitude: 0
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:41:36.340341 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 13
+  - Low Altitude: 0
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:42:12.488591 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 15
+  - Ground: 13
+  - Low Altitude: 0
+  - High Altitude: 2
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2700
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:42:14.129334 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 15
+  - Ground: 13
+  - Low Altitude: 0
+  - High Altitude: 2
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2700
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:42:46.778933 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 11
+  - Low Altitude: 0
+  - High Altitude: 2
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:42:48.569826 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 11
+  - Low Altitude: 0
+  - High Altitude: 2
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:43:21.075855 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 11
+  - Low Altitude: 0
+  - High Altitude: 2
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:43:22.740634 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 11
+  - Low Altitude: 0
+  - High Altitude: 2
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:43:55.189277 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 12
+  - Low Altitude: 0
+  - High Altitude: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:43:57.149318 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 12
+  - Low Altitude: 0
+  - High Altitude: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:44:29.361893 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 13
+  - Low Altitude: 0
+  - High Altitude: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:44:32.329673 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 13
+  - Low Altitude: 0
+  - High Altitude: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:45:03.461443 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 13
+  - Low Altitude: 0
+  - High Altitude: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:45:06.701538 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 12
+  - Low Altitude: 0
+  - High Altitude: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:45:38.187067 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 12
+  - Low Altitude: 1
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:45:41.330656 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 13
+  - Ground: 12
+  - Low Altitude: 1
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2340
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:46:12.938430 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 13
+  - Low Altitude: 1
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:46:16.134515 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 13
+  - Low Altitude: 1
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:46:47.188650 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 15
+  - Ground: 13
+  - Low Altitude: 2
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2700
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:46:50.812296 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 15
+  - Ground: 13
+  - Low Altitude: 2
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2700
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:47:21.469688 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 12
+  - Low Altitude: 2
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:47:25.752830 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 14
+  - Ground: 12
+  - Low Altitude: 2
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2520
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:47:56.086182 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 15
+  - Ground: 13
+  - Low Altitude: 2
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2700
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:48:00.622779 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 15
+  - Ground: 13
+  - Low Altitude: 2
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2700
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:49:09.324188 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 17
+  - Ground: 13
+  - Low Altitude: 4
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 3060
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-20T23:49:09.821156 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 17
+  - Ground: 13
+  - Low Altitude: 4
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 3060
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T00:10:04.713515 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 12
+  - Ground: 9
+  - Low Altitude: 3
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2160
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T00:10:05.941217 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 12
+  - Ground: 9
+  - Low Altitude: 3
+  - High Altitude: 0
+  - Density Score: 100.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 2160
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T00:10:39.419841 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 11
+  - Ground: 8
+  - Low Altitude: 3
+  - High Altitude: 0
+  - Density Score: 89.5/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1980
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T00:10:40.346906 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 11
+  - Ground: 8
+  - Low Altitude: 3
+  - High Altitude: 0
+  - Density Score: 89.5/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1980
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T00:11:13.899300 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 11
+  - Ground: 8
+  - Low Altitude: 2
+  - High Altitude: 1
+  - Density Score: 86.8/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1980
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T00:11:15.086211 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 11
+  - Ground: 8
+  - Low Altitude: 2
+  - High Altitude: 1
+  - Density Score: 86.8/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1980
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T01:48:29.449043 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 11
+  - Ground: 8
+  - Low Altitude: 3
+  - High Altitude: 0
+  - Density Score: 94.5/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1980
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T01:48:32.196828 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 11
+  - Ground: 8
+  - Low Altitude: 3
+  - High Altitude: 0
+  - Density Score: 94.5/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1980
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T01:52:33.822674 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 9
+  - Ground: 8
+  - Low Altitude: 1
+  - High Altitude: 0
+  - Density Score: 87.8/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1620
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T01:52:43.969585 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 10
+  - Ground: 9
+  - Low Altitude: 1
+  - High Altitude: 0
+  - Density Score: 93.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1800
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T01:53:09.922906 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 10
+  - Ground: 9
+  - Low Altitude: 1
+  - High Altitude: 0
+  - Density Score: 93.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1800
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T01:53:20.678573 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 10
+  - Ground: 9
+  - Low Altitude: 1
+  - High Altitude: 0
+  - Density Score: 93.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1800
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T01:58:18.727146 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 9
+  - Ground: 8
+  - Low Altitude: 1
+  - High Altitude: 0
+  - Density Score: 92.8/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1620
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T01:58:20.480686 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 9
+  - Ground: 8
+  - Low Altitude: 1
+  - High Altitude: 0
+  - Density Score: 92.8/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1620
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T01:58:54.798564 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 10
+  - Ground: 9
+  - Low Altitude: 1
+  - High Altitude: 0
+  - Density Score: 98.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1800
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T02:02:38.034768 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 9
+  - Ground: 7
+  - Low Altitude: 2
+  - High Altitude: 0
+  - Density Score: 85.6/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1620
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T02:02:51.143512 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 9
+  - Ground: 7
+  - Low Altitude: 2
+  - High Altitude: 0
+  - Density Score: 85.6/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1620
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T02:06:21.618944 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 7
+  - Ground: 7
+  - Low Altitude: 0
+  - High Altitude: 0
+  - Density Score: 85.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1260
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T02:06:23.657561 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 7
+  - Ground: 7
+  - Low Altitude: 0
+  - High Altitude: 0
+  - Density Score: 85.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1260
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T02:16:58.078949 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 8
+  - Ground: 7
+  - Low Altitude: 0
+  - High Altitude: 1
+  - Density Score: 78.8/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1440
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T02:16:59.933861 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 8
+  - Ground: 7
+  - Low Altitude: 0
+  - High Altitude: 1
+  - Density Score: 78.8/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1440
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T02:17:33.872337 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 7
+  - Ground: 7
+  - Low Altitude: 0
+  - High Altitude: 0
+  - Density Score: 85.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1260
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================
+
+=== Agentic AI Bottleneck Analysis - 2025-09-21T02:17:35.992137 ===
+Airport: JFK
+Analysis Type: fallback_heuristic
+AI Agent Version: fallback
+Confidence Score: 60.0%
+
+Traffic Analysis:
+  - Total Aircraft: 7
+  - Ground: 7
+  - Low Altitude: 0
+  - High Altitude: 0
+  - Density Score: 85.0/100
+  - Hotspots: 5
+
+Bottleneck Analysis:
+  - AI Analysis: N/A...
+  - Bottleneck Count: 0
+
+Impact Analysis:
+  - Passengers Affected: 1260
+  - Fuel Capacity at Risk: 0 gallons
+  - AI Assessment: N/A...
+
+Cost Analysis:
+  - Aircraft Count: 0
+  - AI Cost Analysis: N/A...
+
+Mitigation Strategies:
+  - Strategy Count: 0
+  - AI Strategies: N/A...
+
+Risk Assessment:
+  - Risk Categories: 0
+  - AI Risk Assessment: N/A...
+
+================================================================================

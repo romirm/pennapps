@@ -510,6 +510,56 @@ class PlaneMonitor:
                 'error': str(e)
             }
     
+    async def fetch_aircrafts_for_bottlenecks(self) -> List[Dict]:
+        """
+        Fetch aircraft data for bottleneck analysis.
+        Returns a list of dicts with keys: flight, altitude, lat, lon
+        """
+        try:
+            async with ADSBExchangeGroundClient() as client:
+                # Use the correct ICAO code format
+                icao_code = f"K{self.airport_code}" if f"K{self.airport_code}" in AIRPORT_CENTROIDS else self.airport_code
+                client.register_airport(icao_code, self.airport_centroid)
+                
+                # Get raw aircraft data from ADS-B Exchange
+                raw_aircraft = await client.fetch_airport_data(icao_code, self.airport_centroid)
+                
+                # Transform the data to the required format
+                aircraft_for_bottlenecks = []
+                
+                for ac in raw_aircraft:
+                    # Extract flight identifier
+                    flight = ac.get('flight', 'Unknown')
+                    
+                    # Determine altitude - set to 'ground' if aircraft is on the ground
+                    altitude = ac.get('alt_baro')
+                    if altitude == "ground" or altitude is None:
+                        altitude = "ground"
+                    else:
+                        try:
+                            altitude = float(altitude)
+                        except (ValueError, TypeError):
+                            altitude = "ground"
+                    
+                    # Extract coordinates
+                    lat = ac.get('lat')
+                    lon = ac.get('lon')
+                    
+                    # Only include aircraft with valid coordinates
+                    if lat is not None and lon is not None:
+                        aircraft_for_bottlenecks.append({
+                            'flight': flight,
+                            'altitude': altitude,
+                            'lat': lat,
+                            'lon': lon
+                        })
+                
+                return aircraft_for_bottlenecks
+                
+        except Exception as e:
+            print(f"❌ Error in fetch_aircrafts_for_bottlenecks: {e}")
+            return []
+    
     def _detect_changes(self, current_planes):
         """Detect aircraft that entered or left the airport area"""
         entered = []
