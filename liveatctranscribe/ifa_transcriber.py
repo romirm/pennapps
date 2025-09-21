@@ -43,8 +43,10 @@ except ImportError as e:
 class JFKContextualTranscriber(FastATCTranscriber):
     """Enhanced FastATCTranscriber with JFK-specific context and knowledge"""
 
-    def explain_atc_communication(self, transcription: str) -> Optional[str]:
-        """Enhanced explanation with comprehensive JFK context"""
+    def explain_atc_communication(
+        self, transcription: str, aircraft_context: Optional[Dict[str, Any]] = None
+    ) -> Optional[str]:
+        """Enhanced explanation with comprehensive JFK context and real-time aircraft data"""
         if not self.cerebras_api_key:
             return "⚠️  Cerebras API key not configured"
 
@@ -62,6 +64,13 @@ class JFKContextualTranscriber(FastATCTranscriber):
                     context_section += f'{i}. "{prev_msg}"\n'
                 context_section += "\n"
 
+            # Build aircraft context section
+            aircraft_context_section = ""
+            if aircraft_context:
+                aircraft_context_section = self._build_aircraft_context_prompt(
+                    aircraft_context
+                )
+
             # Enhanced JFK-specific prompt
             prompt = f"""You are an expert ATC interpreter for JOHN F. KENNEDY INTERNATIONAL AIRPORT (KJFK) operations analyzing transcribed audio.
 
@@ -71,6 +80,8 @@ ENHANCED JFK CONTEXT:
 - Tower: 119.1 (04R/22L, 13L/31R), 123.9 (04L/22R, 13R/31L)
 - Major taxiways: A, B, C, D, K (Kilo), complex hot spots
 - Terminals: T1 (1-11), T4 (A1-A8, B20-B48), T5 (1-30 JetBlue), T7 (1-12), T8 (1-59 American)
+
+{aircraft_context_section}
 
 Your job for AI agent training:
 1) Identify all aircraft callsigns and their operational status
@@ -127,6 +138,67 @@ Current Communication: "{transcription}"
         except Exception as e:
             return f"⚠️  API Error: {str(e)}"
 
+    def _build_aircraft_context_prompt(self, aircraft_context: Dict[str, Any]) -> str:
+        """Build aircraft context section for the prompt"""
+        context_lines = ["REAL-TIME AIRCRAFT CONTEXT:"]
+
+        # Ground aircraft
+        ground_aircraft = aircraft_context.get("jfk_ground_aircraft", [])
+        if ground_aircraft:
+            context_lines.append(
+                f"\nGROUND AIRCRAFT ({len(ground_aircraft)} aircraft):"
+            )
+            for aircraft in ground_aircraft[:10]:  # Limit to first 10 for prompt size
+                callsign = aircraft.get("callsign", "Unknown")
+                aircraft_type = aircraft.get(
+                    "aircraft_type_description",
+                    aircraft.get("aircraft_type", "Unknown"),
+                )
+                flight_phase = aircraft.get("flight_phase", "unknown")
+                runway_proximity = aircraft.get("runway_proximity", "unknown location")
+                airport_area = aircraft.get("airport_area", "unknown area")
+                speed = aircraft.get("speed", "N/A")
+
+                context_lines.append(
+                    f"  • {callsign}: {aircraft_type}, {flight_phase}, {runway_proximity}, {airport_area} (speed: {speed} kts)"
+                )
+
+        # Air aircraft
+        air_aircraft = aircraft_context.get("jfk_air_aircraft", [])
+        if air_aircraft:
+            context_lines.append(f"\nAIR AIRCRAFT ({len(air_aircraft)} aircraft):")
+            for aircraft in air_aircraft[:5]:  # Limit to first 5 for prompt size
+                callsign = aircraft.get("callsign", "Unknown")
+                aircraft_type = aircraft.get(
+                    "aircraft_type_description",
+                    aircraft.get("aircraft_type", "Unknown"),
+                )
+                flight_phase = aircraft.get("flight_phase", "unknown")
+                altitude = aircraft.get("altitude", "N/A")
+                speed = aircraft.get("speed", "N/A")
+
+                context_lines.append(
+                    f"  • {callsign}: {aircraft_type}, {flight_phase}, {altitude} ft, {speed} kts"
+                )
+
+        # Runway occupancy
+        runway_occupancy = aircraft_context.get("runway_occupancy", {})
+        if runway_occupancy:
+            context_lines.append(f"\nRUNWAY OCCUPANCY:")
+            for runway, count in runway_occupancy.items():
+                if count is not None and isinstance(count, (int, float)) and count > 0:
+                    context_lines.append(f"  • {runway}: {count} aircraft")
+                elif count is not None and not isinstance(count, (int, float)):
+                    # Handle string callsigns (like "DAL671")
+                    context_lines.append(f"  • {runway}: {count}")
+
+        context_lines.append(
+            f"\nTotal JFK area aircraft: {aircraft_context.get('total_aircraft_count', 0)}"
+        )
+        context_lines.append("")  # Empty line for formatting
+
+        return "\n".join(context_lines)
+
 
 class InformedATCTranscriber:
     """Main orchestrator for informed ATC transcription with aircraft state correlation"""
@@ -171,19 +243,19 @@ class InformedATCTranscriber:
                 if transcription and len(transcription.strip()) > 5:
                     print(f"\n📝 ATC Transcription: {transcription}")
 
-                    # Get enhanced explanation
+                    # Fetch aircraft state at transcription completion (simplified timing approach)
+                    print("🛩️ Fetching correlated aircraft state...")
+                    aircraft_state = asyncio.run(
+                        self.aircraft_manager.get_current_aircraft_state()
+                    )
+
+                    # Get enhanced explanation with aircraft context
                     explanation = self.transcriber.explain_atc_communication(
-                        transcription
+                        transcription, aircraft_state
                     )
 
                     if explanation:
                         print(f"💡 Enhanced JFK Analysis: {explanation}")
-
-                        # Fetch aircraft state at transcription completion (simplified timing approach)
-                        print("🛩️ Fetching correlated aircraft state...")
-                        aircraft_state = asyncio.run(
-                            self.aircraft_manager.get_current_aircraft_state()
-                        )
 
                         # DEBUG: Print aircraft names being passed to transcription interpreter
                         ground_aircraft = aircraft_state.get("jfk_ground_aircraft", [])
@@ -233,18 +305,11 @@ class InformedATCTranscriber:
                         total_aircraft = aircraft_state.get("total_aircraft_count", 0)
                         print(f"   📊 Total aircraft in JFK area: {total_aircraft}")
 
-                        # DEBUG: Show data structure for debugging
-                        print(
-                            f"🔍 DEBUG: Ground aircraft data structure type: {type(ground_aircraft)}"
-                        )
                         if ground_aircraft and len(ground_aircraft) > 0:
                             first_ground = (
                                 ground_aircraft[0]
                                 if isinstance(ground_aircraft, list)
                                 else list(ground_aircraft.values())[0]
-                            )
-                            print(
-                                f"🔍 DEBUG: Sample ground aircraft keys: {list(first_ground.keys()) if isinstance(first_ground, dict) else 'Not a dict'}"
                             )
 
                         # Parse command for structured data

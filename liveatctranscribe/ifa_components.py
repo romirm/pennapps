@@ -221,17 +221,25 @@ class AircraftStateManager:
             # Calculate runway occupancy (basic implementation)
             runway_occupancy = self._calculate_runway_occupancy(ground_aircraft)
 
-            # Add flight numbers as callsign field to each aircraft record
+            # Add flight numbers as callsign field and enhance with contextual data
             ground_aircraft_with_callsigns = []
             for flight_number, aircraft_data_item in ground_aircraft.items():
                 aircraft_with_callsign = aircraft_data_item.copy()
                 aircraft_with_callsign["callsign"] = flight_number
+                # Add contextual enhancements
+                aircraft_with_callsign = self._enhance_aircraft_context(
+                    aircraft_with_callsign
+                )
                 ground_aircraft_with_callsigns.append(aircraft_with_callsign)
 
             air_aircraft_with_callsigns = []
             for flight_number, aircraft_data_item in air_aircraft.items():
                 aircraft_with_callsign = aircraft_data_item.copy()
                 aircraft_with_callsign["callsign"] = flight_number
+                # Add contextual enhancements
+                aircraft_with_callsign = self._enhance_aircraft_context(
+                    aircraft_with_callsign
+                )
                 air_aircraft_with_callsigns.append(aircraft_with_callsign)
 
             return {
@@ -248,7 +256,170 @@ class AircraftStateManager:
             print(f"❌ Error fetching aircraft state: {e}")
             return self._get_empty_state(error=str(e))
 
-    def _get_empty_state(self, error: str = None) -> Dict[str, Any]:
+    def _enhance_aircraft_context(self, aircraft: Dict[str, Any]) -> Dict[str, Any]:
+        """Enhance aircraft data with contextual information for transcription"""
+        enhanced = aircraft.copy()
+
+        # Aircraft type context
+        aircraft_type = aircraft.get("aircraft_type", "Unknown")
+        enhanced["aircraft_type_description"] = self._get_aircraft_type_description(
+            aircraft_type
+        )
+
+        # Flight phase detection
+        altitude = aircraft.get("altitude", 0)
+        speed = aircraft.get("speed", 0)
+
+        try:
+            altitude_num = (
+                float(altitude) if altitude != "N/A" and altitude is not None else 0
+            )
+            speed_num = float(speed) if speed != "N/A" and speed is not None else 0
+        except (ValueError, TypeError):
+            altitude_num = 0
+            speed_num = 0
+
+        enhanced["flight_phase"] = self._detect_flight_phase(altitude_num, speed_num)
+
+        # Position context relative to JFK
+        lat = aircraft.get("lat")
+        lon = aircraft.get("lon")
+        if lat is not None and lon is not None and lat != "N/A" and lon != "N/A":
+            # The helper methods now handle None values internally
+            enhanced["runway_proximity"] = self._calculate_runway_proximity(lat, lon)
+            enhanced["airport_area"] = self._determine_airport_area(lat, lon)
+        else:
+            enhanced["runway_proximity"] = "no_position_data"
+            enhanced["airport_area"] = "no_position_data"
+
+        return enhanced
+
+    def _get_aircraft_type_description(self, aircraft_type: str) -> str:
+        """Get human-readable aircraft type description"""
+        # Common aircraft types at JFK
+        aircraft_types = {
+            "A359": "Airbus A350-900 (wide-body, long-haul)",
+            "A21N": "Airbus A321neo (narrow-body)",
+            "B738": "Boeing 737-800 (narrow-body)",
+            "B77W": "Boeing 777-300ER (wide-body, long-haul)",
+            "B789": "Boeing 787-9 (wide-body, long-haul)",
+            "A388": "Airbus A380 (double-deck, very heavy)",
+            "B748": "Boeing 747-8 (wide-body, very heavy)",
+            "A333": "Airbus A330-300 (wide-body)",
+            "B763": "Boeing 767-300 (wide-body)",
+            "A320": "Airbus A320 (narrow-body)",
+            "B737": "Boeing 737 (narrow-body)",
+            "E190": "Embraer E190 (regional jet)",
+            "CRJ9": "Bombardier CRJ-900 (regional jet)",
+            "BCS3": "Airbus A220-300 (narrow-body)",
+        }
+        return aircraft_types.get(aircraft_type, f"{aircraft_type} (unknown type)")
+
+    def _detect_flight_phase(self, altitude: float, speed: float) -> str:
+        """Detect flight phase based on altitude and speed"""
+        # Handle None values safely
+        if altitude is None:
+            altitude = 0
+        if speed is None:
+            speed = 0
+
+        # Convert to float if needed
+        try:
+            altitude = float(altitude) if altitude != "ground" else 0
+            speed = float(speed)
+        except (ValueError, TypeError):
+            return "unknown_phase"
+
+        if altitude == 0 or altitude == "ground":
+            if speed < 3:
+                return "parked/stationary"
+            elif speed < 30:
+                return "taxiing"
+            else:
+                return "takeoff_roll"
+        elif altitude < 500:
+            if speed > 100:
+                return "takeoff_climb"
+            else:
+                return "approach_final"
+        elif altitude < 3000:
+            if speed > 200:
+                return "departure_climb"
+            else:
+                return "approach_descent"
+        else:
+            return "en_route"
+
+    def _calculate_runway_proximity(self, lat: float, lon: float) -> str:
+        """Calculate proximity to JFK runways"""
+        # Handle None values
+        if lat is None or lon is None:
+            return "unknown_location"
+
+        try:
+            lat = float(lat)
+            lon = float(lon)
+        except (ValueError, TypeError):
+            return "invalid_coordinates"
+
+        # JFK runway coordinates (approximate thresholds)
+        jfk_runways = {
+            "04L/22R": {"lat": 40.6413, "lon": -73.7781},
+            "04R/22L": {"lat": 40.6295, "lon": -73.7624},
+            "08L/26R": {"lat": 40.6518, "lon": -73.7858},
+            "08R/26L": {"lat": 40.6476, "lon": -73.7624},
+            "13L/31R": {"lat": 40.6200, "lon": -73.7900},
+            "13R/31L": {"lat": 40.6500, "lon": -73.7700},
+        }
+
+        closest_runway = None
+        min_distance = float("inf")
+
+        for runway, coords in jfk_runways.items():
+            # Simple distance calculation
+            distance = ((lat - coords["lat"]) ** 2 + (lon - coords["lon"]) ** 2) ** 0.5
+            if distance < min_distance:
+                min_distance = distance
+                closest_runway = runway
+
+        # Convert to approximate distance in feet (very rough)
+        distance_feet = min_distance * 364000  # Rough conversion
+
+        if distance_feet < 500:
+            return f"on/near {closest_runway}"
+        elif distance_feet < 2000:
+            return f"close to {closest_runway}"
+        else:
+            return f"distant from runways"
+
+    def _determine_airport_area(self, lat: float, lon: float) -> str:
+        """Determine which area of JFK the aircraft is in"""
+        # Handle None values
+        if lat is None or lon is None:
+            return "unknown_area"
+
+        try:
+            lat = float(lat)
+            lon = float(lon)
+        except (ValueError, TypeError):
+            return "invalid_coordinates"
+
+        # JFK terminal areas (approximate)
+        jfk_lat = 40.6413
+        jfk_lon = -73.7781
+
+        # Relative to JFK center
+        lat_offset = lat - jfk_lat
+        lon_offset = lon - jfk_lon
+
+        if abs(lat_offset) < 0.005 and abs(lon_offset) < 0.005:
+            return "terminal_area"
+        elif lat_offset > 0:
+            return "north_field"
+        else:
+            return "south_field"
+
+    def _get_empty_state(self, error: Optional[str] = None) -> Dict[str, Any]:
         """Return empty aircraft state structure"""
         state = {
             "all_aircraft": [],
@@ -296,7 +467,7 @@ class ValidationDatasetBuilder:
 
     def __init__(self, records_per_file: int = 100):
         self.records_per_file = records_per_file
-        self.current_batch = []
+        self.current_batch: List[Dict[str, Any]] = []
         self.file_counter = 1
         self.total_records = 0
 
