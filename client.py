@@ -493,6 +493,71 @@ class PlaneMonitor:
             'left': left
         }
 
+    def analyze_routes(self, flight_numbers):
+        """
+        Analyze routes for given flight numbers by hitting the ADSB API.
+        
+        Args:
+            flight_numbers (list): Array of flight numbers/callsigns to analyze
+            
+        Returns:
+            dict: Dictionary mapping flight numbers to their destination airports
+        """
+        destination_airports = {}
+        
+        for flight_number in flight_numbers:
+            try:
+                # Prepare the request payload
+                payload = {'callsign': flight_number, "lat": 0,
+      "lng": 0}
+                
+                # Make POST request to the routeset endpoint
+                response = requests.post(
+                    'https://api.adsb.lol/api/0/routeset',
+                    json=payload,
+                    timeout=10
+                )
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    
+                    # Extract destination airport from the response
+                    # The exact structure depends on the API response format
+                    if 'route' in data and data['route']:
+                        # Assuming the route contains destination info
+                        route = data['route']
+                        if isinstance(route, list) and len(route) > 0:
+                            # Get the last airport in the route as destination
+                            destination = route[-1]
+                            destination_airports[flight_number] = destination
+                        elif isinstance(route, dict) and 'destination' in route:
+                            destination_airports[flight_number] = route['destination']
+                        else:
+                            destination_airports[flight_number] = 'Unknown'
+                    elif 'destination' in data:
+                        destination_airports[flight_number] = data['destination']
+                    else:
+                        destination_airports[flight_number] = 'No route data'
+                        
+                else:
+                    print(f"API request failed for {flight_number}: Status {response.status_code}")
+                    destination_airports[flight_number] = f"API Error: {response.status_code}"
+                    
+            except requests.exceptions.Timeout:
+                print(f"Timeout error for flight {flight_number}")
+                destination_airports[flight_number] = "Timeout"
+            except requests.exceptions.RequestException as e:
+                print(f"Request error for flight {flight_number}: {e}")
+                destination_airports[flight_number] = f"Request Error: {str(e)}"
+            except json.JSONDecodeError:
+                print(f"JSON decode error for flight {flight_number}")
+                destination_airports[flight_number] = "Invalid JSON response"
+            except Exception as e:
+                print(f"Unexpected error for flight {flight_number}: {e}")
+                destination_airports[flight_number] = f"Error: {str(e)}"
+        
+        return destination_airports
+
 # Global monitor instance for the standalone fetch_planes function
 _plane_monitor = PlaneMonitor()
 
