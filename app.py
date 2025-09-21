@@ -3,9 +3,54 @@ import requests
 import json
 from airport_data_fetcher import get_airport_data_for_app
 from world_data_processor import get_world_airport_data
+from client import PlaneMonitor
 import os
+import asyncio
+import threading
+from datetime import datetime
 
 app = Flask(__name__)
+
+# Global plane monitor instance and data storage
+plane_monitor = PlaneMonitor()
+latest_aircraft_data = {
+    'current_planes': {'ground': {}, 'air': {}},
+    'changes': {'entered': [], 'left': []},
+    'timestamp': datetime.now().isoformat(),
+    'total_aircraft': 0
+}
+data_lock = threading.Lock()
+
+# Background task to continuously fetch aircraft data
+def background_aircraft_monitor():
+    """Background task that runs every 3 seconds to fetch aircraft data"""
+    def run_async():
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        while True:
+            try:
+                # Fetch latest aircraft data using the PlaneMonitor instance
+                aircraft_data = loop.run_until_complete(plane_monitor.fetch_planes())
+                
+                # Update global data with thread lock
+                with data_lock:
+                    global latest_aircraft_data
+                    latest_aircraft_data = aircraft_data
+                
+                print(f"🛩️ Updated aircraft data: {aircraft_data['total_aircraft']} aircraft, {len(aircraft_data['changes']['entered'])} entered, {len(aircraft_data['changes']['left'])} left")
+                
+            except Exception as e:
+                print(f"❌ Error fetching aircraft data: {e}")
+            
+            # Wait 10 seconds before next fetch
+            import time
+            time.sleep(3)
+    
+    # Start background thread
+    thread = threading.Thread(target=run_async, daemon=True)
+    thread.start()
+    return thread
 
 # Function to fetch airport data from free APIs
 def fetch_airport_data(icao_code):
@@ -910,6 +955,12 @@ def world_airport(code):
                              message=f"Error loading world data: {str(e)}",
                              back_url='/')
 
+@app.route('/api/aircraft-data')
+def get_aircraft_data():
+    """API endpoint to get latest aircraft data"""
+    with data_lock:
+        return jsonify(latest_aircraft_data)
+
 @app.route('/api/search')
 def search():
     query = request.args.get('q', '').upper()
@@ -948,4 +999,8 @@ def search():
     return jsonify(matches[:5])  # Return top 5 matches
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Start background aircraft monitoring
+    print("🚁 Starting aircraft monitoring...")
+    background_aircraft_monitor()
+    
+    app.run(debug=True, host='0.0.0.0', port=5001)
