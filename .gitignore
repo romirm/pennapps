@@ -1,5 +1,8 @@
 node_modules
 __pycache__
-.env
+venv/*
+venv
+venv/
+venv/bin/
 gemini_config.env
 cerebras_config.env

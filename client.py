@@ -268,14 +268,6 @@ class ADSBExchangeGroundClient:
         }
 
 
-# Comprehensive airport centroids for ADS-B Exchange
-AIRPORT_CENTROIDS = {
-    "KPHL": {"lat": 39.8720, "lon": -75.2407},  # Philadelphia International Airport
-    "KJFK": {"lat": 40.6413, "lon": -73.7781},  # John F. Kennedy International Airport
-    "KLGA": {"lat": 40.7769, "lon": -73.8740},  # LaGuardia Airport
-    "KEWR": {"lat": 40.6895, "lon": -74.1745},  # Newark Liberty International Airport
-    "KLAX": {"lat": 33.9425, "lon": -118.4081},  # Los Angeles International Airport
-    "KORD": {"lat": 41.9786, "lon": -87.9048},  # Chicago O'Hare International Airport
 }
 
 
@@ -398,17 +390,32 @@ async def run():
 
 
 class PlaneMonitor:
-    def __init__(self):
-        self.previous_planes = {"ground": {}, "air": {}}
-        self.kjfk_centroid = AIRPORT_CENTROIDS["KJFK"]
 
+    def __init__(self, airport_code: str = "JFK"):
+        self.previous_planes = {'ground': {}, 'air': {}}
+        self.airport_code = airport_code.upper()
+        
+        # Handle different airport code formats
+        # Try K{code} first (US airports), then try the code directly (international)
+        if f"K{self.airport_code}" in AIRPORT_CENTROIDS:
+            self.airport_centroid = AIRPORT_CENTROIDS[f"K{self.airport_code}"]
+        elif self.airport_code in AIRPORT_CENTROIDS:
+            self.airport_centroid = AIRPORT_CENTROIDS[self.airport_code]
+        else:
+            # Fallback to JFK if not found
+            self.airport_centroid = AIRPORT_CENTROIDS['KJFK']
+            print(f"⚠️ Airport {self.airport_code} not found in mapping, using JFK coordinates")
+        
     async def fetch_planes(self):
         """Fetch planes at the specified airport and detect entering/leaving aircraft"""
         try:
             async with ADSBExchangeGroundClient() as client:
-                client.register_airport("KJFK", self.kjfk_centroid)
-                aircraft = await client.fetch_airport_data("KJFK", self.kjfk_centroid)
 
+                # Use the correct ICAO code format
+                icao_code = f"K{self.airport_code}" if f"K{self.airport_code}" in AIRPORT_CENTROIDS else self.airport_code
+                client.register_airport(icao_code, self.airport_centroid)
+                aircraft = await client.fetch_airport_data(icao_code, self.airport_centroid)
+                
                 if aircraft:
                     # Create current state similar to run() function structure
                     current_planes = {"ground": {}, "air": {}}
@@ -476,6 +483,56 @@ class PlaneMonitor:
                 "error": str(e),
             }
 
+    
+    async def fetch_aircrafts_for_bottlenecks(self) -> List[Dict]:
+        """
+        Fetch aircraft data for bottleneck analysis.
+        Returns a list of dicts with keys: flight, altitude, lat, lon
+        """
+        try:
+            async with ADSBExchangeGroundClient() as client:
+                # Use the correct ICAO code format
+                icao_code = f"K{self.airport_code}" if f"K{self.airport_code}" in AIRPORT_CENTROIDS else self.airport_code
+                client.register_airport(icao_code, self.airport_centroid)
+                
+                # Get raw aircraft data from ADS-B Exchange
+                raw_aircraft = await client.fetch_airport_data(icao_code, self.airport_centroid)
+                
+                # Transform the data to the required format
+                aircraft_for_bottlenecks = []
+                
+                for ac in raw_aircraft:
+                    # Extract flight identifier
+                    flight = ac.get('flight', 'Unknown')
+                    
+                    # Determine altitude - set to 'ground' if aircraft is on the ground
+                    altitude = ac.get('alt_baro')
+                    if altitude == "ground" or altitude is None:
+                        altitude = "ground"
+                    else:
+                        try:
+                            altitude = float(altitude)
+                        except (ValueError, TypeError):
+                            altitude = "ground"
+                    
+                    # Extract coordinates
+                    lat = ac.get('lat')
+                    lon = ac.get('lon')
+                    
+                    # Only include aircraft with valid coordinates
+                    if lat is not None and lon is not None:
+                        aircraft_for_bottlenecks.append({
+                            'flight': flight,
+                            'altitude': altitude,
+                            'lat': lat,
+                            'lon': lon
+                        })
+                
+                return aircraft_for_bottlenecks
+                
+        except Exception as e:
+            print(f"❌ Error in fetch_aircrafts_for_bottlenecks: {e}")
+            return []
     def _detect_changes(self, current_planes):
         """Detect aircraft that entered or left the airport area"""
         entered = []
@@ -514,7 +571,7 @@ class PlaneMonitor:
 _plane_monitor = PlaneMonitor()
 
 
-async def fetch_planes():
+async def fetch_planes(airport_code: str = "JFK"):
     """
     Standalone function to fetch planes at specified airport.
     Returns a dictionary with the same structure as run() function,

@@ -1,5 +1,8 @@
 Flask==2.3.3
+Flask-SocketIO==5.3.6
 requests==2.31.0
 aiohttp==3.9.1
 websockets==12.0
 python-dotenv==1.0.0
+cerebras-cloud-sdk==1.50.1
+google-generativeai==0.8.5
