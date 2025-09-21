@@ -14,6 +14,7 @@ import threading
 import time
 from datetime import datetime
 from inference import CerebrasClient
+
 # from ifa_transcriber_lite import get_ifa_lite  # Abandoned - using file-based approach
 
 # Load environment variables from cerebras_config.env
@@ -634,8 +635,10 @@ def enhanced_bottleneck_monitor():
                                 )
 
                                 if should_create_new:
-                                    print("📻 Using file-based ATC chatter context for bottleneck analysis")
-                                    
+                                    print(
+                                        "📻 Using file-based ATC chatter context for bottleneck analysis"
+                                    )
+
                                     # Feed the JSON from bottleneck directly into advise() - reads from transcribed_chatter.txt
                                     cerebras_advice = cerebras_client.advise(
                                         bottleneck, ""
@@ -751,7 +754,9 @@ def enhanced_bottleneck_monitor():
                             )
 
                             if should_create_new:
-                                print("📻 Using file-based ATC chatter context for bottleneck analysis")
+                                print(
+                                    "📻 Using file-based ATC chatter context for bottleneck analysis"
+                                )
 
                                 cerebras_advice = cerebras_client.advise(
                                     prediction_data, ""
@@ -4394,12 +4399,12 @@ def get_bottlenecks():
                 ],
             }
 
-            print("📻 Using file-based ATC chatter context for manual bottleneck analysis")
+            print(
+                "📻 Using file-based ATC chatter context for manual bottleneck analysis"
+            )
 
             # Get Cerebras action plan - reads from transcribed_chatter.txt
-            cerebras_advice = cerebras_client.advise(
-                bottleneck_data, ""
-            )
+            cerebras_advice = cerebras_client.advise(bottleneck_data, "")
 
             # Parse Cerebras advice if it's JSON - apply same cleaning as predict_bottlenecks
             try:
@@ -4456,20 +4461,20 @@ def get_atc_chatter_from_file():
     """Get ATC chatter from transcribed_chatter.txt file"""
     try:
         minutes_back = request.args.get("minutes", 15, type=int)
-        
+
         # Use the same function as Cerebras client
         chatter_content = cerebras_client._read_transcribed_chatter(minutes_back)
-        
-        return jsonify({
-            "status": "success",
-            "chatter_content": chatter_content,
-            "minutes_back": minutes_back,
-            "timestamp": datetime.now().isoformat()
-        })
+
+        return jsonify(
+            {
+                "status": "success",
+                "chatter_content": chatter_content,
+                "minutes_back": minutes_back,
+                "timestamp": datetime.now().isoformat(),
+            }
+        )
     except Exception as e:
         return jsonify({"error": f"Failed to read ATC chatter file: {str(e)}"}), 500
-
-
 
 
 if __name__ == "__main__":

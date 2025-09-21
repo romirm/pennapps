@@ -24,9 +24,9 @@ import re
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 try:
-    from liveatctranscribe.fastatc_transcriber import FastATCTranscriber
+    from fastatc_transcriber import FastATCTranscriber
     from client import PlaneMonitor
-    from liveatctranscribe.ifa_components import (
+    from ifa_components import (
         ATCCommandParser,
         AircraftStateManager,
     )
@@ -39,8 +39,8 @@ except ImportError as e:
     sys.exit(1)
 
 
-class JFKContextualTranscriberFB(FastATCTranscriber):
-    """Enhanced FastATCTranscriber with JFK-specific context and knowledge for file-based storage"""
+class JFKContextualTranscriber(FastATCTranscriber):
+    """Enhanced FastATCTranscriber with JFK-specific context and knowledge"""
 
     def explain_atc_communication(
         self, transcription: str, aircraft_context: Optional[Dict[str, Any]] = None
@@ -323,17 +323,18 @@ Current Communication: "{transcription}"
             return "UNCLEAR"
 
 
-class FileBasedATCTranscriber:
+class InformedATCTranscriber:
     """File-based ATC transcriber that saves interpretations to transcribed_chatter.txt"""
 
     def __init__(self):
-        self.transcriber = JFKContextualTranscriberFB()
+        self.transcriber = JFKContextualTranscriber()
         self.aircraft_manager = AircraftStateManager()
         self.command_parser = ATCCommandParser()
 
         # File-based storage setup
-        self.project_root = os.path.dirname(os.path.abspath(__file__))
-        self.chatter_file = os.path.join(self.project_root, "transcribed_chatter.txt")
+        self.chatter_file = os.path.join(
+            os.path.dirname(__file__), "transcribed_chatter.txt"
+        )
 
         # Initialize the file with header
         self._initialize_chatter_file()
@@ -357,10 +358,7 @@ class FileBasedATCTranscriber:
             f.write(header)
 
     def _write_chatter_to_file(
-        self,
-        transcription: str,
-        interpretation: str,
-        aircraft_mentioned: List[str] = None,
+        self, transcription: str, interpretation: str, aircraft_mentioned: list = None
     ):
         """Write ATC chatter interpretation to file"""
         try:
@@ -380,8 +378,8 @@ class FileBasedATCTranscriber:
             print(f"❌ Error writing to chatter file: {e}")
 
     def process_audio_queue(self):
-        """Enhanced audio processing with aircraft state correlation and file-based storage"""
-        print("🔄 Started file-based audio processing thread...")
+        """Enhanced audio processing with aircraft state correlation"""
+        print("🔄 Started informed audio processing thread...")
 
         while self.transcriber.is_recording or not self.transcriber.audio_queue.empty():
             try:
@@ -407,7 +405,7 @@ class FileBasedATCTranscriber:
                 if transcription and len(transcription.strip()) > 5:
                     print(f"\n📝 ATC Transcription: {transcription}")
 
-                    # Fetch aircraft state at transcription completion
+                    # Fetch aircraft state at transcription completion (simplified timing approach)
                     print("🛩️ Fetching correlated aircraft state...")
                     aircraft_state = asyncio.run(
                         self.aircraft_manager.get_current_aircraft_state()
@@ -420,6 +418,61 @@ class FileBasedATCTranscriber:
 
                     if explanation:
                         print(f"💡 Enhanced JFK Analysis: {explanation}")
+
+                        # DEBUG: Print aircraft names being passed to transcription interpreter
+                        ground_aircraft = aircraft_state.get("jfk_ground_aircraft", [])
+                        air_aircraft = aircraft_state.get("jfk_air_aircraft", [])
+
+                        print(
+                            f"🔍 DEBUG: Current aircraft being passed to interpreter:"
+                        )
+
+                        # Fix: Aircraft data structure uses flight number as key, not callsign field
+                        if ground_aircraft:
+                            # Check if ground_aircraft is a list of dicts or dict values
+                            if isinstance(ground_aircraft, list):
+                                ground_callsigns = [
+                                    ac.get("callsign", "N/A")
+                                    for ac in ground_aircraft
+                                    if isinstance(ac, dict)
+                                ]
+                            else:
+                                # If it's a dict, the keys are the callsigns
+                                ground_callsigns = list(ground_aircraft.keys())
+
+                            print(
+                                f"   📍 Ground aircraft ({len(ground_callsigns)}): {', '.join(ground_callsigns)}"
+                            )
+                        else:
+                            print(f"   📍 Ground aircraft: None")
+
+                        if air_aircraft:
+                            # Check if air_aircraft is a list of dicts or dict values
+                            if isinstance(air_aircraft, list):
+                                air_callsigns = [
+                                    ac.get("callsign", "N/A")
+                                    for ac in air_aircraft
+                                    if isinstance(ac, dict)
+                                ]
+                            else:
+                                # If it's a dict, the keys are the callsigns
+                                air_callsigns = list(air_aircraft.keys())
+
+                            print(
+                                f"   ✈️  Air aircraft ({len(air_callsigns)}): {', '.join(air_callsigns)}"
+                            )
+                        else:
+                            print(f"   ✈️  Air aircraft: None")
+
+                        total_aircraft = aircraft_state.get("total_aircraft_count", 0)
+                        print(f"   📊 Total aircraft in JFK area: {total_aircraft}")
+
+                        if ground_aircraft and len(ground_aircraft) > 0:
+                            first_ground = (
+                                ground_aircraft[0]
+                                if isinstance(ground_aircraft, list)
+                                else list(ground_aircraft.values())[0]
+                            )
 
                         # Parse command for structured data
                         parsed_command = self.command_parser.parse_command(
@@ -490,10 +543,10 @@ class FileBasedATCTranscriber:
                 except ValueError:
                     pass
 
-        print("🔍 Exited file-based processing loop")
+        print("🔍 Exited informed processing loop")
 
     def run(self):
-        """Run the file-based ATC transcriber system"""
+        """Run the informed ATC transcriber system"""
         print("🚀 Starting File-Based Fast ATC Transcriber for JFK...")
         print("📄 Saving ATC interpretations for advisor consumption")
         print("📡 Monitoring JFK ground aircraft and ATC communications")
@@ -547,58 +600,6 @@ class FileBasedATCTranscriber:
         print(f"📄 ATC interpretations saved to: {self.chatter_file}")
 
 
-def read_recent_chatter(minutes_back: int = 15) -> List[str]:
-    """Read recent ATC chatter from the file for advisor consumption"""
-    project_root = os.path.dirname(os.path.abspath(__file__))
-    chatter_file = os.path.join(project_root, "transcribed_chatter.txt")
-
-    if not os.path.exists(chatter_file):
-        return []
-
-    try:
-        cutoff_time = datetime.now() - timedelta(minutes=minutes_back)
-        recent_entries = []
-
-        with open(chatter_file, "r") as f:
-            lines = f.readlines()
-
-        current_entry = []
-        for line in lines:
-            line = line.strip()
-
-            # Skip header comments
-            if line.startswith("#") or not line:
-                continue
-
-            # Check for timestamp line
-            if line.startswith("[") and "]" in line:
-                # Process previous entry if exists
-                if current_entry:
-                    recent_entries.append("\n".join(current_entry))
-                    current_entry = []
-
-                # Extract timestamp
-                timestamp_str = line.split("]")[0][1:]  # Remove [ and ]
-                try:
-                    entry_time = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
-                    if entry_time >= cutoff_time:
-                        current_entry = [line]
-                except ValueError:
-                    continue
-            elif current_entry:  # Part of current entry
-                current_entry.append(line)
-
-        # Don't forget the last entry
-        if current_entry:
-            recent_entries.append("\n".join(current_entry))
-
-        return recent_entries
-
-    except Exception as e:
-        print(f"❌ Error reading chatter file: {e}")
-        return []
-
-
 def main():
     """Main entry point"""
     print("File-Based Fast ATC Transcriber (IFA-FB)")
@@ -616,11 +617,10 @@ def main():
         if response != "y":
             return
 
-    # Initialize and run the file-based transcriber
-    transcriber = FileBasedATCTranscriber()
+    # Initialize and run the informed transcriber
+    transcriber = InformedATCTranscriber()
     transcriber.run()
 
 
 if __name__ == "__main__":
     main()
-
