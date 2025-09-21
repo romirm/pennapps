@@ -6,7 +6,6 @@ import hashlib
 from airport_data_fetcher import get_airport_data_for_app
 from world_data_processor import get_world_airport_data
 from client import PlaneMonitor
-from model.agentic_bottleneck_predictor import AgenticBottleneckPredictor
 from model.gemini_bottleneck_predictor import GeminiBottleneckPredictor
 import os
 import asyncio
@@ -32,6 +31,16 @@ if os.path.exists('gemini_config.env'):
                 gemini_key = line.split('=', 1)[1].strip()
                 os.environ['GEMINI_API_KEY'] = gemini_key
                 print(f"✅ Gemini API key loaded from gemini_config.env")
+                break
+
+# Load environment variables from cerebras_config.env
+if os.path.exists('cerebras_config.env'):
+    with open('cerebras_config.env', 'r') as f:
+        for line in f:
+            if line.startswith('CEREBRAS_API_KEY='):
+                api_key = line.split('=', 1)[1].strip()
+                os.environ['CEREBRAS_API_KEY'] = api_key
+                print(f"✅ Cerebras API key loaded from cerebras_config.env")
                 break
 
 app = Flask(__name__)
@@ -97,6 +106,7 @@ def background_aircraft_monitor():
                     global latest_aircraft_data
                     latest_aircraft_data = aircraft_data
                     latest_aircraft_data['airport'] = current_airport
+
                 
                 print(f"🛩️ Updated aircraft data for {current_airport}: {aircraft_data['total_aircraft']} aircraft, {len(aircraft_data['changes']['entered'])} entered, {len(aircraft_data['changes']['left'])} left")
                 
@@ -120,8 +130,8 @@ def background_aircraft_monitor():
                                     'speed': plane_data.get('speed'),
                                     'heading': plane_data.get('heading')
                                 })
-                        
-                        
+
+              
                         
                     except Exception as e:
                         print(f"❌ Error in agentic AI analysis: {e}")
@@ -1596,147 +1606,6 @@ def get_recent_communications():
     except Exception as e:
         return jsonify({'error': f'Failed to get communications: {str(e)}'}), 500
 
-@app.route('/api/start-enhanced-monitoring')
-def start_enhanced_monitoring():
-    """Start enhanced bottleneck monitoring that runs every 30 seconds"""
-    try:
-        # Start the enhanced bottleneck monitoring thread
-        thread = enhanced_bottleneck_monitor()
-        
-        return jsonify({
-            'status': 'success',
-            'message': 'Enhanced bottleneck monitoring started - running every 30 seconds',
-            'thread_name': thread.name,
-            'airport': current_airport,
-            'monitoring_interval': '30 seconds'
-        })
-        
-    except Exception as e:
-        return jsonify({'error': f'Failed to start enhanced monitoring: {str(e)}'}), 500
-
-@app.route('/api/enhanced-bottleneck-prediction')
-def get_enhanced_bottleneck_prediction():
-    """Get a single enhanced bottleneck prediction (manual trigger)"""
-    try:
-        # Create a fresh monitor for the current airport
-        current_monitor = PlaneMonitor(current_airport)
-        
-        # Fetch aircraft data for bottleneck analysis
-        import asyncio
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        aircraft_data = loop.run_until_complete(current_monitor.fetch_aircrafts_for_bottlenecks())
-        
-        # Predict bottlenecks using GeminiBottleneckPredictor
-        prediction_results = loop.run_until_complete(gemini_bottleneck_predictor.predict_bottlenecks(
-            aircraft_data, current_airport
-        ))
-        
-        return jsonify({
-            'status': 'success',
-            'aircraft_count': len(aircraft_data),
-            'airport': current_airport,
-            'prediction_results': prediction_results
-        })
-        
-    except Exception as e:
-        return jsonify({'error': f'Failed to get enhanced bottleneck prediction: {str(e)}'}), 500
-
-@app.route('/api/bottlenecks')
-def get_bottlenecks():
-    """Get current bottleneck data for the frontend"""
-    try:
-        # Create a fresh monitor for the current airport
-        current_monitor = PlaneMonitor(current_airport)
-        
-        # Fetch aircraft data for bottleneck analysis
-        import asyncio
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        aircraft_data = loop.run_until_complete(current_monitor.fetch_aircrafts_for_bottlenecks())
-        
-        # Predict bottlenecks using GeminiBottleneckPredictor
-        prediction_results = loop.run_until_complete(gemini_bottleneck_predictor.predict_bottlenecks(
-            aircraft_data, current_airport
-        ))
-        
-        # Check if bottleneck is detected
-        bottleneck_likelihood = prediction_results.severity_score
-        risk_level = prediction_results.risk_level
-        
-        bottlenecks = []
-        
-        # Only create bottleneck card if severity is low, medium, or high
-        if bottleneck_likelihood > 20 and risk_level in ['Low', 'Medium', 'High']:
-            # Create bottleneck card
-            bottleneck_card = gemini_bottleneck_predictor.create_bottleneck_card(prediction_results)
-            
-            # Trigger Cerebras inference for action plan
-            bottleneck_data = {
-                "bottleneck_id": bottleneck_card["bottleneck_id"],
-                "coordinates": [40.6413, -73.7781],  # Default JFK coordinates
-                "timestamp": datetime.now().isoformat(),
-                "type": "traffic_congestion",
-                "severity": bottleneck_card["severity"],
-                "duration": bottleneck_card["impact"]["estimated_delay_minutes"],
-                "confidence": bottleneck_card["impact"]["confidence"] / 100,
-                "aircraft_count": bottleneck_card["impact"]["aircraft_affected"],
-                "aircraft_affected": [
-                    {
-                        "flight_id": ac.get('flight', f'FLIGHT_{i}'),
-                        "aircraft_type": "B737",
-                        "position": [ac.get('lat', 40.6413), ac.get('lon', -73.7781)],
-                        "time": datetime.now().isoformat(),
-                    }
-                    for i, ac in enumerate(aircraft_data[:10])  # Limit to first 10 aircraft
-                ]
-            }
-            
-            # Get Cerebras action plan
-            cerebras_advice = cerebras_client.advise(bottleneck_data, "")
-            
-            # Parse Cerebras advice if it's JSON - apply same cleaning as predict_bottlenecks
-            try:
-                if cerebras_advice:
-                    import json
-                    
-                    # Clean the response from markdown code blocks if present (same as predict_bottlenecks)
-                    cleaned_advice = cerebras_advice.strip()
-                    if cleaned_advice.startswith('```json'):
-                        # Remove ```json from start and ``` from end
-                        cleaned_advice = cleaned_advice[7:]  # Remove ```json
-                        if cleaned_advice.endswith('```'):
-                            cleaned_advice = cleaned_advice[:-3]  # Remove ```
-                    elif cleaned_advice.startswith('```'):
-                        # Remove ``` from start and end
-                        cleaned_advice = cleaned_advice[3:]
-                        if cleaned_advice.endswith('```'):
-                            cleaned_advice = cleaned_advice[:-3]
-                    
-                    cleaned_advice = cleaned_advice.strip()
-                    
-                    # Parse the cleaned JSON response
-                    advice_data = json.loads(cleaned_advice)
-                    bottleneck_card["cerebras_advice"] = advice_data
-                else:
-                    bottleneck_card["cerebras_advice"] = {}
-            except Exception as e:
-                # If not JSON, store as text with error info
-                print(f"🔧 DEBUG: Cerebras advice JSON parsing failed: {e}")
-                bottleneck_card["cerebras_advice"] = {"raw_response": cerebras_advice, "parse_error": str(e)}
-            
-            bottlenecks.append(bottleneck_card)
-        
-        return jsonify({
-            'status': 'success',
-            'airport': current_airport,
-            'bottlenecks': bottlenecks,
-            'total_aircraft': len(aircraft_data),
-            'timestamp': datetime.now().isoformat()
-        })
-        
-    except Exception as e:
-        return jsonify({'error': f'Failed to get bottlenecks: {str(e)}'}), 500
 
 if __name__ == '__main__':
     # Start background aircraft monitoring

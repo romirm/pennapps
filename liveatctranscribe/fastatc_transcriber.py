@@ -46,7 +46,9 @@ class FastATCTranscriber:
         self.is_recording = False
         self.chunks_processed = 0  # Track progress
         self.conversation_history = []  # Store recent transcriptions for context
-        self.max_history_items = 5  # Keep last 5 transcriptions for context
+        self.max_history_items = (
+            10  # Keep last 10 transcriptions for enhanced fragment detection
+        )
 
         # Display microphone information
         self.display_microphone_info()
@@ -391,7 +393,7 @@ Current ATC Communication: "{transcription}"
 """
 
             data = {
-                "model": "gpt-oss-120b",  # Using Cerebras' GPT-OSS 120B model
+                "model": "llama3.1-8b",  # Using efficient model for transcription
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": 4096,  # Increased for detailed JFK context explanations
                 "temperature": 0.7,
@@ -417,7 +419,7 @@ Current ATC Communication: "{transcription}"
                         if "message" in choice and "content" in choice["message"]:
                             return choice["message"]["content"].strip()
 
-                        # Check for reasoning field (gpt-oss-120b format)
+                        # Check for reasoning field (model response format)
                         elif "message" in choice and "reasoning" in choice["message"]:
                             reasoning = choice["message"]["reasoning"].strip()
 

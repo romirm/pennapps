@@ -1,0 +1,1779 @@
+[
+  {
+    "record_id": "58d79fcc-ebc2-4dd7-aee4-c37e64e5dbbb",
+    "scenario_type": "hold_for_departure",
+    "scenario_number": 1,
+    "timestamp": "2025-09-21T02:31:06.581821",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "AAL542",
+          "aircraft_type": "B787",
+          "lat": 40.6413,
+          "lon": -73.7781,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "holding_for_departure",
+          "runway_proximity": "runway_22L_holding_point",
+          "airport_area": "departure_area",
+          "destination": "EGLL",
+          "departure_slot": "08:45",
+          "current_time": "08:42",
+          "hold_reason": "departure_spacing",
+          "fuel_remaining_minutes": 480
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "hold_for_departure_slot",
+      "severity": "low",
+      "hold_reason": "slot_timing",
+      "estimated_hold_time": "3 minutes",
+      "departure_slot": "08:45"
+    },
+    "expected_atc_action": {
+      "command_type": "departure_hold",
+      "details": "AAL542 continue holding, departure clearance in 3 minutes for slot time",
+      "affected_aircraft": [
+        "AAL542"
+      ],
+      "priority": "medium",
+      "reasoning": "Aircraft must wait for assigned departure slot to maintain flow control"
+    },
+    "training_notes": "Departure slots must be maintained for flow control and spacing"
+  },
+  {
+    "record_id": "4c672673-1899-452e-a1d9-8d281ec238dc",
+    "scenario_type": "taxi_priority_emergency",
+    "scenario_number": 2,
+    "timestamp": "2025-09-21T02:31:06.581842",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "UAL227",
+          "aircraft_type": "B777",
+          "lat": 40.641,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 5.0,
+          "heading": 180,
+          "flight_phase": "emergency_taxi",
+          "runway_proximity": "taxiway_C",
+          "airport_area": "north_field",
+          "emergency_type": "medical",
+          "priority_level": "urgent",
+          "destination_gate": "Medical Bay"
+        },
+        {
+          "callsign": "AAL857",
+          "aircraft_type": "A321",
+          "lat": 40.6412,
+          "lon": -73.779,
+          "altitude": "ground",
+          "speed": 10.0,
+          "heading": 270,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_A",
+          "airport_area": "central_field",
+          "destination_runway": "22L"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "emergency_priority_taxi",
+      "severity": "urgent",
+      "emergency_type": "medical",
+      "affected_normal_traffic": 1
+    },
+    "expected_atc_action": {
+      "command_type": "emergency_priority",
+      "details": "AAL857 hold position, emergency aircraft UAL227 has priority",
+      "affected_aircraft": [
+        "AAL857",
+        "UAL227"
+      ],
+      "priority": "urgent",
+      "reasoning": "Medical emergency requires immediate priority routing to medical bay"
+    },
+    "training_notes": "Emergency aircraft always have absolute priority over normal traffic"
+  },
+  {
+    "record_id": "dc48b80a-2b9f-44e0-9b65-bdcbfd8081eb",
+    "scenario_type": "taxi_sequence_optimization",
+    "scenario_number": 3,
+    "timestamp": "2025-09-21T02:31:06.581851",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "AAL123",
+          "aircraft_type": "B738",
+          "lat": 40.64,
+          "lon": -73.78,
+          "altitude": "ground",
+          "speed": 8.0,
+          "heading": 180,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_sequence_1",
+          "airport_area": "terminal_area",
+          "departure_gate": "A15",
+          "destination": "KMIA",
+          "estimated_taxi_time": 5,
+          "departure_slot": "08:15"
+        },
+        {
+          "callsign": "DAL456",
+          "aircraft_type": "A320",
+          "lat": 40.641,
+          "lon": -73.779,
+          "altitude": "ground",
+          "speed": 10.0,
+          "heading": 180,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_sequence_2",
+          "airport_area": "terminal_area",
+          "departure_gate": "B22",
+          "destination": "KBOS",
+          "estimated_taxi_time": 8,
+          "departure_slot": "09:15"
+        },
+        {
+          "callsign": "JBU789",
+          "aircraft_type": "B757",
+          "lat": 40.642,
+          "lon": -73.778,
+          "altitude": "ground",
+          "speed": 12.0,
+          "heading": 180,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_sequence_3",
+          "airport_area": "terminal_area",
+          "departure_gate": "A18",
+          "destination": "KLAX",
+          "estimated_taxi_time": 6,
+          "departure_slot": "010:15"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "taxi_sequence_optimization",
+      "severity": "medium",
+      "runway": "22L",
+      "aircraft_count": 3,
+      "optimization_potential": "2 minutes saved"
+    },
+    "expected_atc_action": {
+      "command_type": "taxi_sequencing",
+      "details": "AAL123 taxi via Alpha to runway 22L, expedite for slot time",
+      "affected_aircraft": [
+        "AAL123"
+      ],
+      "priority": "medium",
+      "reasoning": "AAL123 has shortest taxi time and can make departure slot efficiently"
+    },
+    "training_notes": "Optimize taxi sequence based on departure slots and taxi times"
+  },
+  {
+    "record_id": "7ecbb95d-c273-4f67-90a4-863272f55896",
+    "scenario_type": "taxi_gate_to_runway",
+    "scenario_number": 4,
+    "timestamp": "2025-09-21T02:31:06.581862",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "SWA406",
+          "aircraft_type": "B737",
+          "lat": 40.6395,
+          "lon": -73.7805,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 90,
+          "flight_phase": "pushback_complete",
+          "runway_proximity": "gate_B15",
+          "airport_area": "terminal_B",
+          "departure_gate": "B15",
+          "destination": "KORD",
+          "assigned_runway": "22R",
+          "taxi_route": "B, A, A7 to runway 22R",
+          "passengers": 142
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "standard_taxi_clearance",
+      "severity": "low",
+      "route": "B-A-A7",
+      "estimated_taxi_time": "8 minutes",
+      "runway": "22R"
+    },
+    "expected_atc_action": {
+      "command_type": "taxi_clearance",
+      "details": "SWA406 taxi via Bravo, Alpha, Alpha-7 to runway 22R",
+      "affected_aircraft": [
+        "SWA406"
+      ],
+      "priority": "medium",
+      "reasoning": "Standard taxi clearance from Terminal B to runway 22R"
+    },
+    "training_notes": "Standard taxi clearances should use most efficient available route"
+  },
+  {
+    "record_id": "06d25da3-e9d3-4df1-b5ae-248ed500380b",
+    "scenario_type": "hold_weather_delay",
+    "scenario_number": 5,
+    "timestamp": "2025-09-21T02:31:06.581869",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "DAL880",
+          "aircraft_type": "A320",
+          "lat": 40.642,
+          "lon": -73.7785,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "holding_weather",
+          "runway_proximity": "holding_area_1",
+          "airport_area": "departure_area",
+          "destination": "KBOS",
+          "hold_reason": "thunderstorms",
+          "fuel_remaining_minutes": 167
+        },
+        {
+          "callsign": "JBU482",
+          "aircraft_type": "B738",
+          "lat": 40.644000000000005,
+          "lon": -73.7765,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "holding_weather",
+          "runway_proximity": "holding_area_2",
+          "airport_area": "departure_area",
+          "destination": "KORD",
+          "hold_reason": "thunderstorms",
+          "fuel_remaining_minutes": 113
+        },
+        {
+          "callsign": "DAL545",
+          "aircraft_type": "A320",
+          "lat": 40.646,
+          "lon": -73.77449999999999,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "holding_weather",
+          "runway_proximity": "holding_area_3",
+          "airport_area": "departure_area",
+          "destination": "KORD",
+          "hold_reason": "thunderstorms",
+          "fuel_remaining_minutes": 178
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "weather_hold",
+      "severity": "high",
+      "weather_condition": "thunderstorms",
+      "estimated_delay": "20 minutes",
+      "affected_aircraft": 3
+    },
+    "expected_atc_action": {
+      "command_type": "weather_hold",
+      "details": "All aircraft continue holding, runway operations suspended due to thunderstorms",
+      "affected_aircraft": [
+        "DAL880",
+        "JBU482",
+        "DAL545"
+      ],
+      "priority": "high",
+      "reasoning": "Safety requires suspension of operations during active thunderstorms"
+    },
+    "training_notes": "Weather safety takes absolute priority over operational efficiency"
+  },
+  {
+    "record_id": "606c316a-127b-4dce-bc19-d5fd23fcafc2",
+    "scenario_type": "taxi_priority_emergency",
+    "scenario_number": 6,
+    "timestamp": "2025-09-21T02:31:06.581889",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "UAL167",
+          "aircraft_type": "B777",
+          "lat": 40.641,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 5.0,
+          "heading": 180,
+          "flight_phase": "emergency_taxi",
+          "runway_proximity": "taxiway_C",
+          "airport_area": "north_field",
+          "emergency_type": "medical",
+          "priority_level": "urgent",
+          "destination_gate": "Medical Bay"
+        },
+        {
+          "callsign": "AAL760",
+          "aircraft_type": "A321",
+          "lat": 40.6412,
+          "lon": -73.779,
+          "altitude": "ground",
+          "speed": 10.0,
+          "heading": 270,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_A",
+          "airport_area": "central_field",
+          "destination_runway": "22L"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "emergency_priority_taxi",
+      "severity": "urgent",
+      "emergency_type": "medical",
+      "affected_normal_traffic": 1
+    },
+    "expected_atc_action": {
+      "command_type": "emergency_priority",
+      "details": "AAL760 hold position, emergency aircraft UAL167 has priority",
+      "affected_aircraft": [
+        "AAL760",
+        "UAL167"
+      ],
+      "priority": "urgent",
+      "reasoning": "Medical emergency requires immediate priority routing to medical bay"
+    },
+    "training_notes": "Emergency aircraft always have absolute priority over normal traffic"
+  },
+  {
+    "record_id": "def5ebf1-8ddc-4deb-ba3c-3c83ad2ff08a",
+    "scenario_type": "taxi_conflict_intersection",
+    "scenario_number": 7,
+    "timestamp": "2025-09-21T02:31:06.581896",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "DAL445",
+          "aircraft_type": "B738",
+          "lat": 40.642,
+          "lon": -73.7785,
+          "altitude": "ground",
+          "speed": 12.0,
+          "heading": 270,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_A",
+          "airport_area": "east_field",
+          "destination_runway": "22L",
+          "taxi_clearance": "Taxiway A to runway 22L",
+          "distance_to_intersection": 200
+        },
+        {
+          "callsign": "JBU909",
+          "aircraft_type": "A320",
+          "lat": 40.6415,
+          "lon": -73.779,
+          "altitude": "ground",
+          "speed": 15.0,
+          "heading": 360,
+          "flight_phase": "taxi_to_gate",
+          "runway_proximity": "taxiway_B",
+          "airport_area": "south_field",
+          "destination_gate": "A12",
+          "taxi_clearance": "Taxiway B to gate A12",
+          "distance_to_intersection": 150
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "taxi_intersection_conflict",
+      "severity": "high",
+      "intersection": "Taxiway A/B",
+      "conflict_distance": "50 meters",
+      "estimated_delay": "2 minutes"
+    },
+    "expected_atc_action": {
+      "command_type": "taxi_control",
+      "details": "JBU909 hold short of Taxiway A, give way to DAL445",
+      "affected_aircraft": [
+        "JBU909"
+      ],
+      "priority": "high",
+      "reasoning": "DAL445 has right of way for runway access, JBU909 should hold"
+    },
+    "training_notes": "Runway-bound traffic typically has priority over gate-bound traffic"
+  },
+  {
+    "record_id": "d4aee17c-600f-496d-b075-bd657cc23aed",
+    "scenario_type": "hold_weather_delay",
+    "scenario_number": 8,
+    "timestamp": "2025-09-21T02:31:06.581905",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "AAL727",
+          "aircraft_type": "B738",
+          "lat": 40.642,
+          "lon": -73.7785,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "holding_weather",
+          "runway_proximity": "holding_area_1",
+          "airport_area": "departure_area",
+          "destination": "KORD",
+          "hold_reason": "thunderstorms",
+          "fuel_remaining_minutes": 163
+        },
+        {
+          "callsign": "JBU673",
+          "aircraft_type": "A320",
+          "lat": 40.644000000000005,
+          "lon": -73.7765,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "holding_weather",
+          "runway_proximity": "holding_area_2",
+          "airport_area": "departure_area",
+          "destination": "KORD",
+          "hold_reason": "thunderstorms",
+          "fuel_remaining_minutes": 176
+        },
+        {
+          "callsign": "DAL620",
+          "aircraft_type": "B738",
+          "lat": 40.646,
+          "lon": -73.77449999999999,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "holding_weather",
+          "runway_proximity": "holding_area_3",
+          "airport_area": "departure_area",
+          "destination": "KORD",
+          "hold_reason": "thunderstorms",
+          "fuel_remaining_minutes": 175
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "weather_hold",
+      "severity": "high",
+      "weather_condition": "thunderstorms",
+      "estimated_delay": "20 minutes",
+      "affected_aircraft": 3
+    },
+    "expected_atc_action": {
+      "command_type": "weather_hold",
+      "details": "All aircraft continue holding, runway operations suspended due to thunderstorms",
+      "affected_aircraft": [
+        "AAL727",
+        "JBU673",
+        "DAL620"
+      ],
+      "priority": "high",
+      "reasoning": "Safety requires suspension of operations during active thunderstorms"
+    },
+    "training_notes": "Weather safety takes absolute priority over operational efficiency"
+  },
+  {
+    "record_id": "78cf7f97-dc70-4701-a014-681575338bab",
+    "scenario_type": "taxi_priority_emergency",
+    "scenario_number": 9,
+    "timestamp": "2025-09-21T02:31:06.581918",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "UAL727",
+          "aircraft_type": "B777",
+          "lat": 40.641,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 5.0,
+          "heading": 180,
+          "flight_phase": "emergency_taxi",
+          "runway_proximity": "taxiway_C",
+          "airport_area": "north_field",
+          "emergency_type": "medical",
+          "priority_level": "urgent",
+          "destination_gate": "Medical Bay"
+        },
+        {
+          "callsign": "AAL339",
+          "aircraft_type": "A321",
+          "lat": 40.6412,
+          "lon": -73.779,
+          "altitude": "ground",
+          "speed": 10.0,
+          "heading": 270,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_A",
+          "airport_area": "central_field",
+          "destination_runway": "22L"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "emergency_priority_taxi",
+      "severity": "urgent",
+      "emergency_type": "medical",
+      "affected_normal_traffic": 1
+    },
+    "expected_atc_action": {
+      "command_type": "emergency_priority",
+      "details": "AAL339 hold position, emergency aircraft UAL727 has priority",
+      "affected_aircraft": [
+        "AAL339",
+        "UAL727"
+      ],
+      "priority": "urgent",
+      "reasoning": "Medical emergency requires immediate priority routing to medical bay"
+    },
+    "training_notes": "Emergency aircraft always have absolute priority over normal traffic"
+  },
+  {
+    "record_id": "d9d90b03-25a7-4918-94ae-287a13933e81",
+    "scenario_type": "taxi_sequence_optimization",
+    "scenario_number": 10,
+    "timestamp": "2025-09-21T02:31:06.581925",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "AAL123",
+          "aircraft_type": "B738",
+          "lat": 40.64,
+          "lon": -73.78,
+          "altitude": "ground",
+          "speed": 8.0,
+          "heading": 180,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_sequence_1",
+          "airport_area": "terminal_area",
+          "departure_gate": "A15",
+          "destination": "KMIA",
+          "estimated_taxi_time": 5,
+          "departure_slot": "08:15"
+        },
+        {
+          "callsign": "DAL456",
+          "aircraft_type": "A320",
+          "lat": 40.641,
+          "lon": -73.779,
+          "altitude": "ground",
+          "speed": 10.0,
+          "heading": 180,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_sequence_2",
+          "airport_area": "terminal_area",
+          "departure_gate": "B22",
+          "destination": "KBOS",
+          "estimated_taxi_time": 8,
+          "departure_slot": "09:15"
+        },
+        {
+          "callsign": "JBU789",
+          "aircraft_type": "B757",
+          "lat": 40.642,
+          "lon": -73.778,
+          "altitude": "ground",
+          "speed": 12.0,
+          "heading": 180,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_sequence_3",
+          "airport_area": "terminal_area",
+          "departure_gate": "A18",
+          "destination": "KLAX",
+          "estimated_taxi_time": 6,
+          "departure_slot": "010:15"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "taxi_sequence_optimization",
+      "severity": "medium",
+      "runway": "22L",
+      "aircraft_count": 3,
+      "optimization_potential": "2 minutes saved"
+    },
+    "expected_atc_action": {
+      "command_type": "taxi_sequencing",
+      "details": "AAL123 taxi via Alpha to runway 22L, expedite for slot time",
+      "affected_aircraft": [
+        "AAL123"
+      ],
+      "priority": "medium",
+      "reasoning": "AAL123 has shortest taxi time and can make departure slot efficiently"
+    },
+    "training_notes": "Optimize taxi sequence based on departure slots and taxi times"
+  },
+  {
+    "record_id": "eee5dc98-f65f-4f6f-b20e-6ed1bee8aeee",
+    "scenario_type": "hold_short_runway",
+    "scenario_number": 11,
+    "timestamp": "2025-09-21T02:31:06.581933",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "AAL708",
+          "aircraft_type": "B757",
+          "lat": 40.6413,
+          "lon": -73.7785,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "ready_for_departure",
+          "runway_proximity": "runway_22L_threshold",
+          "airport_area": "runway_approach",
+          "destination": "KLAX",
+          "clearance_status": "cleared_for_takeoff"
+        },
+        {
+          "callsign": "UAL518",
+          "aircraft_type": "A321",
+          "lat": 40.6313,
+          "lon": -73.7881,
+          "altitude": 500,
+          "speed": 140,
+          "heading": 220,
+          "flight_phase": "final_approach",
+          "runway_proximity": "approach_22L",
+          "airport_area": "approach_corridor",
+          "distance_to_runway": 2.5,
+          "origin": "KBOS"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "hold_short_runway",
+      "severity": "urgent",
+      "runway": "22L",
+      "landing_traffic_distance": "2.5 miles",
+      "estimated_hold_time": "3 minutes"
+    },
+    "expected_atc_action": {
+      "command_type": "runway_control",
+      "details": "AAL708 hold short runway 22L, traffic on final",
+      "affected_aircraft": [
+        "AAL708"
+      ],
+      "priority": "urgent",
+      "reasoning": "Landing traffic has priority, departure must hold until runway is clear"
+    },
+    "training_notes": "Landing aircraft always have priority over departing aircraft"
+  },
+  {
+    "record_id": "2d2de681-7c71-4aee-aceb-7353a7b04bf2",
+    "scenario_type": "taxi_gate_to_runway",
+    "scenario_number": 12,
+    "timestamp": "2025-09-21T02:31:06.582508",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "JBU320",
+          "aircraft_type": "B737",
+          "lat": 40.6395,
+          "lon": -73.7805,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 90,
+          "flight_phase": "pushback_complete",
+          "runway_proximity": "gate_B15",
+          "airport_area": "terminal_B",
+          "departure_gate": "B15",
+          "destination": "KORD",
+          "assigned_runway": "22R",
+          "taxi_route": "B, A, A7 to runway 22R",
+          "passengers": 142
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "standard_taxi_clearance",
+      "severity": "low",
+      "route": "B-A-A7",
+      "estimated_taxi_time": "8 minutes",
+      "runway": "22R"
+    },
+    "expected_atc_action": {
+      "command_type": "taxi_clearance",
+      "details": "JBU320 taxi via Bravo, Alpha, Alpha-7 to runway 22R",
+      "affected_aircraft": [
+        "JBU320"
+      ],
+      "priority": "medium",
+      "reasoning": "Standard taxi clearance from Terminal B to runway 22R"
+    },
+    "training_notes": "Standard taxi clearances should use most efficient available route"
+  },
+  {
+    "record_id": "6ccdec13-b9b6-43cb-953b-3c61842840d5",
+    "scenario_type": "hold_for_departure",
+    "scenario_number": 13,
+    "timestamp": "2025-09-21T02:31:06.582515",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "AAL398",
+          "aircraft_type": "B787",
+          "lat": 40.6413,
+          "lon": -73.7781,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "holding_for_departure",
+          "runway_proximity": "runway_22L_holding_point",
+          "airport_area": "departure_area",
+          "destination": "EGLL",
+          "departure_slot": "08:45",
+          "current_time": "08:42",
+          "hold_reason": "departure_spacing",
+          "fuel_remaining_minutes": 480
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "hold_for_departure_slot",
+      "severity": "low",
+      "hold_reason": "slot_timing",
+      "estimated_hold_time": "3 minutes",
+      "departure_slot": "08:45"
+    },
+    "expected_atc_action": {
+      "command_type": "departure_hold",
+      "details": "AAL398 continue holding, departure clearance in 3 minutes for slot time",
+      "affected_aircraft": [
+        "AAL398"
+      ],
+      "priority": "medium",
+      "reasoning": "Aircraft must wait for assigned departure slot to maintain flow control"
+    },
+    "training_notes": "Departure slots must be maintained for flow control and spacing"
+  },
+  {
+    "record_id": "3010fefd-b0cb-4761-9707-8f91dc61b672",
+    "scenario_type": "hold_short_runway",
+    "scenario_number": 14,
+    "timestamp": "2025-09-21T02:31:06.582521",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "DAL770",
+          "aircraft_type": "B757",
+          "lat": 40.6413,
+          "lon": -73.7785,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "ready_for_departure",
+          "runway_proximity": "runway_22L_threshold",
+          "airport_area": "runway_approach",
+          "destination": "KLAX",
+          "clearance_status": "cleared_for_takeoff"
+        },
+        {
+          "callsign": "JBU427",
+          "aircraft_type": "A321",
+          "lat": 40.6313,
+          "lon": -73.7881,
+          "altitude": 500,
+          "speed": 140,
+          "heading": 220,
+          "flight_phase": "final_approach",
+          "runway_proximity": "approach_22L",
+          "airport_area": "approach_corridor",
+          "distance_to_runway": 2.5,
+          "origin": "KBOS"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "hold_short_runway",
+      "severity": "urgent",
+      "runway": "22L",
+      "landing_traffic_distance": "2.5 miles",
+      "estimated_hold_time": "3 minutes"
+    },
+    "expected_atc_action": {
+      "command_type": "runway_control",
+      "details": "DAL770 hold short runway 22L, traffic on final",
+      "affected_aircraft": [
+        "DAL770"
+      ],
+      "priority": "urgent",
+      "reasoning": "Landing traffic has priority, departure must hold until runway is clear"
+    },
+    "training_notes": "Landing aircraft always have priority over departing aircraft"
+  },
+  {
+    "record_id": "295689e3-ee24-4680-b128-d79ad0f97094",
+    "scenario_type": "taxi_congestion_alley",
+    "scenario_number": 15,
+    "timestamp": "2025-09-21T02:31:06.582528",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "DAL549",
+          "aircraft_type": "A320",
+          "lat": 40.6425,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 2.0,
+          "heading": 180,
+          "flight_phase": "taxi_congestion",
+          "runway_proximity": "taxiway_alley",
+          "airport_area": "terminal_connector",
+          "destination": "various_gates",
+          "congestion_position": 1
+        },
+        {
+          "callsign": "AAL731",
+          "aircraft_type": "A320",
+          "lat": 40.6415,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 180,
+          "flight_phase": "taxi_congestion",
+          "runway_proximity": "taxiway_alley",
+          "airport_area": "terminal_connector",
+          "destination": "various_gates",
+          "congestion_position": 2
+        },
+        {
+          "callsign": "UAL484",
+          "aircraft_type": "A320",
+          "lat": 40.640499999999996,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 180,
+          "flight_phase": "taxi_congestion",
+          "runway_proximity": "taxiway_alley",
+          "airport_area": "terminal_connector",
+          "destination": "runway_22L",
+          "congestion_position": 3
+        },
+        {
+          "callsign": "AAL230",
+          "aircraft_type": "A320",
+          "lat": 40.6395,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 180,
+          "flight_phase": "taxi_congestion",
+          "runway_proximity": "taxiway_alley",
+          "airport_area": "terminal_connector",
+          "destination": "runway_22L",
+          "congestion_position": 4
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "taxi_alley_congestion",
+      "severity": "medium",
+      "congested_taxiway": "Terminal Connector",
+      "aircraft_count": 4,
+      "estimated_clear_time": "5 minutes"
+    },
+    "expected_atc_action": {
+      "command_type": "congestion_management",
+      "details": "DAL549 expedite taxi, following aircraft maintain spacing",
+      "affected_aircraft": [
+        "DAL549"
+      ],
+      "priority": "medium",
+      "reasoning": "Clear congestion by expediting lead aircraft movement"
+    },
+    "training_notes": "Congestion requires expediting lead traffic to clear bottlenecks"
+  },
+  {
+    "record_id": "a22829a5-6c51-4f17-a554-811f0348898a",
+    "scenario_type": "taxi_congestion_alley",
+    "scenario_number": 16,
+    "timestamp": "2025-09-21T02:31:06.582540",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "UAL234",
+          "aircraft_type": "A320",
+          "lat": 40.6425,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 2.0,
+          "heading": 180,
+          "flight_phase": "taxi_congestion",
+          "runway_proximity": "taxiway_alley",
+          "airport_area": "terminal_connector",
+          "destination": "various_gates",
+          "congestion_position": 1
+        },
+        {
+          "callsign": "DAL676",
+          "aircraft_type": "A320",
+          "lat": 40.6415,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 180,
+          "flight_phase": "taxi_congestion",
+          "runway_proximity": "taxiway_alley",
+          "airport_area": "terminal_connector",
+          "destination": "various_gates",
+          "congestion_position": 2
+        },
+        {
+          "callsign": "AAL770",
+          "aircraft_type": "A320",
+          "lat": 40.640499999999996,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 180,
+          "flight_phase": "taxi_congestion",
+          "runway_proximity": "taxiway_alley",
+          "airport_area": "terminal_connector",
+          "destination": "runway_22L",
+          "congestion_position": 3
+        },
+        {
+          "callsign": "UAL924",
+          "aircraft_type": "A320",
+          "lat": 40.6395,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 180,
+          "flight_phase": "taxi_congestion",
+          "runway_proximity": "taxiway_alley",
+          "airport_area": "terminal_connector",
+          "destination": "runway_22L",
+          "congestion_position": 4
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "taxi_alley_congestion",
+      "severity": "medium",
+      "congested_taxiway": "Terminal Connector",
+      "aircraft_count": 4,
+      "estimated_clear_time": "5 minutes"
+    },
+    "expected_atc_action": {
+      "command_type": "congestion_management",
+      "details": "UAL234 expedite taxi, following aircraft maintain spacing",
+      "affected_aircraft": [
+        "UAL234"
+      ],
+      "priority": "medium",
+      "reasoning": "Clear congestion by expediting lead aircraft movement"
+    },
+    "training_notes": "Congestion requires expediting lead traffic to clear bottlenecks"
+  },
+  {
+    "record_id": "d517bf1d-d7f5-401f-83a7-d0f3757db548",
+    "scenario_type": "hold_weather_delay",
+    "scenario_number": 17,
+    "timestamp": "2025-09-21T02:31:06.582549",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "AAL125",
+          "aircraft_type": "B738",
+          "lat": 40.642,
+          "lon": -73.7785,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "holding_weather",
+          "runway_proximity": "holding_area_1",
+          "airport_area": "departure_area",
+          "destination": "KBOS",
+          "hold_reason": "thunderstorms",
+          "fuel_remaining_minutes": 110
+        },
+        {
+          "callsign": "AAL440",
+          "aircraft_type": "B738",
+          "lat": 40.644000000000005,
+          "lon": -73.7765,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "holding_weather",
+          "runway_proximity": "holding_area_2",
+          "airport_area": "departure_area",
+          "destination": "KBOS",
+          "hold_reason": "thunderstorms",
+          "fuel_remaining_minutes": 109
+        },
+        {
+          "callsign": "AAL858",
+          "aircraft_type": "B738",
+          "lat": 40.646,
+          "lon": -73.77449999999999,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "holding_weather",
+          "runway_proximity": "holding_area_3",
+          "airport_area": "departure_area",
+          "destination": "KBOS",
+          "hold_reason": "thunderstorms",
+          "fuel_remaining_minutes": 159
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "weather_hold",
+      "severity": "high",
+      "weather_condition": "thunderstorms",
+      "estimated_delay": "20 minutes",
+      "affected_aircraft": 3
+    },
+    "expected_atc_action": {
+      "command_type": "weather_hold",
+      "details": "All aircraft continue holding, runway operations suspended due to thunderstorms",
+      "affected_aircraft": [
+        "AAL125",
+        "AAL440",
+        "AAL858"
+      ],
+      "priority": "high",
+      "reasoning": "Safety requires suspension of operations during active thunderstorms"
+    },
+    "training_notes": "Weather safety takes absolute priority over operational efficiency"
+  },
+  {
+    "record_id": "01013ca2-a9ce-455f-9dc0-b0ef439c8635",
+    "scenario_type": "hold_for_crossing_traffic",
+    "scenario_number": 18,
+    "timestamp": "2025-09-21T02:31:06.582562",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "DAL242",
+          "aircraft_type": "A319",
+          "lat": 40.6418,
+          "lon": -73.7788,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 180,
+          "flight_phase": "holding_for_crossing",
+          "runway_proximity": "taxiway_intersection",
+          "airport_area": "central_field",
+          "destination_gate": "C5",
+          "crossing_point": "Taxiway A"
+        },
+        {
+          "callsign": "JBU888",
+          "aircraft_type": "B752",
+          "lat": 40.6415,
+          "lon": -73.7792,
+          "altitude": "ground",
+          "speed": 18.0,
+          "heading": 270,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_A",
+          "airport_area": "central_field",
+          "destination_runway": "04L"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "hold_for_crossing",
+      "severity": "medium",
+      "crossing_point": "Taxiway A",
+      "active_traffic": "JBU888",
+      "estimated_wait": "1 minute"
+    },
+    "expected_atc_action": {
+      "command_type": "crossing_control",
+      "details": "DAL242 hold short of Taxiway A for crossing traffic",
+      "affected_aircraft": [
+        "DAL242"
+      ],
+      "priority": "high",
+      "reasoning": "Must wait for active taxiway traffic to clear before crossing"
+    },
+    "training_notes": "Active taxiway traffic has right of way over crossing traffic"
+  },
+  {
+    "record_id": "6e0fb03d-c3de-4083-a06b-8596d83b17e5",
+    "scenario_type": "taxi_sequence_optimization",
+    "scenario_number": 19,
+    "timestamp": "2025-09-21T02:31:06.582572",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "AAL123",
+          "aircraft_type": "B738",
+          "lat": 40.64,
+          "lon": -73.78,
+          "altitude": "ground",
+          "speed": 8.0,
+          "heading": 180,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_sequence_1",
+          "airport_area": "terminal_area",
+          "departure_gate": "A15",
+          "destination": "KMIA",
+          "estimated_taxi_time": 5,
+          "departure_slot": "08:15"
+        },
+        {
+          "callsign": "DAL456",
+          "aircraft_type": "A320",
+          "lat": 40.641,
+          "lon": -73.779,
+          "altitude": "ground",
+          "speed": 10.0,
+          "heading": 180,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_sequence_2",
+          "airport_area": "terminal_area",
+          "departure_gate": "B22",
+          "destination": "KBOS",
+          "estimated_taxi_time": 8,
+          "departure_slot": "09:15"
+        },
+        {
+          "callsign": "JBU789",
+          "aircraft_type": "B757",
+          "lat": 40.642,
+          "lon": -73.778,
+          "altitude": "ground",
+          "speed": 12.0,
+          "heading": 180,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_sequence_3",
+          "airport_area": "terminal_area",
+          "departure_gate": "A18",
+          "destination": "KLAX",
+          "estimated_taxi_time": 6,
+          "departure_slot": "010:15"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "taxi_sequence_optimization",
+      "severity": "medium",
+      "runway": "22L",
+      "aircraft_count": 3,
+      "optimization_potential": "2 minutes saved"
+    },
+    "expected_atc_action": {
+      "command_type": "taxi_sequencing",
+      "details": "AAL123 taxi via Alpha to runway 22L, expedite for slot time",
+      "affected_aircraft": [
+        "AAL123"
+      ],
+      "priority": "medium",
+      "reasoning": "AAL123 has shortest taxi time and can make departure slot efficiently"
+    },
+    "training_notes": "Optimize taxi sequence based on departure slots and taxi times"
+  },
+  {
+    "record_id": "b68a3c2a-beb9-4ec9-a824-3b6b894af1b3",
+    "scenario_type": "taxi_priority_emergency",
+    "scenario_number": 20,
+    "timestamp": "2025-09-21T02:31:06.582580",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "UAL621",
+          "aircraft_type": "B777",
+          "lat": 40.641,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 5.0,
+          "heading": 180,
+          "flight_phase": "emergency_taxi",
+          "runway_proximity": "taxiway_C",
+          "airport_area": "north_field",
+          "emergency_type": "medical",
+          "priority_level": "urgent",
+          "destination_gate": "Medical Bay"
+        },
+        {
+          "callsign": "AAL758",
+          "aircraft_type": "A321",
+          "lat": 40.6412,
+          "lon": -73.779,
+          "altitude": "ground",
+          "speed": 10.0,
+          "heading": 270,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_A",
+          "airport_area": "central_field",
+          "destination_runway": "22L"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "emergency_priority_taxi",
+      "severity": "urgent",
+      "emergency_type": "medical",
+      "affected_normal_traffic": 1
+    },
+    "expected_atc_action": {
+      "command_type": "emergency_priority",
+      "details": "AAL758 hold position, emergency aircraft UAL621 has priority",
+      "affected_aircraft": [
+        "AAL758",
+        "UAL621"
+      ],
+      "priority": "urgent",
+      "reasoning": "Medical emergency requires immediate priority routing to medical bay"
+    },
+    "training_notes": "Emergency aircraft always have absolute priority over normal traffic"
+  },
+  {
+    "record_id": "b19e8979-fabf-438b-8941-e31fd92c5531",
+    "scenario_type": "hold_for_crossing_traffic",
+    "scenario_number": 21,
+    "timestamp": "2025-09-21T02:31:06.582587",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "DAL355",
+          "aircraft_type": "A319",
+          "lat": 40.6418,
+          "lon": -73.7788,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 180,
+          "flight_phase": "holding_for_crossing",
+          "runway_proximity": "taxiway_intersection",
+          "airport_area": "central_field",
+          "destination_gate": "C5",
+          "crossing_point": "Taxiway A"
+        },
+        {
+          "callsign": "JBU969",
+          "aircraft_type": "B752",
+          "lat": 40.6415,
+          "lon": -73.7792,
+          "altitude": "ground",
+          "speed": 18.0,
+          "heading": 270,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_A",
+          "airport_area": "central_field",
+          "destination_runway": "04L"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "hold_for_crossing",
+      "severity": "medium",
+      "crossing_point": "Taxiway A",
+      "active_traffic": "JBU969",
+      "estimated_wait": "1 minute"
+    },
+    "expected_atc_action": {
+      "command_type": "crossing_control",
+      "details": "DAL355 hold short of Taxiway A for crossing traffic",
+      "affected_aircraft": [
+        "DAL355"
+      ],
+      "priority": "high",
+      "reasoning": "Must wait for active taxiway traffic to clear before crossing"
+    },
+    "training_notes": "Active taxiway traffic has right of way over crossing traffic"
+  },
+  {
+    "record_id": "5564b1fb-66bc-47de-9ea9-86cf5a2edc71",
+    "scenario_type": "hold_short_runway",
+    "scenario_number": 22,
+    "timestamp": "2025-09-21T02:31:06.582593",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "DAL205",
+          "aircraft_type": "B757",
+          "lat": 40.6413,
+          "lon": -73.7785,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "ready_for_departure",
+          "runway_proximity": "runway_22L_threshold",
+          "airport_area": "runway_approach",
+          "destination": "KLAX",
+          "clearance_status": "cleared_for_takeoff"
+        },
+        {
+          "callsign": "JBU645",
+          "aircraft_type": "A321",
+          "lat": 40.6313,
+          "lon": -73.7881,
+          "altitude": 500,
+          "speed": 140,
+          "heading": 220,
+          "flight_phase": "final_approach",
+          "runway_proximity": "approach_22L",
+          "airport_area": "approach_corridor",
+          "distance_to_runway": 2.5,
+          "origin": "KBOS"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "hold_short_runway",
+      "severity": "urgent",
+      "runway": "22L",
+      "landing_traffic_distance": "2.5 miles",
+      "estimated_hold_time": "3 minutes"
+    },
+    "expected_atc_action": {
+      "command_type": "runway_control",
+      "details": "DAL205 hold short runway 22L, traffic on final",
+      "affected_aircraft": [
+        "DAL205"
+      ],
+      "priority": "urgent",
+      "reasoning": "Landing traffic has priority, departure must hold until runway is clear"
+    },
+    "training_notes": "Landing aircraft always have priority over departing aircraft"
+  },
+  {
+    "record_id": "45d426df-d81d-45de-a952-1c6c8b8d2551",
+    "scenario_type": "taxi_congestion_alley",
+    "scenario_number": 23,
+    "timestamp": "2025-09-21T02:31:06.582600",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "JBU480",
+          "aircraft_type": "A320",
+          "lat": 40.6425,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 2.0,
+          "heading": 180,
+          "flight_phase": "taxi_congestion",
+          "runway_proximity": "taxiway_alley",
+          "airport_area": "terminal_connector",
+          "destination": "various_gates",
+          "congestion_position": 1
+        },
+        {
+          "callsign": "DAL302",
+          "aircraft_type": "A320",
+          "lat": 40.6415,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 180,
+          "flight_phase": "taxi_congestion",
+          "runway_proximity": "taxiway_alley",
+          "airport_area": "terminal_connector",
+          "destination": "various_gates",
+          "congestion_position": 2
+        },
+        {
+          "callsign": "JBU269",
+          "aircraft_type": "A320",
+          "lat": 40.640499999999996,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 180,
+          "flight_phase": "taxi_congestion",
+          "runway_proximity": "taxiway_alley",
+          "airport_area": "terminal_connector",
+          "destination": "runway_22L",
+          "congestion_position": 3
+        },
+        {
+          "callsign": "DAL370",
+          "aircraft_type": "A320",
+          "lat": 40.6395,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 180,
+          "flight_phase": "taxi_congestion",
+          "runway_proximity": "taxiway_alley",
+          "airport_area": "terminal_connector",
+          "destination": "runway_22L",
+          "congestion_position": 4
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "taxi_alley_congestion",
+      "severity": "medium",
+      "congested_taxiway": "Terminal Connector",
+      "aircraft_count": 4,
+      "estimated_clear_time": "5 minutes"
+    },
+    "expected_atc_action": {
+      "command_type": "congestion_management",
+      "details": "JBU480 expedite taxi, following aircraft maintain spacing",
+      "affected_aircraft": [
+        "JBU480"
+      ],
+      "priority": "medium",
+      "reasoning": "Clear congestion by expediting lead aircraft movement"
+    },
+    "training_notes": "Congestion requires expediting lead traffic to clear bottlenecks"
+  },
+  {
+    "record_id": "23904c35-d96a-40ba-852c-168291edbee5",
+    "scenario_type": "taxi_priority_emergency",
+    "scenario_number": 24,
+    "timestamp": "2025-09-21T02:31:06.582609",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "UAL360",
+          "aircraft_type": "B777",
+          "lat": 40.641,
+          "lon": -73.7795,
+          "altitude": "ground",
+          "speed": 5.0,
+          "heading": 180,
+          "flight_phase": "emergency_taxi",
+          "runway_proximity": "taxiway_C",
+          "airport_area": "north_field",
+          "emergency_type": "medical",
+          "priority_level": "urgent",
+          "destination_gate": "Medical Bay"
+        },
+        {
+          "callsign": "AAL166",
+          "aircraft_type": "A321",
+          "lat": 40.6412,
+          "lon": -73.779,
+          "altitude": "ground",
+          "speed": 10.0,
+          "heading": 270,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_A",
+          "airport_area": "central_field",
+          "destination_runway": "22L"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "emergency_priority_taxi",
+      "severity": "urgent",
+      "emergency_type": "medical",
+      "affected_normal_traffic": 1
+    },
+    "expected_atc_action": {
+      "command_type": "emergency_priority",
+      "details": "AAL166 hold position, emergency aircraft UAL360 has priority",
+      "affected_aircraft": [
+        "AAL166",
+        "UAL360"
+      ],
+      "priority": "urgent",
+      "reasoning": "Medical emergency requires immediate priority routing to medical bay"
+    },
+    "training_notes": "Emergency aircraft always have absolute priority over normal traffic"
+  },
+  {
+    "record_id": "e7105c2e-a6a8-4768-9b31-0692630453d1",
+    "scenario_type": "hold_maintenance_blocking",
+    "scenario_number": 25,
+    "timestamp": "2025-09-21T02:31:06.582617",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "SWA427",
+          "aircraft_type": "B737",
+          "lat": 40.6415,
+          "lon": -73.779,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 90,
+          "flight_phase": "holding_for_maintenance",
+          "runway_proximity": "taxiway_B",
+          "airport_area": "maintenance_area",
+          "destination_runway": "04R",
+          "hold_reason": "maintenance_vehicle_blocking",
+          "maintenance_activity": "runway_inspection"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "maintenance_blocking",
+      "severity": "medium",
+      "blocked_area": "Taxiway B",
+      "maintenance_type": "runway_inspection",
+      "estimated_clear_time": "10 minutes"
+    },
+    "expected_atc_action": {
+      "command_type": "maintenance_hold",
+      "details": "SWA427 hold position, maintenance vehicle active on Taxiway B",
+      "affected_aircraft": [
+        "SWA427"
+      ],
+      "priority": "medium",
+      "reasoning": "Maintenance operations require aircraft to hold until area is clear"
+    },
+    "training_notes": "Maintenance operations have priority, aircraft must hold until clear"
+  },
+  {
+    "record_id": "1224c0fd-8630-4a62-98f6-4459161aab04",
+    "scenario_type": "hold_maintenance_blocking",
+    "scenario_number": 26,
+    "timestamp": "2025-09-21T02:31:06.582624",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "JBU200",
+          "aircraft_type": "B737",
+          "lat": 40.6415,
+          "lon": -73.779,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 90,
+          "flight_phase": "holding_for_maintenance",
+          "runway_proximity": "taxiway_B",
+          "airport_area": "maintenance_area",
+          "destination_runway": "04R",
+          "hold_reason": "maintenance_vehicle_blocking",
+          "maintenance_activity": "runway_inspection"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "maintenance_blocking",
+      "severity": "medium",
+      "blocked_area": "Taxiway B",
+      "maintenance_type": "runway_inspection",
+      "estimated_clear_time": "10 minutes"
+    },
+    "expected_atc_action": {
+      "command_type": "maintenance_hold",
+      "details": "JBU200 hold position, maintenance vehicle active on Taxiway B",
+      "affected_aircraft": [
+        "JBU200"
+      ],
+      "priority": "medium",
+      "reasoning": "Maintenance operations require aircraft to hold until area is clear"
+    },
+    "training_notes": "Maintenance operations have priority, aircraft must hold until clear"
+  },
+  {
+    "record_id": "79438898-729d-4e1b-8877-2b924d8d8763",
+    "scenario_type": "hold_for_departure",
+    "scenario_number": 27,
+    "timestamp": "2025-09-21T02:31:06.582629",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "UAL515",
+          "aircraft_type": "B787",
+          "lat": 40.6413,
+          "lon": -73.7781,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 220,
+          "flight_phase": "holding_for_departure",
+          "runway_proximity": "runway_22L_holding_point",
+          "airport_area": "departure_area",
+          "destination": "EGLL",
+          "departure_slot": "08:45",
+          "current_time": "08:42",
+          "hold_reason": "departure_spacing",
+          "fuel_remaining_minutes": 480
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "hold_for_departure_slot",
+      "severity": "low",
+      "hold_reason": "slot_timing",
+      "estimated_hold_time": "3 minutes",
+      "departure_slot": "08:45"
+    },
+    "expected_atc_action": {
+      "command_type": "departure_hold",
+      "details": "UAL515 continue holding, departure clearance in 3 minutes for slot time",
+      "affected_aircraft": [
+        "UAL515"
+      ],
+      "priority": "medium",
+      "reasoning": "Aircraft must wait for assigned departure slot to maintain flow control"
+    },
+    "training_notes": "Departure slots must be maintained for flow control and spacing"
+  },
+  {
+    "record_id": "bcceacc6-42b2-4670-87fb-875df8cf8116",
+    "scenario_type": "hold_for_crossing_traffic",
+    "scenario_number": 28,
+    "timestamp": "2025-09-21T02:31:06.582635",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "DAL804",
+          "aircraft_type": "A319",
+          "lat": 40.6418,
+          "lon": -73.7788,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 180,
+          "flight_phase": "holding_for_crossing",
+          "runway_proximity": "taxiway_intersection",
+          "airport_area": "central_field",
+          "destination_gate": "C5",
+          "crossing_point": "Taxiway A"
+        },
+        {
+          "callsign": "UAL195",
+          "aircraft_type": "B752",
+          "lat": 40.6415,
+          "lon": -73.7792,
+          "altitude": "ground",
+          "speed": 18.0,
+          "heading": 270,
+          "flight_phase": "taxi_to_runway",
+          "runway_proximity": "taxiway_A",
+          "airport_area": "central_field",
+          "destination_runway": "04L"
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "hold_for_crossing",
+      "severity": "medium",
+      "crossing_point": "Taxiway A",
+      "active_traffic": "UAL195",
+      "estimated_wait": "1 minute"
+    },
+    "expected_atc_action": {
+      "command_type": "crossing_control",
+      "details": "DAL804 hold short of Taxiway A for crossing traffic",
+      "affected_aircraft": [
+        "DAL804"
+      ],
+      "priority": "high",
+      "reasoning": "Must wait for active taxiway traffic to clear before crossing"
+    },
+    "training_notes": "Active taxiway traffic has right of way over crossing traffic"
+  },
+  {
+    "record_id": "6620c2ac-34cb-4b4c-9dd7-6cdc75c05b31",
+    "scenario_type": "taxi_gate_to_runway",
+    "scenario_number": 29,
+    "timestamp": "2025-09-21T02:31:06.582642",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "SWA661",
+          "aircraft_type": "B737",
+          "lat": 40.6395,
+          "lon": -73.7805,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 90,
+          "flight_phase": "pushback_complete",
+          "runway_proximity": "gate_B15",
+          "airport_area": "terminal_B",
+          "departure_gate": "B15",
+          "destination": "KORD",
+          "assigned_runway": "22R",
+          "taxi_route": "B, A, A7 to runway 22R",
+          "passengers": 142
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "standard_taxi_clearance",
+      "severity": "low",
+      "route": "B-A-A7",
+      "estimated_taxi_time": "8 minutes",
+      "runway": "22R"
+    },
+    "expected_atc_action": {
+      "command_type": "taxi_clearance",
+      "details": "SWA661 taxi via Bravo, Alpha, Alpha-7 to runway 22R",
+      "affected_aircraft": [
+        "SWA661"
+      ],
+      "priority": "medium",
+      "reasoning": "Standard taxi clearance from Terminal B to runway 22R"
+    },
+    "training_notes": "Standard taxi clearances should use most efficient available route"
+  },
+  {
+    "record_id": "30169fe7-0e2b-4e32-8148-d129e1b64108",
+    "scenario_type": "taxi_gate_to_runway",
+    "scenario_number": 30,
+    "timestamp": "2025-09-21T02:31:06.582647",
+    "airport": "KJFK",
+    "aircraft_states": {
+      "all_aircraft": [
+        {
+          "callsign": "JBU295",
+          "aircraft_type": "B737",
+          "lat": 40.6395,
+          "lon": -73.7805,
+          "altitude": "ground",
+          "speed": 0.0,
+          "heading": 90,
+          "flight_phase": "pushback_complete",
+          "runway_proximity": "gate_B15",
+          "airport_area": "terminal_B",
+          "departure_gate": "B15",
+          "destination": "KORD",
+          "assigned_runway": "22R",
+          "taxi_route": "B, A, A7 to runway 22R",
+          "passengers": 142
+        }
+      ]
+    },
+    "bottleneck_info": {
+      "type": "standard_taxi_clearance",
+      "severity": "low",
+      "route": "B-A-A7",
+      "estimated_taxi_time": "8 minutes",
+      "runway": "22R"
+    },
+    "expected_atc_action": {
+      "command_type": "taxi_clearance",
+      "details": "JBU295 taxi via Bravo, Alpha, Alpha-7 to runway 22R",
+      "affected_aircraft": [
+        "JBU295"
+      ],
+      "priority": "medium",
+      "reasoning": "Standard taxi clearance from Terminal B to runway 22R"
+    },
+    "training_notes": "Standard taxi clearances should use most efficient available route"
+  }
+]

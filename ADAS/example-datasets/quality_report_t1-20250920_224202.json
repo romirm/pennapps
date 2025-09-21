@@ -1,0 +1,78 @@
+{
+  "source_file": "t1-20250920_224202.json",
+  "total_processed": 16,
+  "total_kept": 11,
+  "selection_rate": 0.6875,
+  "top_examples": [
+    {
+      "record_id": "6312d3e8-2ac0-42f5-b8ae-7dd2bd8d1bbb",
+      "raw_transcription": "bravo juliett tower juliett seven five one",
+      "quality_score": 0.9,
+      "training_value": "excellent",
+      "reasoning": "This example contains a clear and specific ATC command, a high confidence score, and identifiable aircraft callsigns, making it a valuable representation of real ATC operations."
+    },
+    {
+      "record_id": "21f496a6-1e77-4cf3-b03e-58e2bc398d16",
+      "raw_transcription": "ground up one eight four heavy hotel bravo short alfa with juliett five four six taxi",
+      "quality_score": 0.9,
+      "training_value": "excellent",
+      "reasoning": "This example contains a clear and specific ATC command (\"taxi\") with a high confidence score (0.8), identifiable aircraft callsigns, and operational relevance (taxi instruction with runway assignment implied)."
+    },
+    {
+      "record_id": "aca00f2c-1a40-4ab3-b5f0-784b35e23e51",
+      "raw_transcription": "taxi via the traffic straight ahead and swiss two eight monitor one one nine one.",
+      "quality_score": 0.9,
+      "training_value": "excellent",
+      "reasoning": "This example contains a clear, specific ATC command with a high confidence score, identifiable aircraft callsign, and operational relevance, making it an excellent representation of real ATC operations."
+    },
+    {
+      "record_id": "de7a1ef3-662c-48f5-bda5-d45c940dcaa8",
+      "raw_transcription": "taxi right alfa four three lima x four quebec",
+      "quality_score": 0.9,
+      "training_value": "excellent",
+      "reasoning": "This example is a clear, specific ATC command with a high confidence score, providing actionable information for bottleneck resolution and representing typical ATC communication patterns."
+    },
+    {
+      "record_id": "6fbef742-df77-4069-a5b5-a59b3bd554b9",
+      "raw_transcription": "five five six is on the following block and direct that s affirmative sir on the",
+      "quality_score": 0.9,
+      "training_value": "excellent",
+      "reasoning": "This example is a clear acknowledgment of an ATC instruction, providing context and demonstrating a typical ATC communication pattern."
+    },
+    {
+      "record_id": "75e745e6-94eb-41ad-84cb-5141090379ca",
+      "raw_transcription": "yangtze one one nine one flight level one six zero to austrian three three six",
+      "quality_score": 0.9,
+      "training_value": "excellent",
+      "reasoning": "This example contains a clear and specific ATC command (altitude) with a high confidence score (>0.8), and it provides rich context with multiple aircraft (26 total aircraft in the scene). The extracted elements are minimal but sufficient, and the transmission includes identifiable aircraft callsigns (although none are explicitly mentioned in this specific message)."
+    },
+    {
+      "record_id": "fee9e351-a982-4124-ac06-7e7847c626c8",
+      "raw_transcription": "roger approved",
+      "quality_score": 0.9,
+      "training_value": "excellent",
+      "reasoning": "This example contains a clear, specific ATC command with a high confidence score (>0.7), identifiable aircraft callsigns, and operational relevance (hold-short clearance)."
+    },
+    {
+      "record_id": "4367b64a-398c-4b8b-8f00-6f505852d62d",
+      "raw_transcription": "air traffic control contact lima five seven qnh ground proceed right on out",
+      "quality_score": 0.9,
+      "training_value": "excellent",
+      "reasoning": "This example is a clear pilot read-back of an ATC instruction, containing a specific command (\"proceed right on out\") and a high confidence score (>0.7). It also has identifiable elements of ATC communication, such as the use of QNH and ground instructions."
+    },
+    {
+      "record_id": "177df691-556b-433d-811b-301e8bce770b",
+      "raw_transcription": "hotel bravo say again left top is one eight four heavy hotel bravo short alfa with juliett one eight four heavy can again runway",
+      "quality_score": 0.5,
+      "training_value": "fair",
+      "reasoning": ""
+    },
+    {
+      "record_id": "0ca053e7-9631-4910-b784-e052bf3c8e51",
+      "raw_transcription": "ground jobair three seven three jobair three seven three can you read me again yeah we re clear in on golf behind china five three sev",
+      "quality_score": 0.5,
+      "training_value": "fair",
+      "reasoning": ""
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from cerebras.cloud.sdk import Cerebras
 
+
 # Load environment variables from cerebras_config.env file
 load_dotenv('cerebras_config.env')
 #TODO: figure out where each aircraft involved in bottleneck is supposed to depart to -- determines money at stake and # of people onboard

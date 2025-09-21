@@ -2352,7 +2352,7 @@ Cost Analysis:
 To calculate the comprehensive costs, we will apply the explicit ruleset provided.
 
 1. **Direct Operational Costs**:
-   - Fuel cost = fuel_waste_gallons × $3.50/gallon. Assuming an av...
+   - Fuel cost = fuel_waste_gallons Ã— $3.50/gallon. Assuming an av...
 
 Mitigation Strategies:
   - Strategy Count: 6
@@ -2488,7 +2488,7 @@ Impact Analysis:
 
 ### Passenger Impact Calculation
 - Total passengers affected: 4500
-- Average delay = bottleneck_duration × delay_multiplier
+- Average delay = bottleneck_duration Ã— delay_multiplier
   - Bottleneck duration: 45 minutes (estimated from the bottleneck locati...
 
 Cost Analysis:
@@ -2637,7 +2637,6 @@ Risk Assessment:
   - Risk Categories: 0
   - AI Risk Assessment: N/A...
 
-================================================================================
 
 === Agentic AI Bottleneck Analysis - 2025-09-20T22:44:32.716324 ===
 Airport: JFK
