@@ -185,6 +185,68 @@ class InformedATCTranscriber:
                             self.aircraft_manager.get_current_aircraft_state()
                         )
 
+                        # DEBUG: Print aircraft names being passed to transcription interpreter
+                        ground_aircraft = aircraft_state.get("jfk_ground_aircraft", [])
+                        air_aircraft = aircraft_state.get("jfk_air_aircraft", [])
+
+                        print(
+                            f"🔍 DEBUG: Current aircraft being passed to interpreter:"
+                        )
+
+                        # Fix: Aircraft data structure uses flight number as key, not callsign field
+                        if ground_aircraft:
+                            # Check if ground_aircraft is a list of dicts or dict values
+                            if isinstance(ground_aircraft, list):
+                                ground_callsigns = [
+                                    ac.get("callsign", "N/A")
+                                    for ac in ground_aircraft
+                                    if isinstance(ac, dict)
+                                ]
+                            else:
+                                # If it's a dict, the keys are the callsigns
+                                ground_callsigns = list(ground_aircraft.keys())
+
+                            print(
+                                f"   📍 Ground aircraft ({len(ground_callsigns)}): {', '.join(ground_callsigns)}"
+                            )
+                        else:
+                            print(f"   📍 Ground aircraft: None")
+
+                        if air_aircraft:
+                            # Check if air_aircraft is a list of dicts or dict values
+                            if isinstance(air_aircraft, list):
+                                air_callsigns = [
+                                    ac.get("callsign", "N/A")
+                                    for ac in air_aircraft
+                                    if isinstance(ac, dict)
+                                ]
+                            else:
+                                # If it's a dict, the keys are the callsigns
+                                air_callsigns = list(air_aircraft.keys())
+
+                            print(
+                                f"   ✈️  Air aircraft ({len(air_callsigns)}): {', '.join(air_callsigns)}"
+                            )
+                        else:
+                            print(f"   ✈️  Air aircraft: None")
+
+                        total_aircraft = aircraft_state.get("total_aircraft_count", 0)
+                        print(f"   📊 Total aircraft in JFK area: {total_aircraft}")
+
+                        # DEBUG: Show data structure for debugging
+                        print(
+                            f"🔍 DEBUG: Ground aircraft data structure type: {type(ground_aircraft)}"
+                        )
+                        if ground_aircraft and len(ground_aircraft) > 0:
+                            first_ground = (
+                                ground_aircraft[0]
+                                if isinstance(ground_aircraft, list)
+                                else list(ground_aircraft.values())[0]
+                            )
+                            print(
+                                f"🔍 DEBUG: Sample ground aircraft keys: {list(first_ground.keys()) if isinstance(first_ground, dict) else 'Not a dict'}"
+                            )
+
                         # Parse command for structured data
                         parsed_command = self.command_parser.parse_command(
                             transcription, explanation

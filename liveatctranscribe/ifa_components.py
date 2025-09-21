@@ -221,11 +221,24 @@ class AircraftStateManager:
             # Calculate runway occupancy (basic implementation)
             runway_occupancy = self._calculate_runway_occupancy(ground_aircraft)
 
+            # Add flight numbers as callsign field to each aircraft record
+            ground_aircraft_with_callsigns = []
+            for flight_number, aircraft_data_item in ground_aircraft.items():
+                aircraft_with_callsign = aircraft_data_item.copy()
+                aircraft_with_callsign["callsign"] = flight_number
+                ground_aircraft_with_callsigns.append(aircraft_with_callsign)
+
+            air_aircraft_with_callsigns = []
+            for flight_number, aircraft_data_item in air_aircraft.items():
+                aircraft_with_callsign = aircraft_data_item.copy()
+                aircraft_with_callsign["callsign"] = flight_number
+                air_aircraft_with_callsigns.append(aircraft_with_callsign)
+
             return {
-                "all_aircraft": list(ground_aircraft.values())
-                + list(air_aircraft.values()),
-                "jfk_ground_aircraft": list(ground_aircraft.values()),
-                "jfk_air_aircraft": list(air_aircraft.values()),  # Currently within 5nm
+                "all_aircraft": ground_aircraft_with_callsigns
+                + air_aircraft_with_callsigns,
+                "jfk_ground_aircraft": ground_aircraft_with_callsigns,
+                "jfk_air_aircraft": air_aircraft_with_callsigns,  # Currently within 5nm
                 "runway_occupancy": runway_occupancy,
                 "total_aircraft_count": aircraft_data.get("total_aircraft", 0),
                 "timestamp": aircraft_data.get("timestamp", datetime.now().isoformat()),
