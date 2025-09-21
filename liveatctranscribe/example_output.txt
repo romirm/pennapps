@@ -1,0 +1,794 @@
+ that this message is intended for "American 236 Heavy". 
+
+Overall, this instruction appears to be a routine clarification to ensure safe operations, and there doesn't seem to be any immediate safety concerns or unclear information due to radio conditions in this specific message.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #14... (13 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpw02m0g2o.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.2s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'air one six three heavy american'
+
+📝 ATC Transcription: air one six three heavy american
+💡 Explanation: Let's break down the current ATC communication.
+
+It seems like the air traffic controller is addressing an aircraft. The phrase "air one six three heavy american" is likely the controller calling out to an American Airlines plane with the callsign "Air 163" (though the "one six three" could be a flight number, and "Air" might be a shortened version of the airline's name, which in this context, is American Airlines).
+
+Given the context from the previous conversations, it appears that the controller is probably managing the movement of multiple aircraft, possibly for landing or takeoff, and is giving instructions to ensure safe distances and sequencing.
+
+The term "heavy" is significant here; in aviation, "heavy" refers to a large aircraft type, typically those with a maximum takeoff weight of more than 300,000 pounds, such as a Boeing 747 or an Airbus A350. This designation is used to alert other aircraft and controllers of the potential for greater wake turbulence, which can affect the flight path of smaller aircraft.
+
+At this point, there doesn't seem to be any explicit instructions given to "Air 163" beyond being addressed. The significance of the call is likely to set up for further instructions, such as clearance for landing, takeoff, or routing changes, which would be important for the safe operation of the flight.
+
+There's no apparent issue with radio conditions in this specific transmission, as the message is clear and understandable. However, without the subsequent dialogue, it's difficult to determine the exact nature of the instructions or actions being coordinated for "Air 163 Heavy American."
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #15... (15 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpl9ph9k8e.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.4s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'foxtrot xray charlie give way to the one seventy five'
+
+📝 ATC Transcription: foxtrot xray charlie give way to the one seventy five
+💡 Explanation: Let's break down the current ATC communication.
+
+It seems that an air traffic controller is instructing an aircraft to give way to another aircraft. The aircraft being addressed is likely "Foxtrot Xray Charlie", although there's a slight chance the callsign might be misheard due to radio static.
+
+The instruction "give way to the one seventy five" means that Foxtrot Xray Charlie should yield or make way for an aircraft that is likely at an altitude of 17,500 feet. In aviation, altitudes are often referred to in hundreds of feet, so "one seventy five" is a phonetic way of saying "17,500 feet".
+
+Given the context of the previous conversations, it's likely that this instruction is related to routing or altitude changes. The mention of "radar heavy" and "cleared to copy" in the previous conversations suggests that the air traffic controller is managing multiple aircraft in the same airspace.
+
+The significance of this instruction is to ensure safe separation between aircraft. By giving way to the aircraft at 17,500 feet, Foxtrot Xray Charlie is being directed to adjust its altitude or flight path to avoid potential conflicts.
+
+However, it's worth noting that the quality of the radio transmission or the accuracy of the transcription might affect the clarity of the callsign "Foxtrot Xray Charlie". If the transmission was unclear, there's a small chance that the callsign might be incorrect. Nevertheless, based on the provided context, it appears that the air traffic controller is providing a routine instruction to ensure safe and orderly movement of aircraft in the airspace.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #16... (16 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpi3k_e275.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.4s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'tango sierra eight taxi left bravo short'
+
+📝 ATC Transcription: tango sierra eight taxi left bravo short
+💡 Explanation: Let's break down the current ATC communication.
+
+It seems that an aircraft with the callsign "Tango Sierra Eight" is being instructed by air traffic control. The controller is telling this aircraft to taxi (move on the ground) to the left onto a taxiway named "Bravo Short".
+
+In simpler terms, the aircraft is being directed to turn left onto a specific path on the airport's ground layout, which is labeled as "Bravo Short". This instruction is likely given to guide the aircraft to its next destination, such as a runway for takeoff or a gate for parking.
+
+The context suggests that the aircraft is probably on the ground, preparing for departure or repositioning after arrival. The mention of "taxi" confirms that the aircraft is moving under its own power on the airport's surface.
+
+The callsign "Tango Sierra Eight" appears to be clear, but as with any radio transmission, there's a small chance it could be misheard due to static or other interference. However, given the specialized ATC-trained AI model used for transcription, the likelihood of error is reduced.
+
+There doesn't seem to be any immediately apparent safety or operational concerns in this specific instruction. The controller is simply providing guidance to the aircraft to follow a specific route on the ground. 
+
+It's worth noting that the previous conversations mentioned "cleared to copy" and an aircraft "give way" to another, which might indicate that there's some coordination happening between multiple aircraft on the ground or in the air. However, the current instruction to "Tango Sierra Eight" seems straightforward and focused on ground movement.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #17... (17 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpyyqum7vt.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.3s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'ruzyne ground roger cimber three miles'
+
+📝 ATC Transcription: ruzyne ground roger cimber three miles
+💡 Explanation: Let's break down the current ATC communication:
+
+"ruzyne ground roger cimber three miles"
+
+Here's what's likely happening:
+
+* "Ruzyne" is probably a reference to Václav Havel Airport Prague (PRG), which is also known as Ruzyne Airport. This suggests that the communication is taking place on the ground at this airport.
+* "Ground" refers to the ground control frequency, which is used for communication between aircraft on the ground and air traffic control.
+* "Roger" is an acknowledgement from the controller, indicating that they have received and understood a previous transmission.
+* "Cimber" is likely an aircraft callsign, but it seems a bit unclear. It's possible that the AI model misheard the callsign or that there is radio static interfering with the transmission.
+* "Three miles" is a distance measurement, but without more context, it's unclear what this refers to. It could be the distance from the airport threshold, a runway, or a specific landmark.
+
+Given the context of the previous communications, it's likely that the aircraft with the callsign "Cimber" (or possibly a similar-sounding callsign) is being instructed or informed about something related to its ground movement or taxiing. However, the exact nature of the instruction or information is unclear due to the lack of context.
+
+Important safety or operational information:
+
+* The fact that the controller is acknowledging a transmission and providing a distance measurement suggests that they are trying to ensure the aircraft is aware of its position and any potential hazards or restrictions on the ground.
+* The unclear callsign "Cimber" could potentially lead to confusion or miscommunication, which is a safety concern.
+
+Significance of the instructions
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #18... (18 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpmpuqdb5x.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.2s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'cleared to land the one seventy five br'
+
+📝 ATC Transcription: cleared to land the one seventy five br
+💡 Explanation: Let's break down the current ATC communication in simple terms.
+
+**What's likely happening:** An aircraft is being cleared to land on runway 17 (referred to as "the one seventy five" using phonetic pronunciation, where "one" represents the number 1 and "seventy five" represents the numbers 7 and 5).
+
+**Who's involved:** The aircraft is likely being instructed by an air traffic controller, and the callsign of the aircraft is not explicitly mentioned in this specific transmission. However, considering the context from previous communications, it's possible that the aircraft being cleared to land is the one that was previously instructed to "give way to the one seventy five" (mentioned in the context as "foxtrot xray charlie").
+
+**Important safety or operational information:** The instruction "cleared to land" is a critical safety clearance, indicating that the air traffic controller has assessed the situation and determined it's safe for the aircraft to land on the specified runway.
+
+**Significance of the instructions:** The controller is giving the aircraft permission to land on runway 17, which means the aircraft should begin its final approach and touch down on that runway. The "br" at the end might be a truncated transmission or interference, but it doesn't seem to affect the main instruction.
+
+**Unclear due to radio conditions:** There doesn't seem to be any significant distortion or uncertainty in this particular transmission, but the absence of a clear callsign for the aircraft being addressed could potentially lead to confusion if there are multiple aircraft in the vicinity. However, in the context of ATC communications, the specific runway mention ("the one seventy five") and the nature of the instruction ("cleared to land") provide strong indicators
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #19... (19 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpqhr7bi0i.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.3s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'short of november for thirteen right of ma'
+
+📝 ATC Transcription: short of november for thirteen right of ma
+💡 Explanation: Let's break down the current ATC communication.
+
+It seems like the controller is giving instructions to an aircraft, likely about its approach or landing. The phrase "short of november" refers to a location on the airport's runway or taxiway layout, specifically a point before (short of) a taxiway or intersection named "November". 
+
+The mention of "for thirteen" suggests that the aircraft is being directed towards runway 13. The "right of ma" part is a bit unclear due to possible radio static or transcription issues, but it might be referring to a specific marker, taxiway, or instruction to stay to the right of something (possibly a marker or a line) named "MA" or it could be a misheard callsign or abbreviation.
+
+Given the context from the previous conversations, which included taxi instructions and clearance to land, it appears that the aircraft is in the process of landing or preparing to land on runway 13. The controller is providing guidance on where to position the aircraft relative to specific airport features.
+
+Important safety information here includes the precise location the aircraft needs to be aware of ("short of November") and the runway it's being directed to ("thirteen"). The significance of the instruction is to ensure the aircraft is properly aligned and positioned for a safe landing.
+
+However, the "right of ma" part is unclear, which could be due to radio conditions or transcription errors. In real-time ATC communication, clarity is crucial, and any unclear instructions would typically be reconfirmed or repeated by the controller or the pilot for safety.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #20... (20 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpd6733boi.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.1s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'six six seven'
+
+📝 ATC Transcription: six six seven
+💡 Explanation: Let's break down the current ATC communication "six six seven".
+
+In this context, it appears that the controller is likely responding to an aircraft's call or request. The phrase "six six seven" seems to be a callsign, which is a unique identifier for an aircraft. However, the callsign sounds incomplete, and it's possible that the transcription model missed some parts of the call due to radio static or gaps in the transmission.
+
+Given the recent context, it seems that the controller is involved in guiding aircraft for landing, as indicated by the previous messages ("cleared to land the one seventy five br"). The current message "six six seven" might be the controller addressing a specific aircraft, possibly to provide further instructions or clearances.
+
+The significance of this message is that the controller is likely trying to establish communication with the aircraft "six six seven" to provide important safety or operational information. However, without more context or a complete callsign, it's difficult to determine the exact nature of the instruction or the aircraft's situation.
+
+It's also possible that the "six six seven" is not a callsign, but rather a numeric designation or a reference to a specific taxiway or runway. However, given the context, it's more likely that it's a callsign.
+
+Due to the brevity and potential radio static, some information might be unclear. Further communication would be necessary to understand the controller's intentions and the aircraft's response.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #21... (21 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpgf8sfate.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.4s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'three six nine we re going in tango alfa'
+
+📝 ATC Transcription: three six nine we re going in tango alfa
+💡 Explanation: Let's break down the current ATC communication.
+
+It seems like the air traffic controller is talking to an aircraft with the callsign "three six nine". The controller is saying "we're going in Tango Alpha". 
+
+In plain language, "Tango Alpha" is a phonetic abbreviation for a specific taxiway or route on the airport. The controller is likely instructing the aircraft to proceed to this route after landing.
+
+Given the recent context, where an aircraft was cleared to land on runway 17 (indicated by "one seventy five") and another instruction mentioned "thirteen right", it's likely that the aircraft "three six nine" has just landed or is about to land and is being guided to a specific taxi route, possibly to exit the runway or proceed to the gate.
+
+The significance of this instruction is to ensure safe and efficient movement of the aircraft on the ground, avoiding potential conflicts with other aircraft or ground vehicles. However, the callsign "three six nine" seems clear, but without more context or information about the specific airport layout and the aircraft's flight plan, it's difficult to provide more details.
+
+It's also worth noting that the radio transmission seems relatively clear, with no apparent issues due to static or overlapping transmissions. However, if there were any gaps or unclear parts in the transmission, it could potentially affect the interpretation of the instruction.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #22... (23 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmp_v95pjdd.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.0s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'ok sommer'
+
+📝 ATC Transcription: ok sommer
+💡 Explanation: Let's break down the current ATC communication "ok sommer".
+
+It appears that the air traffic controller is responding to a previous transmission, likely from an aircraft. The word "sommer" is probably a misheard or phonetic variation of a callsign, which is a unique identifier for an aircraft. However, without more context, it's unclear what the actual callsign is.
+
+Given the previous conversation context, it seems that the controller is likely guiding an aircraft through a routing or approach procedure. The mention of "november" and "thirteen right" in the previous context suggests that the aircraft may be preparing to land or follow a specific route.
+
+The controller's response "ok sommer" is likely an acknowledgement or confirmation of the aircraft's previous transmission. However, due to the unclear callsign, it's difficult to determine which specific aircraft is being addressed.
+
+There doesn't appear to be any critical safety or operational information in this transmission, but the unclear callsign may indicate some radio static or interference. It's possible that the controller is trying to confirm the aircraft's understanding of the previous instructions, but without more context, it's hard to say for sure.
+
+Overall, the significance of this instruction is likely an acknowledgement or confirmation, but the unclear callsign and lack of context make it difficult to provide a more detailed explanation.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #23... (25 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpl04sszeh.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.3s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'csa six heavy is waiting for your final approach'
+
+📝 ATC Transcription: csa six heavy is waiting for your final approach
+💡 Explanation: Let's break down the current ATC communication:
+
+"csa six heavy is waiting for your final approach"
+
+Here's what's likely happening:
+
+* An aircraft with the callsign "CSA006" (or possibly "CSA Six", but "CSA006" is more likely as "CSA" is a common airline code and "006" is a flight number) is preparing to land.
+* The aircraft is referred to as "heavy", which is a term used to indicate that it's a large aircraft, typically with a maximum takeoff weight of over 300,000 pounds. This is important for air traffic control to know, as it affects the aircraft's performance and separation from other aircraft.
+* The controller is informing another party (likely another controller or a different frequency) that CSA006 is waiting for its final approach clearance.
+
+Who is probably involved:
+
+* The aircraft with callsign "CSA006" (or "CSA Six")
+* The air traffic controller making the statement
+* Possibly another controller or frequency, as the controller is providing an update on the status of CSA006
+
+Important safety or operational information:
+
+* The fact that CSA006 is waiting for its final approach clearance indicates that it's nearing the end of its approach and is ready to land.
+* The use of the term "heavy" is important for air traffic control to ensure safe separation from other aircraft.
+
+Significance of the instructions:
+
+* There are no explicit instructions given in this statement, but rather an update on the status of CSA006.
+* However, the statement implies that the controller is coordinating with other parties to ensure a safe and efficient landing process for CSA006.
+
+Unclear due to radio conditions:
+
+* The callsign "CSA
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #24... (26 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpnibtwhqk.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 0.0s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'None'
+📻 No clear ATC transmission detected in audio chunk
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #25... (25 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpai3zgkdo.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.0s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'ok one'
+
+📝 ATC Transcription: ok one
+💡 Explanation: Let's break down the current ATC communication "ok one" in simple terms.
+
+**What's likely happening:** Given the context from the previous conversations, it seems like an aircraft is preparing to land. The mention of "final approach" in the previous message suggests that the plane is getting ready to touch down on the runway.
+
+**Who's involved:** The controller is responding with "ok one", but the callsign of the aircraft is not clearly mentioned in this specific transmission. However, from the context, it's possible that the controller is addressing the same aircraft that was mentioned earlier, possibly "CSA six heavy" or another plane that was being instructed.
+
+**Important safety or operational information:** The controller's response "ok one" is brief and seems to be acknowledging or confirming something. Without more context, it's difficult to determine what exactly is being acknowledged, but it might be related to the aircraft's position, altitude, or approach clearance.
+
+**Significance of instructions:** The instruction "ok one" itself doesn't provide much information, but in the context of ATC communications, a simple "ok" can mean that the controller has received and understood the aircraft's transmission or is acknowledging a request. The "one" might refer to a specific instruction, clearance, or step in the landing procedure, but without more information, it's hard to say for sure.
+
+**Unclear due to radio conditions:** The brevity of the response and the lack of explicit callsign or context make it a bit unclear what exactly is being communicated. Radio static or overlapping transmissions might have caused some information to be missed, but based on the previous conversations, it appears to be related to the landing process. 
+
+In summary, the controller is acknowledging
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #26... (26 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpjckemwri.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.5s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'You have to go first now american six six sev'
+
+📝 ATC Transcription: You have to go first now american six six sev
+💡 Explanation: Let's break down the current ATC communication.
+
+It seems like there's an instruction being given to an aircraft, specifically "American Six Six Seven" (although the last digit is a bit unclear due to the transcription). The controller is telling this aircraft that it needs to go first now.
+
+Given the context from the previous conversations, it appears that there are multiple aircraft preparing to land or take off, and the controller is managing their sequence. The phrase "you have to go first now" suggests that American Six Six Seven is being cleared to proceed with its planned action, likely a landing or takeoff, ahead of other aircraft.
+
+The mention of "csa six heavy" waiting for final approach in the previous conversation implies that there are multiple aircraft in the vicinity, and the controller is coordinating their approaches to ensure safe separation.
+
+The significance of this instruction is that American Six Six Seven is being given priority to proceed, and the controller is likely trying to maintain a safe and efficient flow of air traffic. However, it's worth noting that the callsign "American Six Six Seven" might be slightly misheard due to radio static, so there's a small chance that the actual callsign could be different.
+
+Overall, the controller is managing the sequence of aircraft and giving American Six Six Seven the go-ahead to proceed with its planned action, while ensuring the safety of other aircraft in the area.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #27... (27 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmp0bgr7xdt.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.1s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'climbing one two seven decimal'
+
+📝 ATC Transcription: climbing one two seven decimal
+💡 Explanation: Let's break down this ATC communication in simple terms:
+
+**What's likely happening:** An aircraft is taking off or has just taken off and is climbing to a higher altitude.
+
+**Who's involved:** The aircraft's callsign is not clearly mentioned in this specific transmission, but based on the previous context, it might be related to "american six six sev" or another aircraft. The controller is giving instructions.
+
+**Important information:** The controller is providing an altitude instruction, which is crucial for safe separation from other aircraft and terrain.
+
+**Instructions given:** The aircraft is being instructed to climb to an altitude of 12,700 feet. In aviation, "one two seven decimal" is a way of saying "twelve thousand seven hundred" using phonetic pronunciation to avoid confusion over radio communications.
+
+**Significance:** This instruction is significant because it guides the aircraft to a specific altitude, ensuring it follows a safe and planned route. This is especially important during takeoff and initial climb phases when aircraft are closer together and to the ground.
+
+**Unclear due to radio conditions:** The callsign of the aircraft being addressed is not explicitly mentioned in this transmission, which could be due to the brevity of the message or radio static. However, the context from previous communications suggests it might be related to an American Airlines flight or another aircraft waiting for final approach or taking off.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #28... (28 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpcjr_zqc9.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.5s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'six heavy bravo shorta november'
+
+📝 ATC Transcription: six heavy bravo shorta november
+💡 Explanation: Let's break down the current ATC communication: "six heavy bravo shorta november".
+
+It seems like the controller is addressing an aircraft with a callsign that is not entirely clear due to the transcription. The "six" likely refers to the aircraft's callsign, possibly "American 66" mentioned earlier, but the "heavy" part usually indicates that the aircraft is a large one, often used for jets. The "bravo" could be referring to a specific taxiway or runway, in this case, possibly "Bravo" being a designation for a runway or taxiway.
+
+"Shorta" is a bit unclear, but it might be a shortened version of "shortcut" or could be related to the aircraft taking a shorter route or taking off from a specific point on the runway. However, without more context, it's difficult to say for sure.
+
+"November" is likely referring to a runway designation. In aviation, runways are often designated by a number that corresponds to their magnetic direction. "November" could be a phonetic pronunciation for the number "November" being "N" in the phonetic alphabet, but it doesn't directly translate to a runway number. It might be a misunderstanding or mishearing of the actual runway number.
+
+Given the context from the previous communications about climbing and going first, it appears that this aircraft is preparing for takeoff or has just taken off and is receiving instructions on which runway or path to follow. The significance of the instruction would be to guide the aircraft safely away from the airport, possibly directing it to a specific route or altitude to avoid other air traffic.
+
+The clarity of the communication is somewhat compromised due to the quality of the transcription and possible radio static, making some
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #29... (29 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpywsy265l.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 0.0s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'None'
+📻 No clear ATC transmission detected in audio chunk
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #30... (28 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpe22lbto2.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.3s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'standing by for dekov'
+
+📝 ATC Transcription: standing by for dekov
+💡 Explanation: Let's break down the current ATC communication.
+
+It seems like the air traffic controller is saying "standing by for Delta Cov" or possibly "Decov", but given the context of aviation terminology, it's more likely that "Dekov" refers to a navigation point or a fix called "DEKOV". 
+
+In this context, the controller is probably informing an aircraft (likely an American Airlines plane, given the previous mention of "american six six sev") that they are waiting for the aircraft to reach or report passing the DEKOV point. 
+
+The significance of this instruction is that the controller needs to know when the aircraft has reached this point to provide further instructions, possibly for routing or descent. This is important for safety and operational reasons, as it helps the controller to ensure the aircraft is on the correct path and to prevent potential conflicts with other air traffic.
+
+However, the quality of the transmission seems clear, and there's no obvious sign of radio static or misheard words in this specific communication. The callsign or specific aircraft involved is not explicitly mentioned in this transmission, but based on the previous context, it's likely related to the American Airlines aircraft mentioned earlier. 
+
+In simple terms, the controller is waiting for an aircraft to reach a specific point (DEKOV) before giving further instructions, which is a normal part of guiding planes through airspace.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #31... (30 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmp7gaqvhiz.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.2s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'tango four five'
+
+📝 ATC Transcription: tango four five
+💡 Explanation: Let's break down the current ATC communication "tango four five".
+
+In this context, it appears that an aircraft is being instructed or is reporting its status to the air traffic controller. The phrase "tango four five" seems to be a callsign or an identification code for the aircraft, but it's a bit unclear due to the brevity of the transmission.
+
+Given the recent context, where an aircraft was "climbing" (gaining altitude) and another was mentioned with a heavy classification and a specific route or fix ("six heavy bravo shorta november"), it's likely that "tango four five" is an aircraft callsign responding to or being addressed by the controller.
+
+However, without more information, the exact nature of the communication (whether it's a response to a controller's instruction, a request for clearance, or simply a check-in) remains somewhat unclear. The mention of "standing by for dekov" in the previous context suggests that there might be a handover or a change in control sectors happening, and "tango four five" could be related to this transition.
+
+Important to note is that the transmission is very brief and doesn't provide detailed operational or safety information beyond the possible identification of an aircraft. If "tango four five" is indeed an aircraft callsign, the controller might be acknowledging its presence, giving it instructions, or requesting it to standby, but the specifics are not provided in this snippet due to its concise nature and the potential for radio static or transmission gaps.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #32... (31 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpnetocf9e.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 0.0s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'None'
+📻 No clear ATC transmission detected in audio chunk
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #33... (30 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpx2xkn9q5.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 0.0s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'None'
+📻 No clear ATC transmission detected in audio chunk
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #34... (29 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmp8vhz9adj.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.3s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'charter three five four standby.'
+
+📝 ATC Transcription: charter three five four standby.
+💡 Explanation: Let's break down the current ATC communication: "charter three five four standby."
+
+It appears that an air traffic controller is giving instructions to an aircraft with the callsign "Charter 354". The controller is telling this aircraft to "standby", which means to wait or hold on for further instructions. 
+
+Given the context of the previous conversations, it seems like the controller is managing multiple aircraft, possibly for takeoff or landing sequences. The mention of "standing by for dekov" earlier suggests that the controller might be preparing for an arrival or departure at a specific fix or checkpoint named "Dekov". However, without more specific details about the airport or airspace, it's difficult to determine the exact situation.
+
+The significance of the instruction "standby" is that the controller needs to prioritize or manage the sequence of aircraft movements, possibly due to traffic, weather, or other operational considerations. By telling Charter 354 to standby, the controller is essentially putting their instructions or clearance on hold temporarily.
+
+The callsign "Charter 354" seems relatively clear, but as with any radio transmission, there's always a possibility of mishearing due to static or overlap with other transmissions. However, based on the provided transcription, it appears to be a direct and straightforward instruction from the controller to the aircraft. 
+
+In summary, an air traffic controller is instructing Charter 354 to wait for further instructions, likely as part of managing air traffic flow for safe and efficient operations.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #35... (30 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpaxp0h2x6.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.1s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'ro'
+📻 No clear ATC transmission detected in audio chunk
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #36... (31 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpp88fzk8n.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.5s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'The delta five is give me your number one more'
+
+📝 ATC Transcription: The delta five is give me your number one more
+💡 Explanation: Let's break down the current ATC communication.
+
+It seems like the air traffic controller is asking an aircraft, likely with the callsign "Delta Five", to repeat or confirm their identification number, referred to as "your number". The controller says "give me your number one more", which is a polite way of asking the pilot to repeat the information.
+
+The context suggests that the controller might be trying to clarify or confirm the aircraft's identity, possibly due to a misheard or unclear transmission earlier. The mention of "one more" implies that the controller has already received the information, but wants to verify it to ensure accuracy.
+
+Given the recent context, it appears that the controller is managing multiple aircraft, including "Tango Four Five" and "Charter Three Five Four", and is now focusing on "Delta Five". The fact that "Charter Three Five Four" was told to "standby" suggests that the controller is juggling multiple aircraft and prioritizing communications.
+
+There doesn't seem to be any immediate safety concerns or operational issues in this transmission. However, the controller's request for confirmation indicates a focus on ensuring accurate information, which is important for safe and efficient air traffic management.
+
+It's worth noting that the audio quality or transmission clarity doesn't appear to be an issue in this specific snippet, as the language is straightforward and easy to understand. Nevertheless, the use of phonetic number variations or other aviation terminology might still be present in the conversation, but it's not evident in this particular transmission.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #37... (32 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpc15la2xc.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.1s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'five five'
+
+📝 ATC Transcription: five five
+💡 Explanation: Let's break down the current ATC communication "five five".
+
+In this context, it seems like the air traffic controller is likely responding to a previous request or instruction, possibly related to the "delta five" mentioned earlier. The phrase "five five" is probably a confirmation or acknowledgement of something.
+
+Given the phonetic number variations used in ATC communications, "five five" could be the controller asking the pilot to confirm their aircraft's number or code, which might be "55". However, without more context, it's difficult to determine the exact meaning.
+
+It's possible that the controller is asking the pilot of "delta five" (mentioned earlier) to confirm their position or status, and "five five" is a truncated or partial transmission due to radio static or overlap.
+
+Important safety or operational information is not explicitly mentioned in this brief transmission. The significance of the instruction, if it is an instruction, is unclear due to the lack of context.
+
+Overall, the meaning of "five five" is uncertain, and more information would be needed to fully understand the situation. The transmission seems incomplete or fragmented, possibly due to radio conditions or overlap with other communications.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #38... (33 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmp6kx_1u_o.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.1s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'altitude'
+
+📝 ATC Transcription: altitude
+💡 Explanation: Let's break down the current ATC communication "altitude".
+
+Given the context from the previous conversations, it seems like the air traffic controller is likely instructing an aircraft to report or maintain a certain altitude. However, the transcription only contains the single word "altitude", which is incomplete.
+
+It's unclear who is being addressed, as the callsign is not provided in this specific transmission. The previous conversations mentioned "charter three five four" and "delta five", but it's uncertain if either of these aircraft is being referred to here.
+
+The significance of the instruction "altitude" would typically be to ensure the aircraft is at a safe height, possibly to avoid conflicts with other air traffic or to prepare for a specific phase of flight, such as landing or routing. However, without more information, it's difficult to determine the exact context or importance of this instruction.
+
+Due to the incomplete transmission, it seems like there might be some radio static or a gap in the communication, which is causing the missing information. The controller might have said something like "maintain altitude" or "report your altitude", but the full instruction is not clear from the transcription.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #39... (34 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmp8v0srgge.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.5s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'ufthansa seven right alfa left mike fo'
+
+📝 ATC Transcription: ufthansa seven right alfa left mike fo
+💡 Explanation: Let's break down the current ATC communication.
+
+It seems like the controller is giving instructions to an aircraft, but the transcription is a bit unclear due to possible radio static or misheard words. Here's what we can gather:
+
+* "Ufthansa" is likely a misheard callsign. Given the context, it's probably "Lufthansa", a well-known airline.
+* "Seven" might be the flight number, so the aircraft's full callsign could be "Lufthansa 7".
+* "Right alfa" and "left mike" appear to be instructions related to taxiway or runway directions. In aviation, "alfa" and "mike" are phonetic abbreviations for the letters "A" and "M", which could refer to specific taxiways or intersections on the airfield.
+* "Fo" is unclear, but it might be a truncated word or a misheard frequency.
+
+Considering the context from the previous conversation, which mentioned "delta five" and "altitude", it's likely that the aircraft is preparing for takeoff or is taxiing to a runway. The controller is probably providing the Lufthansa aircraft with instructions on which taxiways to use to reach its assigned runway.
+
+Important safety information is that the aircraft needs to follow the correct taxiway routing to avoid conflicts with other aircraft or obstacles on the ground. The significance of the instructions is to ensure the safe and efficient movement of the aircraft on the ground.
+
+However, due to the unclear transcription, it's difficult to provide a more detailed explanation. The controller might need to rephrase or repeat the instructions to ensure the aircraft understands the correct taxiway routing.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #40... (36 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpkw28boh4.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 0.0s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'None'
+📻 No clear ATC transmission detected in audio chunk
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #41... (35 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmplvgxwur3.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 0.0s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'None'
+📻 No clear ATC transmission detected in audio chunk
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #42... (34 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmp9snwepfx.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⚡ ATC transcription completed in 3.2s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'ground up six twenty kilo'
+
+📝 ATC Transcription: ground up six twenty kilo
+💡 Explanation: Let's break down the current ATC communication: "ground up six twenty kilo".
+
+It seems like the controller is giving an instruction to an aircraft. The phrase "ground up" likely indicates that the aircraft is being cleared to contact a different controller or frequency, specifically the "ground" controller, but in this context, it probably means the aircraft is being instructed to contact the tower or departure controller after taking off, as "ground" usually refers to the controller handling aircraft on the ground. However, "ground up" is not standard terminology, so there might be some confusion due to radio static or mishearing.
+
+The "six twenty" part could refer to a taxiway or runway designation, but without more context, it's hard to be certain. In aviation, runways and taxiways are often identified by numbers, which can be pronounced using phonetic alphabet (e.g., "six" for the number 6). 
+
+"Kilo" likely refers to a taxiway designation, as taxiways are often labeled with letters (e.g., "Kilo" for the letter K).
+
+Given the recent context about altitude and what seems to be a callsign ("ufthansa seven"), it's possible that an aircraft, possibly "Ufthansa" (which might be a misheard callsign for "Lufthansa"), is preparing for takeoff or has just taken off. The controller might be instructing the aircraft to proceed to a specific location on the airport, possibly via taxiway Kilo, after it has lifted off the ground.
+
+Important safety or operational information in this instruction seems to be related to routing the aircraft correctly after takeoff to ensure safe separation from other aircraft and to follow established departure procedures.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #43... (36 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmprxtde1i8.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+^C
+🛑 Stopping recording...
+⏳ Finishing processing remaining audio...
+📊 37 audio chunks remaining to process
+⏳ Still processing... 37 chunks remaining
+⚡ ATC transcription completed in 3.1s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'golf entering delta'
+
+📝 ATC Transcription: golf entering delta
+💡 Explanation: Let's break down the current ATC communication "golf entering delta".
+
+It appears that an aircraft with the callsign "Golf" (the actual callsign might be longer, but "Golf" is the identifiable part) is being instructed or is reporting that it is entering a specific airspace or route segment called "Delta". 
+
+In aviation, letters like "Delta" often refer to specific arrival or departure procedures, or even runways. Without more context, it's difficult to determine exactly what "Delta" refers to in this case, but it suggests that the aircraft "Golf" is transitioning into a new phase of its flight, possibly beginning its approach for landing or aligning with a specific route.
+
+The significance of this instruction or report is that it informs air traffic control of the aircraft's position and intentions, allowing controllers to manage traffic safely and efficiently. It also helps in ensuring that the aircraft follows the designated paths and procedures, which are crucial for maintaining safe distances from other aircraft and obstacles.
+
+Given the recent context mentioning "altitude", "Lufthansa seven right alfa left mike fo", and "ground up six twenty kilo", it seems like there are multiple aircraft and possibly different controllers involved in managing the airspace. The mention of "altitude" and specific runway or taxiway designations ("alfa", "mike fo", "kilo") suggests that these communications are related to the aircraft's movement on the ground or in the immediate vicinity of the airport, possibly during takeoff or landing phases.
+
+However, the audio quality or the transcription might not be perfect, as hinted by the specialized ATC-trained Whisper model's limitations, such as potential misheard callsigns or frequencies due to radio static. Therefore,
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #44... (36 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmpml6s5fyr.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⏳ Still processing... 36 chunks remaining
+⏳ Still processing... 36 chunks remaining
+⚡ ATC transcription completed in 3.5s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'air traffic one eight continue'
+
+📝 ATC Transcription: air traffic one eight continue
+💡 Explanation: Let's break down the current ATC communication: "air traffic one eight continue".
+
+It appears that the air traffic controller is giving instructions to an aircraft. The phrase "air traffic" seems to be a partial or misheard callsign, as it's unusual for a callsign to be "air traffic" itself. The actual callsign might be something like "Lufthansa" (mentioned in the recent context), but it's unclear due to possible radio static or mishearing.
+
+The number "one eight" is likely a reference to a runway or a taxiway, but without more context, it's difficult to determine which one. 
+
+The instruction "continue" suggests that the aircraft is being told to proceed with its current action, possibly taxiing or moving on the ground. Given the recent context, which mentions "ground" and "entering" a specific area (delta), it's likely that the aircraft is on the ground, preparing for departure or taxiing to a runway.
+
+The significance of this instruction is that the controller is giving the aircraft permission to keep moving, possibly to its next designated point, such as a runway or a holding area. This instruction is important for safety, as it ensures that the aircraft is aware of its clearance to proceed and can plan its next steps accordingly.
+
+However, due to the unclear callsign and possible radio interference, there might be some uncertainty about which aircraft is being addressed or what specific action it's being instructed to take.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #45... (35 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmph4lefm2z.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⏳ Still processing... 35 chunks remaining
+⏳ Still processing... 35 chunks remaining
+⚡ ATC transcription completed in 3.9s
+🔍 DEBUG: Language: en, Model info: TranscriptionInfo
+🔍 DEBUG: Transcription completed: 'praha radar yankee foxtrot juliett'
+
+📝 ATC Transcription: praha radar yankee foxtrot juliett
+💡 Explanation: Let's break down the current ATC communication: "praha radar yankee foxtrot juliett".
+
+It appears that the air traffic controller, likely from Prague (Praha) radar, is contacting an aircraft with the callsign "Yankee Foxtrot Juliett". The mention of "Praha radar" suggests that the communication is taking place in the Prague airspace, and the controller is responsible for guiding aircraft in that region.
+
+Given the context of the previous conversations, which mentioned "ground up" (possibly an aircraft taxiing or taking off), "entering delta" (an aircraft entering a specific airspace or procedure), and "continue" (an instruction to an aircraft to proceed with its current course or action), it's likely that "Yankee Foxtrot Juliett" is an aircraft that is currently airborne and being guided by the Prague radar controller.
+
+The significance of this communication is that the controller is probably establishing contact or providing instructions to the aircraft "Yankee Foxtrot Juliett". However, the specific instruction or information being conveyed is not clear from this single transmission, as it seems to be only an initial call or identification.
+
+It's worth noting that the callsign "Yankee Foxtrot Juliett" seems clear, but there's always a possibility of misheard callsigns due to radio static. If the transmission was affected by static or overlapping communications, some details might be missing or unclear. Nevertheless, based on the provided context, it appears that the controller is engaging with the aircraft to provide guidance or instructions for its continued safe operation.
+--------------------------------------------------------------------------------
+🔍 DEBUG: Marking task as done...
+🔍 DEBUG: Task marked as done
+🔍 DEBUG: Waiting for audio data from queue...
+🔍 DEBUG: Got audio data from queue
+🎵 Processing audio chunk #46... (34 remaining in queue)
+🔍 DEBUG: Saving audio chunk to file...
+🔍 DEBUG: Saved audio to /var/folders/_z/cq6kr0w5469_j2nt4lx4stqc0000gn/T/tmp349e5c31.wav
+🔍 DEBUG: Starting ATC transcription...
+🔍 DEBUG: Starting ATC-fine-tuned transcription...
+⏳ Still processing... 34 chunks remaining
