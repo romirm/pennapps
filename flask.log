@@ -1,0 +1,222 @@
+Warning: Some dependencies not available: No module named 'osmnx'
+Falling back to simplified data fetching...
+🚁 Starting aircraft monitoring...
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.250.133.13:5001
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 349-863-874
+127.0.0.1 - - [20/Sep/2025 19:40:54] "GET /api/aircraft-data HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 19:40:58] "GET /api/aircraft-data HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 19:41:08] "GET /api/aircraft-data HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 19:41:10] "GET /world-airport/JFK HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 19:41:10] "GET /api/aircraft-data HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 19:41:20] "GET /api/aircraft-data HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 19:41:26] "GET /api/aircraft-data HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 19:41:30] "GET /api/aircraft-data HTTP/1.1" 200 -
+127.0.0.1 - - [20/Sep/2025 19:41:40] "GET /api/aircraft-data HTTP/1.1" 200 -
+ * Detected change in '/Users/finnmcmillion/Desktop/pennapps/app.py', reloading
+Warning: Some dependencies not available: No module named 'osmnx'
+Falling back to simplified data fetching...
+🚁 Starting aircraft monitoring...
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 32 aircraft
+Sample aircraft: JBU1052  at 40.585591, -73.918076
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 32 aircraft returned
+🛩️ Updated aircraft data: 32 aircraft, 30 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 33 aircraft
+Sample aircraft: JBU1052  at 40.590013, -73.914517
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 33 aircraft returned
+🛩️ Updated aircraft data: 33 aircraft, 1 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 33 aircraft
+Sample aircraft: JBU1052  at 40.593784, -73.911459
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 33 aircraft returned
+🛩️ Updated aircraft data: 33 aircraft, 0 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 32 aircraft
+Sample aircraft: JBU1052  at 40.597595, -73.908386
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 32 aircraft returned
+🛩️ Updated aircraft data: 32 aircraft, 1 entered, 2 left
+🔄 Loading world data for JFK...
+Attempting to load world data from: /Users/finnmcmillion/Desktop/pennapps/world_data.json
+Successfully loaded world data with 91 elements
+Airport bounds: lat 40.622035 to 40.657773, lon -73.816711 to -73.754868
+Processed 5 runways and 86 taxiways
+✅ Found world data: 5 runways, 86 taxiways
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 33 aircraft
+Sample aircraft: JBU1052  at 40.601326, -73.905404
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 33 aircraft returned
+🛩️ Updated aircraft data: 33 aircraft, 1 entered, 1 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 33 aircraft
+Sample aircraft: JBU1052  at 40.60491, -73.90247
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 33 aircraft returned
+🛩️ Updated aircraft data: 33 aircraft, 1 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 33 aircraft
+Sample aircraft: JBU1052  at 40.608627, -73.899475
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 33 aircraft returned
+🛩️ Updated aircraft data: 33 aircraft, 0 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 33 aircraft
+Sample aircraft: JBU1052  at 40.612106, -73.896667
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 33 aircraft returned
+🛩️ Updated aircraft data: 33 aircraft, 1 entered, 1 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 34 aircraft
+Sample aircraft: JBU1052  at 40.615768, -73.893677
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 34 aircraft returned
+🛩️ Updated aircraft data: 34 aircraft, 2 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 35 aircraft
+Sample aircraft: JBU1052  at 40.619015, -73.891047
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 35 aircraft returned
+🛩️ Updated aircraft data: 35 aircraft, 0 entered, 0 left
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 349-863-874
+127.0.0.1 - - [20/Sep/2025 19:41:50] "GET /api/aircraft-data HTTP/1.1" 200 -
+
+🔍 DEBUG: API returned 32 aircraft
+Sample aircraft: JBU1052  at 40.585219, -73.918388
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 32 aircraft returned
+🛩️ Updated aircraft data: 32 aircraft, 30 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 33 aircraft
+Sample aircraft: JBU1052  at 40.588531, -73.91571
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 33 aircraft returned
+🛩️ Updated aircraft data: 33 aircraft, 1 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 33 aircraft
+Sample aircraft: JBU1052  at 40.592807, -73.91227
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 33 aircraft returned
+🛩️ Updated aircraft data: 33 aircraft, 0 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 32 aircraft
+Sample aircraft: JBU1052  at 40.596451, -73.909302
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 32 aircraft returned
+🛩️ Updated aircraft data: 32 aircraft, 1 entered, 2 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 32 aircraft
+Sample aircraft: JBU1052  at 40.600301, -73.906153
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 32 aircraft returned
+🛩️ Updated aircraft data: 32 aircraft, 1 entered, 1 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 33 aircraft
+Sample aircraft: JBU1052  at 40.603886, -73.903281
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 33 aircraft returned
+🛩️ Updated aircraft data: 33 aircraft, 0 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 33 aircraft
+Sample aircraft: JBU1052  at 40.607657, -73.900285
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 33 aircraft returned
+🛩️ Updated aircraft data: 33 aircraft, 1 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 33 aircraft
+Sample aircraft: JBU1052  at 40.611145, -73.897461
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 33 aircraft returned
+🛩️ Updated aircraft data: 33 aircraft, 1 entered, 1 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 34 aircraft
+Sample aircraft: JBU1052  at 40.614807, -73.89447
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 34 aircraft returned
+🛩️ Updated aircraft data: 34 aircraft, 2 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 34 aircraft
+Sample aircraft: JBU1052  at 40.618084, -73.891858
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 34 aircraft returned
+🛩️ Updated aircraft data: 34 aircraft, 0 entered, 0 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 32 aircraft
+Sample aircraft: JBU1052  at 40.621855, -73.888799
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 32 aircraft returned
+🛩️ Updated aircraft data: 32 aircraft, 1 entered, 3 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 32 aircraft
+Sample aircraft: JBU1052  at 40.6253, -73.88599
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 32 aircraft returned
+🛩️ Updated aircraft data: 32 aircraft, 1 entered, 1 left
+Registered KJFK with adsb.lol monitoring at lat=40.6413, lon=-73.7781
+Making adsb.lol request for KJFK at lat=40.6413, lon=-73.7781...
+
+🔍 DEBUG: API returned 32 aircraft
+Sample aircraft: JBU1052  at 40.628448, -73.883423
+Request URL: https://api.adsb.lol/v2/point/40.6413/-73.7781/9
+✅ adsb.lol: 32 aircraft returned
+🛩️ Updated aircraft data: 32 aircraft, 0 entered, 0 left
+/Users/finnmcmillion/anaconda3/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
