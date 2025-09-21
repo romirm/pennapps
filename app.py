@@ -4,6 +4,7 @@ import json
 from airport_data_fetcher import get_airport_data_for_app
 from world_data_processor import get_world_airport_data
 from client import PlaneMonitor
+from model.simple_bottleneck_predictor import SimpleBottleneckPredictor
 import os
 import asyncio
 import threading
@@ -12,14 +13,39 @@ from datetime import datetime
 app = Flask(__name__)
 
 # Global plane monitor instance and data storage
-plane_monitor = PlaneMonitor()
+current_airport = "JFK"  # Default airport
+plane_monitor = PlaneMonitor(current_airport)
+bottleneck_predictor = SimpleBottleneckPredictor()
 latest_aircraft_data = {
     'current_planes': {'ground': {}, 'air': {}},
     'changes': {'entered': [], 'left': []},
     'timestamp': datetime.now().isoformat(),
-    'total_aircraft': 0
+    'total_aircraft': 0,
+    'airport': current_airport
 }
 data_lock = threading.Lock()
+
+def switch_airport(airport_code: str):
+    """Switch the monitoring to a different airport"""
+    global current_airport, plane_monitor, latest_aircraft_data
+    
+    airport_code = airport_code.upper()
+    if airport_code != current_airport:
+        print(f"🔄 Switching from {current_airport} to {airport_code}")
+        current_airport = airport_code
+        plane_monitor = PlaneMonitor(airport_code)
+        
+        # Reset aircraft data for new airport
+        with data_lock:
+            latest_aircraft_data = {
+                'current_planes': {'ground': {}, 'air': {}},
+                'changes': {'entered': [], 'left': []},
+                'timestamp': datetime.now().isoformat(),
+                'total_aircraft': 0,
+                'airport': airport_code
+            }
+        
+        # Background thread will automatically pick up the new airport on next cycle
 
 # Background task to continuously fetch aircraft data
 def background_aircraft_monitor():
@@ -30,15 +56,46 @@ def background_aircraft_monitor():
         
         while True:
             try:
-                # Fetch latest aircraft data using the PlaneMonitor instance
-                aircraft_data = loop.run_until_complete(plane_monitor.fetch_planes())
+                # Always create a fresh monitor for the current airport to ensure we get the right coordinates
+                current_monitor = PlaneMonitor(current_airport)
+                aircraft_data = loop.run_until_complete(current_monitor.fetch_planes())
+                aircraft_data['airport'] = current_airport
                 
                 # Update global data with thread lock
                 with data_lock:
                     global latest_aircraft_data
                     latest_aircraft_data = aircraft_data
+                    latest_aircraft_data['airport'] = current_airport
                 
-                print(f"🛩️ Updated aircraft data: {aircraft_data['total_aircraft']} aircraft, {len(aircraft_data['changes']['entered'])} entered, {len(aircraft_data['changes']['left'])} left")
+                print(f"🛩️ Updated aircraft data for {current_airport}: {aircraft_data['total_aircraft']} aircraft, {len(aircraft_data['changes']['entered'])} entered, {len(aircraft_data['changes']['left'])} left")
+                
+                # Run bottleneck prediction every 30 seconds (every 10th cycle)
+                if hasattr(background_aircraft_monitor, 'cycle_count'):
+                    background_aircraft_monitor.cycle_count += 1
+                else:
+                    background_aircraft_monitor.cycle_count = 1
+                
+                if background_aircraft_monitor.cycle_count % 10 == 0:  # Every 30 seconds
+                    try:
+                        # Convert aircraft data to format expected by predictor
+                        aircraft_list = []
+                        for plane_type in ['ground', 'air']:
+                            for flight_id, plane_data in aircraft_data['current_planes'][plane_type].items():
+                                aircraft_list.append({
+                                    'flight': flight_id,
+                                    'lat': plane_data.get('lat'),
+                                    'lon': plane_data.get('lon'),
+                                    'altitude': plane_data.get('altitude'),
+                                    'speed': plane_data.get('speed'),
+                                    'heading': plane_data.get('heading')
+                                })
+                        
+                        # Run bottleneck prediction
+                        bottleneck_results = bottleneck_predictor.predict_and_save(aircraft_list, current_airport)
+                        print(f"🔍 Bottleneck prediction completed for {current_airport}: {bottleneck_results.get('risk_level', 'Unknown')} risk")
+                        
+                    except Exception as e:
+                        print(f"❌ Error in bottleneck prediction: {e}")
                 
             except Exception as e:
                 print(f"❌ Error fetching aircraft data: {e}")
@@ -864,78 +921,21 @@ def index():
 def airport(code):
     airport_code = code.upper()
     
-    # Route JFK searches to the world airport view
-    if airport_code == 'JFK':
-        print(f"🔄 Redirecting JFK search to world airport view...")
-        from flask import redirect, url_for
-        return redirect(url_for('world_airport', code=airport_code))
+    # Switch the monitoring to this airport
+    switch_airport(airport_code)
     
-    # First try to get real data from OpenStreetMap
-    print(f"🔄 Fetching real OSM data for {airport_code}...")
-    try:
-        osm_data = get_airport_data_for_app(airport_code)
-        
-        if osm_data and osm_data.get('runways') and osm_data.get('taxiways'):
-            print(f"✅ Found OSM data: {len(osm_data['runways'])} runways, {len(osm_data['taxiways'])} taxiways")
-            airport_data = osm_data
-        else:
-            print(f"❌ No OSM data found, falling back to local database...")
-            osm_data = None
-    except Exception as e:
-        print(f"❌ Error fetching OSM data: {e}")
-        print("Falling back to local database...")
-        osm_data = None
-    
-    if not osm_data:
-        
-        # Check if we have the airport in our local database
-        if airport_code in AIRPORTS:
-            airport_data = AIRPORTS[airport_code]
-            print(f"✅ Using local data: {len(airport_data['runways'])} runways, {len(airport_data['taxiways'])} taxiways")
-        else:
-            # Try to fetch from external APIs
-            print(f"Fetching data for {airport_code} from external APIs...")
-            api_data = fetch_airport_data(airport_code)
-            
-            if api_data:
-                # Try to get additional taxiway data
-                taxiway_data = fetch_taxiway_data(airport_code)
-                if taxiway_data:
-                    api_data['taxiways'] = taxiway_data
-                elif not api_data.get('taxiways'):
-                    # Generate realistic taxiways if none available
-                    api_data['taxiways'] = generate_realistic_taxiways(airport_code, api_data.get('runways', []))
-                
-                # Add coordinates for satellite imagery
-                coords = get_airport_coordinates(airport_code)
-                if coords:
-                    api_data['coordinates'] = coords
-                
-                airport_data = api_data
-            else:
-                # Return a basic airport entry with generated taxiways if not found
-                airport_data = {
-                    'name': f'{airport_code} Airport',
-                    'city': 'Unknown',
-                    'country': 'Unknown',
-                    'runways': [
-                        {'id': '09/27', 'length': 3000, 'width': 45, 'heading': 90},
-                        {'id': '18/36', 'length': 2500, 'width': 45, 'heading': 180}
-                    ],
-                    'taxiways': generate_realistic_taxiways(airport_code, [])
-                }
-                
-                # Add coordinates for satellite imagery
-                coords = get_airport_coordinates(airport_code)
-                if coords:
-                    airport_data['coordinates'] = coords
-    
-    return render_template('airport.html', airport_code=airport_code, airport=airport_data)
+    # Route to the world airport view for all airports
+    print(f"🔄 Redirecting {airport_code} search to world airport view...")
+    from flask import redirect, url_for
+    return redirect(url_for('world_airport', code=airport_code))
 
 @app.route('/world-airport/<code>')
 def world_airport(code):
     """New route for airport visualization using world_data.json"""
     airport_code = code.upper()
+    
+    # Switch the monitoring to this airport
+    switch_airport(airport_code)
     
     print(f"🔄 Loading world data for {airport_code}...")
     try:
