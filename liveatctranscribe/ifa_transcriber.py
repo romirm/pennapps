@@ -1,1 +1,351 @@
-#informed fast atc transcriber
+#!/usr/bin/env python3
+"""
+Informed Fast ATC Transcriber (IFA)
+
+Combines live ATC transcription with real-time aircraft position data to create
+validation datasets for AI ATC agent training. Focuses on JFK airport operations.
+"""
+
+import asyncio
+import json
+import time
+import uuid
+import os
+import sys
+from datetime import datetime
+from typing import Dict, List, Optional, Any
+from dataclasses import dataclass, asdict
+import threading
+import queue
+import re
+
+# Add parent directory to path for imports
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+try:
+    from fastatc_transcriber import FastATCTranscriber
+    from client import PlaneMonitor
+    from ifa_components import (
+        ValidationRecord,
+        ATCCommandParser,
+        AircraftStateManager,
+        ValidationDatasetBuilder,
+    )
+    import requests
+except ImportError as e:
+    print(f"❌ Import error: {e}")
+    print(
+        "Please ensure fastatc_transcriber.py, client.py, and ifa_components.py are available"
+    )
+    sys.exit(1)
+
+
+class JFKContextualTranscriber(FastATCTranscriber):
+    """Enhanced FastATCTranscriber with JFK-specific context and knowledge"""
+
+    def explain_atc_communication(self, transcription: str) -> Optional[str]:
+        """Enhanced explanation with comprehensive JFK context"""
+        if not self.cerebras_api_key:
+            return "⚠️  Cerebras API key not configured"
+
+        try:
+            headers = {
+                "Authorization": f"Bearer {self.cerebras_api_key}",
+                "Content-Type": "application/json",
+            }
+
+            # Build context from recent conversation history
+            context_section = ""
+            if self.conversation_history:
+                context_section = "\n\nRecent ATC conversation context:\n"
+                for i, prev_msg in enumerate(self.conversation_history[-5:], 1):
+                    context_section += f'{i}. "{prev_msg}"\n'
+                context_section += "\n"
+
+            # Enhanced JFK-specific prompt
+            prompt = f"""You are an expert ATC interpreter for JOHN F. KENNEDY INTERNATIONAL AIRPORT (KJFK) operations analyzing transcribed audio.
+
+ENHANCED JFK CONTEXT:
+- Four runways: 04L/22R (14,511ft), 04R/22L (8,400ft), 13L/31R (10,000ft), 13R/31L (14,511ft)
+- Ground Control: 121.9 (North), 121.65 (South)
+- Tower: 119.1 (04R/22L, 13L/31R), 123.9 (04L/22R, 13R/31L)
+- Major taxiways: A, B, C, D, K (Kilo), complex hot spots
+- Terminals: T1 (1-11), T4 (A1-A8, B20-B48), T5 (1-30 JetBlue), T7 (1-12), T8 (1-59 American)
+
+Your job for AI agent training:
+1) Identify all aircraft callsigns and their operational status
+2) Extract runways, taxiways, frequencies, altitudes, speeds
+3) Categorize command type: taxi/takeoff/landing/frequency_change/hold/runway_crossing/altitude/speed/acknowledgment
+4) Assess operational significance and safety implications
+
+Prior context: {context_section}
+
+Output format:
+Callsigns: <list all aircraft mentioned>
+Command Type: <category>
+Extracted Elements: <runways, taxiways, frequencies, etc.>
+Operational Significance: <what this accomplishes>
+Confidence: <high/medium/low based on clarity>
+
+Current Communication: "{transcription}"
+"""
+
+            data = {
+                "model": "gpt-oss-120b",
+                "messages": [{"role": "user", "content": prompt}],
+                "max_tokens": 4096,
+                "temperature": 0.3,
+            }
+
+            response = requests.post(
+                f"{self.cerebras_base_url}/chat/completions",
+                headers=headers,
+                json=data,
+                timeout=30,
+            )
+
+            if response.status_code == 200:
+                result = response.json()
+                try:
+                    if "choices" in result and len(result["choices"]) > 0:
+                        choice = result["choices"][0]
+
+                        if "message" in choice and "content" in choice["message"]:
+                            return choice["message"]["content"].strip()
+                        elif "message" in choice and "reasoning" in choice["message"]:
+                            return choice["message"]["reasoning"].strip()
+                        elif "text" in choice:
+                            return choice["text"].strip()
+
+                    return "⚠️  Unexpected API response format"
+
+                except KeyError as e:
+                    return f"⚠️  API Response Error: {e}"
+            else:
+                return f"⚠️  API Error: {response.status_code}"
+
+        except Exception as e:
+            return f"⚠️  API Error: {str(e)}"
+
+
+class InformedATCTranscriber:
+    """Main orchestrator for informed ATC transcription with aircraft state correlation"""
+
+    def __init__(self):
+        self.transcriber = JFKContextualTranscriber()
+        self.aircraft_manager = AircraftStateManager()
+        self.command_parser = ATCCommandParser()
+        self.dataset_builder = ValidationDatasetBuilder()
+
+        # Speech processing tracking
+        self.speech_segments = {}
+
+        print("🚀 Informed ATC Transcriber initialized for JFK operations")
+        print("📊 Ready to create validation dataset for AI agent training")
+
+    def process_audio_queue(self):
+        """Enhanced audio processing with aircraft state correlation"""
+        print("🔄 Started informed audio processing thread...")
+
+        while self.transcriber.is_recording or not self.transcriber.audio_queue.empty():
+            try:
+                # Get audio data from queue
+                audio_data = self.transcriber.audio_queue.get(timeout=1)
+
+                # Track speech segment timing
+                speech_id = str(uuid.uuid4())
+                speech_start_time = time.time()
+                self.speech_segments[speech_id] = speech_start_time
+
+                # Update progress tracking
+                self.transcriber.chunks_processed += 1
+                queue_size = self.transcriber.audio_queue.qsize()
+                print(
+                    f"🎵 Processing speech segment #{self.transcriber.chunks_processed}... ({queue_size} remaining)"
+                )
+
+                # Save and transcribe audio
+                audio_file = self.transcriber.save_audio_chunk(audio_data)
+                transcription = self.transcriber.transcribe_audio(audio_file)
+
+                if transcription and len(transcription.strip()) > 5:
+                    print(f"\n📝 ATC Transcription: {transcription}")
+
+                    # Get enhanced explanation
+                    explanation = self.transcriber.explain_atc_communication(
+                        transcription
+                    )
+
+                    if explanation:
+                        print(f"💡 Enhanced JFK Analysis: {explanation}")
+
+                        # Fetch aircraft state at transcription completion (simplified timing approach)
+                        print("🛩️ Fetching correlated aircraft state...")
+                        aircraft_state = asyncio.run(
+                            self.aircraft_manager.get_current_aircraft_state()
+                        )
+
+                        # Parse command for structured data
+                        parsed_command = self.command_parser.parse_command(
+                            transcription, explanation
+                        )
+
+                        # Create validation record
+                        processing_complete_time = time.time()
+                        processing_lag = processing_complete_time - speech_start_time
+
+                        validation_record = ValidationRecord(
+                            record_id=speech_id,
+                            timestamp_speech_start=datetime.fromtimestamp(
+                                speech_start_time
+                            ).isoformat(),
+                            timestamp_processing_complete=datetime.fromtimestamp(
+                                processing_complete_time
+                            ).isoformat(),
+                            processing_lag_seconds=processing_lag,
+                            aircraft_states=aircraft_state,
+                            atc_command=parsed_command,
+                            correlation_metadata={
+                                "speech_segment_duration": processing_lag,
+                                "aircraft_state_interpolated": False,
+                                "timing_confidence": "high",
+                                "ground_aircraft_count": len(
+                                    aircraft_state.get("jfk_ground_aircraft", [])
+                                ),
+                                "total_aircraft_count": aircraft_state.get(
+                                    "total_aircraft_count", 0
+                                ),
+                            },
+                        )
+
+                        # Add to dataset
+                        self.dataset_builder.add_record(validation_record)
+
+                        # Add to conversation history for context
+                        self.transcriber.conversation_history.append(transcription)
+                        if (
+                            len(self.transcriber.conversation_history)
+                            > self.transcriber.max_history_items
+                        ):
+                            self.transcriber.conversation_history.pop(0)
+
+                    print("-" * 80)
+                else:
+                    # Check if we should ignore this (pure acknowledgments, etc.)
+                    if transcription and len(transcription.strip()) > 0:
+                        ignored_types = ["roger", "copy", "wilco", "affirmative"]
+                        if any(
+                            ignored in transcription.lower()
+                            for ignored in ignored_types
+                        ):
+                            print(f"🚫 Ignored pure acknowledgment: '{transcription}'")
+                        else:
+                            print(
+                                f"📻 Short transmission (not processed): '{transcription}'"
+                            )
+                    else:
+                        print("📻 No clear ATC transmission detected in audio chunk")
+
+                # Clean up speech segment tracking
+                if speech_id in self.speech_segments:
+                    del self.speech_segments[speech_id]
+
+                # Mark task as done
+                self.transcriber.audio_queue.task_done()
+
+            except queue.Empty:
+                continue
+            except Exception as e:
+                print(f"❌ Processing error: {e}")
+                try:
+                    self.transcriber.audio_queue.task_done()
+                except ValueError:
+                    pass
+
+        print("🔍 Exited informed processing loop")
+
+    def run(self):
+        """Run the informed ATC transcriber system"""
+        print("🚀 Starting Informed Fast ATC Transcriber for JFK...")
+        print("🎯 Creating validation dataset for AI ATC agent training")
+        print("📡 Monitoring JFK ground aircraft and ATC communications")
+        print()
+
+        # Start enhanced audio processing thread
+        processing_thread = threading.Thread(
+            target=self.process_audio_queue, daemon=False
+        )
+        processing_thread.start()
+        self.transcriber.processing_thread = processing_thread
+
+        # Start recording (this will block until Ctrl+C)
+        try:
+            self.transcriber.start_recording()
+        except KeyboardInterrupt:
+            print("\n🛑 Stopping Informed ATC Transcriber...")
+
+        # Finalize dataset
+        print("💾 Finalizing validation dataset...")
+        self.dataset_builder.finalize()
+
+        print("⏳ Finishing processing remaining audio...")
+
+        # Wait for processing to complete
+        timeout_seconds = 60
+        start_time = time.time()
+
+        while (
+            not self.transcriber.audio_queue.empty()
+            and (time.time() - start_time) < timeout_seconds
+        ):
+            current_size = self.transcriber.audio_queue.qsize()
+            if current_size > 0:
+                print(f"⏳ Still processing... {current_size} chunks remaining")
+            time.sleep(2)
+
+        if self.transcriber.audio_queue.empty():
+            print("✅ All audio chunks processed successfully")
+        else:
+            remaining = self.transcriber.audio_queue.qsize()
+            print(
+                f"⚠️  Timeout reached. {remaining} chunks may not have been processed."
+            )
+
+        # Wait for processing thread to finish
+        if (
+            hasattr(self.transcriber, "processing_thread")
+            and self.transcriber.processing_thread.is_alive()
+        ):
+            print("⏳ Waiting for processing thread to finish...")
+            self.transcriber.processing_thread.join(timeout=10)
+
+        print("✅ Informed Fast ATC Transcriber stopped")
+        print(
+            f"📊 Created {self.dataset_builder.total_records} validation records for AI agent training"
+        )
+
+
+def main():
+    """Main entry point"""
+    print("Informed Fast ATC Transcriber (IFA)")
+    print("JFK-Focused AI Agent Validation Dataset Creator")
+    print("=" * 60)
+
+    # Check for required environment variables
+    if not os.getenv("CEREBRAS_API_KEY"):
+        print("\n⚠️  Setup Required:")
+        print("1. Create a .env file in this directory")
+        print("2. Add your Cerebras API key: CEREBRAS_API_KEY=your_key_here")
+        print()
+
+        response = input("Continue without Cerebras integration? (y/N): ").lower()
+        if response != "y":
+            return
+
+    # Initialize and run the informed transcriber
+    transcriber = InformedATCTranscriber()
+    transcriber.run()
+
+
+if __name__ == "__main__":
+    main()
