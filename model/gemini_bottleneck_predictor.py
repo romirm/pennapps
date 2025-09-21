@@ -37,15 +37,16 @@ class AircraftData:
 
 @dataclass
 class BottleneckPrediction:
-    """Structured bottleneck prediction result"""
-    severity_score: float  # 0-100
-    risk_level: str  # "Low", "Medium", "High", "Critical"
-    bottleneck_locations: List[str]
-    estimated_duration: str
-    affected_aircraft: List[str]
-    recommendations: List[str]
-    confidence: float
+    """Structured bottleneck prediction result matching inference.py format"""
+    bottleneck_id: str
+    coordinates: List[float]  # [lat, lng]
     timestamp: str
+    type: str  # "runway", "taxiway", "approach", "departure"
+    severity: int  # 1-5
+    duration: float  # minutes
+    confidence: float  # 0.0-1.0
+    aircraft_count: int
+    aircraft_affected: List[Dict]  # List of aircraft details
 
 
 @dataclass
@@ -67,18 +68,19 @@ class GeminiBottleneckPredictor:
         """Initialize the predictor with Gemini API"""
         self.api_key = api_key or os.getenv('GEMINI_API_KEY')
         
-        if not self.api_key:
-            raise ValueError("GEMINI_API_KEY environment variable must be set")
+        # Configure Gemini only if API key is available
+        if self.api_key and GEMINI_AVAILABLE:
+            genai.configure(api_key=self.api_key)
+            self.model = genai.GenerativeModel('gemini-1.5-flash')
+            print("✅ Gemini Bottleneck Predictor initialized successfully")
+        else:
+            self.model = None
+            if not self.api_key:
+                print("⚠️  GEMINI_API_KEY not set - using fallback mode")
+            if not GEMINI_AVAILABLE:
+                print("⚠️  google-generativeai not available - using fallback mode")
         
-        if not GEMINI_AVAILABLE:
-            raise ImportError("google-generativeai package is required")
-        
-        # Configure Gemini
-        genai.configure(api_key=self.api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
-        
-        self.results_file = "model/results.txt"
-        print("✅ Gemini Bottleneck Predictor initialized successfully")
+        self.results_file = "results.txt"
     
     def calculate_distance(self, lat1: float, lon1: float, lat2: float, lon2: float) -> float:
         """Calculate distance between two points in nautical miles"""
@@ -297,19 +299,24 @@ Provide your analysis in the exact JSON format specified above.
         
         if not aircraft_data:
             return BottleneckPrediction(
-                severity_score=0,
-                risk_level="Low",
-                bottleneck_locations=[],
-                estimated_duration="0 minutes",
-                affected_aircraft=[],
-                recommendations=["No aircraft data available"],
-                confidence=0,
-                timestamp=datetime.now().isoformat()
+                bottleneck_id=f"empty_{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}",
+                coordinates=[0.0, 0.0],
+                timestamp=datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                type="unknown",
+                severity=1,
+                duration=0.0,
+                confidence=0.0,
+                aircraft_count=0,
+                aircraft_affected=[]
             )
         
         try:
             # Analyze traffic patterns
             traffic_analysis = self.analyze_traffic_density(aircraft_data)
+            
+            # Use fallback if no Gemini model available
+            if not self.model:
+                return self._fallback_prediction(traffic_analysis, airport_code, aircraft_data)
             
             # Create analysis prompt
             prompt = self.create_analysis_prompt(aircraft_data, traffic_analysis, airport_code)
@@ -322,24 +329,50 @@ Provide your analysis in the exact JSON format specified above.
             try:
                 analysis_result = json.loads(response)
                 
+                # Create aircraft affected list in the required format
+                aircraft_affected = []
+                for i, ac in enumerate(aircraft_data[:10]):  # Limit to first 10 aircraft
+                    aircraft_affected.append({
+                        "flight_id": ac.get('flight', f'UNKNOWN_{i}'),
+                        "aircraft_type": self.estimate_aircraft_type(ac.get('flight', '')),
+                        "position": [ac.get('lat', 0.0), ac.get('lon', 0.0)],
+                        "time": datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+                    })
+                
+                # Calculate bottleneck center coordinates
+                if aircraft_data:
+                    avg_lat = sum(ac.get('lat', 0) for ac in aircraft_data) / len(aircraft_data)
+                    avg_lng = sum(ac.get('lon', 0) for ac in aircraft_data) / len(aircraft_data)
+                else:
+                    avg_lat, avg_lng = 0.0, 0.0
+                
+                # Convert severity score to 1-5 scale
+                severity_score = analysis_result.get('severity_score', 0)
+                severity = min(5, max(1, int(severity_score / 20)))  # Convert 0-100 to 1-5
+                
+                # Extract duration from estimated_duration string
+                duration_str = analysis_result.get('estimated_duration', '0 minutes')
+                duration = self._parse_duration(duration_str)
+                
                 return BottleneckPrediction(
-                    severity_score=analysis_result.get('severity_score', 0),
-                    risk_level=analysis_result.get('risk_level', 'Low'),
-                    bottleneck_locations=analysis_result.get('bottleneck_locations', []),
-                    estimated_duration=analysis_result.get('estimated_duration', 'Unknown'),
-                    affected_aircraft=analysis_result.get('affected_aircraft', []),
-                    recommendations=analysis_result.get('recommendations', []),
-                    confidence=analysis_result.get('confidence', 0),
-                    timestamp=datetime.now().isoformat()
+                    bottleneck_id=f"{analysis_result.get('risk_level', 'unknown').lower()}_{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}",
+                    coordinates=[avg_lat, avg_lng],
+                    timestamp=datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    type=analysis_result.get('bottleneck_locations', ['unknown'])[0].lower() if analysis_result.get('bottleneck_locations') else 'unknown',
+                    severity=severity,
+                    duration=duration,
+                    confidence=analysis_result.get('confidence', 0) / 100.0,  # Convert to 0.0-1.0
+                    aircraft_count=len(aircraft_data),
+                    aircraft_affected=aircraft_affected
                 )
                 
             except json.JSONDecodeError as e:
                 print(f"⚠️ Failed to parse Gemini response as JSON: {e}")
-                return self._fallback_prediction(traffic_analysis, airport_code)
+                return self._fallback_prediction(traffic_analysis, airport_code, aircraft_data)
                 
         except Exception as e:
             print(f"⚠️ Gemini analysis failed: {e}")
-            return self._fallback_prediction(traffic_analysis, airport_code)
+            return self._fallback_prediction(traffic_analysis, airport_code, aircraft_data)
     
     async def _get_gemini_response(self, prompt: str) -> str:
         """Get response from Gemini API with retry logic"""
@@ -358,53 +391,95 @@ Provide your analysis in the exact JSON format specified above.
                 else:
                     raise e
     
-    def _fallback_prediction(self, traffic_analysis: TrafficAnalysis, airport_code: str) -> BottleneckPrediction:
+    def _parse_duration(self, duration_str: str) -> float:
+        """Parse duration string to float minutes"""
+        try:
+            if 'minutes' in duration_str.lower():
+                return float(duration_str.split()[0])
+            elif 'hours' in duration_str.lower():
+                return float(duration_str.split()[0]) * 60
+            else:
+                return 0.0
+        except:
+            return 0.0
+    
+    def estimate_aircraft_type(self, callsign: str) -> str:
+        """Estimate aircraft type from callsign"""
+        callsign_clean = callsign.strip().upper()
+        
+        if callsign_clean.startswith(('DAL', 'DL')):
+            return 'B737'
+        elif callsign_clean.startswith(('UAL', 'UA')):
+            return 'B737'
+        elif callsign_clean.startswith(('AAL', 'AA')):
+            return 'B737'
+        elif callsign_clean.startswith(('JBU', 'B6')):
+            return 'A320'
+        elif callsign_clean.startswith(('SWA', 'WN')):
+            return 'B737'
+        else:
+            return 'B737'  # Default
+    
+    def _fallback_prediction(self, traffic_analysis: TrafficAnalysis, airport_code: str, aircraft_data: List[Dict] = None) -> BottleneckPrediction:
         """Fallback prediction when Gemini is unavailable"""
         
         # Simple heuristic-based prediction
         severity_score = min(100, traffic_analysis.density_score)
         
         if severity_score >= 80:
-            risk_level = "Critical"
-            duration = "60+ minutes"
-            recommendations = [
-                "Implement immediate ground stop",
-                "Activate emergency procedures",
-                "Contact airport management"
-            ]
+            severity = 5
+            duration = 60.0
+            bottleneck_type = "runway"
         elif severity_score >= 60:
-            risk_level = "High"
-            duration = "30-45 minutes"
-            recommendations = [
-                "Increase aircraft spacing",
-                "Monitor taxiway congestion",
-                "Prepare for delays"
-            ]
+            severity = 4
+            duration = 30.0
+            bottleneck_type = "taxiway"
         elif severity_score >= 40:
-            risk_level = "Medium"
-            duration = "15-30 minutes"
-            recommendations = [
-                "Monitor traffic density",
-                "Consider minor adjustments",
-                "Prepare contingency plans"
-            ]
+            severity = 3
+            duration = 15.0
+            bottleneck_type = "approach"
         else:
-            risk_level = "Low"
-            duration = "5-15 minutes"
-            recommendations = [
-                "Continue normal operations",
-                "Monitor for changes"
-            ]
+            severity = 2
+            duration = 5.0
+            bottleneck_type = "departure"
+        
+        # Use real aircraft data if available
+        aircraft_affected = []
+        if aircraft_data:
+            for i, ac in enumerate(aircraft_data[:10]):  # Limit to first 10
+                aircraft_affected.append({
+                    "flight_id": ac.get('flight', f'UNKNOWN_{i+1}'),
+                    "aircraft_type": self.estimate_aircraft_type(ac.get('flight', '')),
+                    "position": [ac.get('lat', 0.0), ac.get('lon', 0.0)],
+                    "time": datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+                })
+        else:
+            # Create sample aircraft affected list
+            for i in range(min(5, traffic_analysis.total_aircraft)):
+                aircraft_affected.append({
+                    "flight_id": f"SAMPLE_{i+1}",
+                    "aircraft_type": "B737",
+                    "position": [40.6413 + (i * 0.001), -73.7781 + (i * 0.001)],
+                    "time": datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+                })
+        
+        # Calculate center coordinates
+        if aircraft_data:
+            avg_lat = sum(ac.get('lat', 0) for ac in aircraft_data) / len(aircraft_data)
+            avg_lng = sum(ac.get('lon', 0) for ac in aircraft_data) / len(aircraft_data)
+        else:
+            avg_lat, avg_lng = 40.6413, -73.7781  # Default JFK coordinates
         
         return BottleneckPrediction(
-            severity_score=severity_score,
-            risk_level=risk_level,
-            bottleneck_locations=["General airport area"] if severity_score > 50 else [],
-            estimated_duration=duration,
-            affected_aircraft=[f"Aircraft-{i}" for i in range(min(5, traffic_analysis.total_aircraft))],
-            recommendations=recommendations,
-            confidence=60,  # Lower confidence for fallback
-            timestamp=datetime.now().isoformat()
+            bottleneck_id=f"{bottleneck_type}_{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}",
+            coordinates=[avg_lat, avg_lng],
+            timestamp=datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            type=bottleneck_type,
+            severity=severity,
+            duration=duration,
+            confidence=0.6,  # Lower confidence for fallback
+            aircraft_count=traffic_analysis.total_aircraft,
+            aircraft_affected=aircraft_affected
         )
     
     def save_results(self, prediction: BottleneckPrediction, traffic_analysis: TrafficAnalysis, airport_code: str):
@@ -412,11 +487,13 @@ Provide your analysis in the exact JSON format specified above.
         try:
             with open(self.results_file, 'a') as f:
                 f.write(f"\n=== Gemini Bottleneck Prediction - {prediction.timestamp} ===\n")
-                f.write(f"Airport: {airport_code}\n")
-                f.write(f"Severity Score: {prediction.severity_score:.1f}/100\n")
-                f.write(f"Risk Level: {prediction.risk_level}\n")
-                f.write(f"Estimated Duration: {prediction.estimated_duration}\n")
-                f.write(f"Confidence: {prediction.confidence:.1f}%\n")
+                f.write(f"Bottleneck ID: {prediction.bottleneck_id}\n")
+                f.write(f"Coordinates: {prediction.coordinates[0]:.6f}, {prediction.coordinates[1]:.6f}\n")
+                f.write(f"Type: {prediction.type}\n")
+                f.write(f"Severity: {prediction.severity}/5\n")
+                f.write(f"Duration: {prediction.duration:.1f} minutes\n")
+                f.write(f"Confidence: {prediction.confidence:.2f}\n")
+                f.write(f"Aircraft Count: {prediction.aircraft_count}\n")
                 
                 f.write(f"\nTraffic Analysis:\n")
                 f.write(f"  - Total Aircraft: {traffic_analysis.total_aircraft}\n")
@@ -426,20 +503,12 @@ Provide your analysis in the exact JSON format specified above.
                 f.write(f"  - Hotspots: {len(traffic_analysis.hotspots)}\n")
                 f.write(f"  - Congestion Areas: {len(traffic_analysis.congestion_areas)}\n")
                 
-                if prediction.bottleneck_locations:
-                    f.write(f"\nBottleneck Locations:\n")
-                    for location in prediction.bottleneck_locations:
-                        f.write(f"  - {location}\n")
-                
-                if prediction.affected_aircraft:
+                if prediction.aircraft_affected:
                     f.write(f"\nAffected Aircraft:\n")
-                    for aircraft in prediction.affected_aircraft:
-                        f.write(f"  - {aircraft}\n")
-                
-                if prediction.recommendations:
-                    f.write(f"\nRecommendations:\n")
-                    for rec in prediction.recommendations:
-                        f.write(f"  - {rec}\n")
+                    for aircraft in prediction.aircraft_affected:
+                        f.write(f"  - {aircraft['flight_id']} ({aircraft['aircraft_type']})\n")
+                        f.write(f"    Position: {aircraft['position'][0]:.6f}, {aircraft['position'][1]:.6f}\n")
+                        f.write(f"    Time: {aircraft['time']}\n")
                 
                 f.write("\n" + "="*60 + "\n")
                 

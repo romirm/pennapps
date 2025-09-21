@@ -1,0 +1,105 @@
+{
+  "bottleneck_id": "runway_2025-09-21_01:13:56",
+  "coordinates": [
+    40.6398473,
+    -73.7773369
+  ],
+  "timestamp": "2025-09-21 01:13:56",
+  "type": "runway",
+  "severity": 5,
+  "duration": 60.0,
+  "confidence": 0.6,
+  "aircraft_count": 10,
+  "aircraft_affected": [
+    {
+      "flight_id": "DAL123",
+      "aircraft_type": "B737",
+      "position": [
+        40.6413,
+        -73.7781
+      ],
+      "time": "2025-09-21T01:13:56"
+    },
+    {
+      "flight_id": "UAL456",
+      "aircraft_type": "B737",
+      "position": [
+        40.642,
+        -73.779
+      ],
+      "time": "2025-09-21T01:13:56"
+    },
+    {
+      "flight_id": "AAL789",
+      "aircraft_type": "B737",
+      "position": [
+        40.6415,
+        -73.7785
+      ],
+      "time": "2025-09-21T01:13:56"
+    },
+    {
+      "flight_id": "JBU101",
+      "aircraft_type": "A320",
+      "position": [
+        40.6425,
+        -73.7795
+      ],
+      "time": "2025-09-21T01:13:56"
+    },
+    {
+      "flight_id": "SWA202",
+      "aircraft_type": "B737",
+      "position": [
+        40.6408,
+        -73.7775
+      ],
+      "time": "2025-09-21T01:13:56"
+    },
+    {
+      "flight_id": "EDV5399",
+      "aircraft_type": "B737",
+      "position": [
+        40.635436,
+        -73.781156
+      ],
+      "time": "2025-09-21T01:13:56"
+    },
+    {
+      "flight_id": "RPA5598",
+      "aircraft_type": "B737",
+      "position": [
+        40.633073,
+        -73.776862
+      ],
+      "time": "2025-09-21T01:13:56"
+    },
+    {
+      "flight_id": "JBU479",
+      "aircraft_type": "A320",
+      "position": [
+        40.639664,
+        -73.773443
+      ],
+      "time": "2025-09-21T01:13:56"
+    },
+    {
+      "flight_id": "JBU83",
+      "aircraft_type": "A320",
+      "position": [
+        40.639966,
+        -73.78433
+      ],
+      "time": "2025-09-21T01:13:56"
+    },
+    {
+      "flight_id": "ASA113",
+      "aircraft_type": "B737",
+      "position": [
+        40.642234,
+        -73.764978
+      ],
+      "time": "2025-09-21T01:13:56"
+    }
+  ]
+}
