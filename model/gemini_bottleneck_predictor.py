@@ -122,15 +122,16 @@ class GeminiBottleneckPredictor:
         # Analyze movement patterns
         movement_patterns = self._analyze_movement_patterns(aircraft_data)
         
-        # Calculate density score
+        # Calculate density score (ultra granular for small bottlenecks)
         total_aircraft = len(aircraft_data)
         ground_ratio = len(ground_aircraft) / max(total_aircraft, 1)
-        hotspot_factor = len(hotspots) * 10
+        hotspot_factor = len(hotspots) * 3  # Very low
+        aircraft_factor = total_aircraft * 1.5  # Very low aircraft factor
         
-        density_score = min(100, (ground_ratio * 60) + hotspot_factor)
+        density_score = min(100, (ground_ratio * 15) + hotspot_factor + aircraft_factor)  # Ultra granular
         
-        # Identify congestion areas
-        congestion_areas = [h for h in hotspots if h['aircraft_count'] >= 4]
+        # Identify congestion areas (more sensitive)
+        congestion_areas = [h for h in hotspots if h['aircraft_count'] >= 2]
         
         return TrafficAnalysis(
             total_aircraft=total_aircraft,
@@ -158,10 +159,10 @@ class GeminiBottleneckPredictor:
                         ac1.get('lat', 0), ac1.get('lon', 0),
                         ac2.get('lat', 0), ac2.get('lon', 0)
                     )
-                    if dist < 3:  # Within 3 nautical miles
+                    if dist < 5:  # Within 5 nautical miles (more sensitive)
                         nearby_aircraft.append(ac2)
             
-            if len(nearby_aircraft) >= 2:  # At least 3 aircraft total
+            if len(nearby_aircraft) >= 1:  # At least 2 aircraft total (more sensitive)
                 hotspot = {
                     'center_lat': ac1.get('lat'),
                     'center_lon': ac1.get('lon'),
@@ -244,27 +245,27 @@ HOTSPOTS:
 AIRCRAFT DETAILS:
 {json.dumps(aircraft_summary, indent=2)}
 
-ANALYSIS REQUIREMENTS:
+ANALYSIS REQUIREMENTS (SENSITIVE DETECTION):
 1. Calculate bottleneck severity score (0-100) based on:
-   - Ground aircraft density
-   - Geographic clustering
-   - Movement patterns
+   - Ground aircraft density (detect even small clusters)
+   - Geographic clustering (5nm radius, 2+ aircraft)
+   - Movement patterns (including slow-moving aircraft)
    - Historical airport capacity
 
 2. Identify specific bottleneck locations:
-   - Runway areas
-   - Taxiway intersections
-   - Terminal gates
-   - Approach corridors
+   - Runway areas (even minor delays)
+   - Taxiway intersections (small clusters)
+   - Terminal gates (gate congestion)
+   - Approach corridors (approach delays)
 
 3. Estimate bottleneck duration based on:
-   - Current traffic volume
-   - Typical resolution times
+   - Current traffic volume (detect 2-3 minute delays)
+   - Typical resolution times (shorter durations)
    - Airport operational capacity
 
 4. Generate actionable recommendations:
-   - Immediate actions (0-30 minutes)
-   - Short-term actions (30 minutes - 2 hours)
+   - Immediate actions (0-5 minutes)
+   - Short-term actions (5-20 minutes)
    - Preventive measures
 
 5. Assess confidence level based on:
@@ -426,22 +427,26 @@ Provide your analysis in the exact JSON format specified above.
         # Simple heuristic-based prediction
         severity_score = min(100, traffic_analysis.density_score)
         
-        if severity_score >= 80:
+        if severity_score >= 60:
             severity = 5
-            duration = 60.0
+            duration = 45.0
             bottleneck_type = "runway"
-        elif severity_score >= 60:
+        elif severity_score >= 45:
             severity = 4
-            duration = 30.0
+            duration = 20.0
             bottleneck_type = "taxiway"
-        elif severity_score >= 40:
+        elif severity_score >= 30:
             severity = 3
-            duration = 15.0
+            duration = 10.0
             bottleneck_type = "approach"
-        else:
+        elif severity_score >= 18:
             severity = 2
-            duration = 5.0
+            duration = 3.0
             bottleneck_type = "departure"
+        else:
+            severity = 1
+            duration = 2.0
+            bottleneck_type = "gate"
         
         # Use real aircraft data if available
         aircraft_affected = []

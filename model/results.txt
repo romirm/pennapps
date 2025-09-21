@@ -1,7 +1,7 @@
 ================================================================================
 GEMINI BOTTLENECK PREDICTION ANALYSIS RESULTS
 ================================================================================
-Analysis Date: 2025-09-21 01:13:56
+Analysis Date: 2025-09-21 01:21:42
 Data Source: Real-time Aircraft Data (10 aircraft)
 Airport: John F. Kennedy International Airport (JFK)
 Analysis Method: Gemini AI + Fallback Heuristic Analysis
@@ -29,20 +29,20 @@ Current Analysis Context:
 
 DETAILED BOTTLENECK ANALYSIS
 ----------------------------------------
-BOTTLENECK #1 - CRITICAL RUNWAY CONGESTION
-Bottleneck ID: runway_2025-09-21_01:13:56
+BOTTLENECK #1 - HIGH SEVERITY TAXIWAY CONGESTION
+Bottleneck ID: taxiway_2025-09-21_01:21:42
 Coordinates: 40.639847, -73.777337
-Timestamp: 2025-09-21 01:13:56
-Type: runway
-Severity: 5/5 (CRITICAL)
-Duration: 60.0 minutes
+Timestamp: 2025-09-21 01:21:42
+Type: taxiway
+Severity: 4/5 (HIGH)
+Duration: 20.0 minutes
 Confidence: 0.60 (60%)
 Aircraft Count: 10 (100% of analyzed aircraft)
 
 SEVERITY ANALYSIS:
-- Severity Level: 5/5 (Critical)
-- Impact: Complete runway shutdown risk
-- Duration: 60 minutes (extended delay)
+- Severity Level: 4/5 (High)
+- Impact: Significant taxiway congestion
+- Duration: 20 minutes (moderate delay)
 - Confidence: 60% (moderate certainty)
 
 AIRCRAFT COUNT VERIFICATION:
@@ -165,3 +165,176 @@ Based on the critical severity (5/5) and 60-minute duration, immediate action re
 ================================================================================
 Analysis completed at: 2025-09-21 01:13:56
 ================================================================================
+=== Gemini Bottleneck Prediction - 2025-09-21 01:20:39 ===
+Bottleneck ID: runway_2025-09-21_01:20:39
+Coordinates: 40.639847, -73.777337
+Type: runway
+Severity: 5/5
+Duration: 45.0 minutes
+Confidence: 0.60
+Aircraft Count: 10
+
+Traffic Analysis:
+  - Total Aircraft: 10
+  - Ground Aircraft: 9
+  - Airborne Aircraft: 1
+  - Density Score: 100.0/100
+  - Hotspots: 5
+  - Congestion Areas: 8
+
+Affected Aircraft:
+  - DAL123 (B737)
+    Position: 40.641300, -73.778100
+    Time: 2025-09-21T01:20:39
+  - UAL456 (B737)
+    Position: 40.642000, -73.779000
+    Time: 2025-09-21T01:20:39
+  - AAL789 (B737)
+    Position: 40.641500, -73.778500
+    Time: 2025-09-21T01:20:39
+  - JBU101 (A320)
+    Position: 40.642500, -73.779500
+    Time: 2025-09-21T01:20:39
+  - SWA202 (B737)
+    Position: 40.640800, -73.777500
+    Time: 2025-09-21T01:20:39
+  - EDV5399 (B737)
+    Position: 40.635436, -73.781156
+    Time: 2025-09-21T01:20:39
+  - RPA5598 (B737)
+    Position: 40.633073, -73.776862
+    Time: 2025-09-21T01:20:39
+  - JBU479 (A320)
+    Position: 40.639664, -73.773443
+    Time: 2025-09-21T01:20:39
+  - JBU83 (A320)
+    Position: 40.639966, -73.784330
+    Time: 2025-09-21T01:20:39
+  - ASA113 (B737)
+    Position: 40.642234, -73.764978
+    Time: 2025-09-21T01:20:39
+
+============================================================
+
+=== Gemini Bottleneck Prediction - 2025-09-21 01:20:45 ===
+Bottleneck ID: runway_2025-09-21_01:20:45
+Coordinates: 40.641700, -73.778500
+Type: runway
+Severity: 5/5
+Duration: 45.0 minutes
+Confidence: 0.60
+Aircraft Count: 5
+
+Traffic Analysis:
+  - Total Aircraft: 5
+  - Ground Aircraft: 5
+  - Airborne Aircraft: 0
+  - Density Score: 100.0/100
+  - Hotspots: 3
+  - Congestion Areas: 3
+
+Affected Aircraft:
+  - DAL123 (B737)
+    Position: 40.641300, -73.778100
+    Time: 2025-09-21T01:20:45
+  - UAL456 (B737)
+    Position: 40.641500, -73.778300
+    Time: 2025-09-21T01:20:45
+  - AAL789 (B737)
+    Position: 40.641700, -73.778500
+    Time: 2025-09-21T01:20:45
+  - JBU101 (A320)
+    Position: 40.641900, -73.778700
+    Time: 2025-09-21T01:20:45
+  - SWA202 (B737)
+    Position: 40.642100, -73.778900
+    Time: 2025-09-21T01:20:45
+
+============================================================
+
+=== Gemini Bottleneck Prediction - 2025-09-21 01:20:49 ===
+Bottleneck ID: runway_2025-09-21_01:20:49
+Coordinates: 40.641700, -73.778500
+Type: runway
+Severity: 5/5
+Duration: 45.0 minutes
+Confidence: 0.60
+Aircraft Count: 5
+
+Traffic Analysis:
+  - Total Aircraft: 5
+  - Ground Aircraft: 5
+  - Airborne Aircraft: 0
+  - Density Score: 79.0/100
+  - Hotspots: 3
+  - Congestion Areas: 3
+
+Affected Aircraft:
+  - DAL123 (B737)
+    Position: 40.641300, -73.778100
+    Time: 2025-09-21T01:20:49
+  - UAL456 (B737)
+    Position: 40.641500, -73.778300
+    Time: 2025-09-21T01:20:49
+  - AAL789 (B737)
+    Position: 40.641700, -73.778500
+    Time: 2025-09-21T01:20:49
+  - JBU101 (A320)
+    Position: 40.641900, -73.778700
+    Time: 2025-09-21T01:20:49
+  - SWA202 (B737)
+    Position: 40.642100, -73.778900
+    Time: 2025-09-21T01:20:49
+
+============================================================
+
+=== Gemini Bottleneck Prediction - 2025-09-21 01:21:42 ===
+Bottleneck ID: taxiway_2025-09-21_01:21:42
+Coordinates: 40.639847, -73.777337
+Type: taxiway
+Severity: 4/5
+Duration: 20.0 minutes
+Confidence: 0.60
+Aircraft Count: 10
+
+Traffic Analysis:
+  - Total Aircraft: 10
+  - Ground Aircraft: 9
+  - Airborne Aircraft: 1
+  - Density Score: 52.5/100
+  - Hotspots: 5
+  - Congestion Areas: 8
+
+Affected Aircraft:
+  - DAL123 (B737)
+    Position: 40.641300, -73.778100
+    Time: 2025-09-21T01:21:42
+  - UAL456 (B737)
+    Position: 40.642000, -73.779000
+    Time: 2025-09-21T01:21:42
+  - AAL789 (B737)
+    Position: 40.641500, -73.778500
+    Time: 2025-09-21T01:21:42
+  - JBU101 (A320)
+    Position: 40.642500, -73.779500
+    Time: 2025-09-21T01:21:42
+  - SWA202 (B737)
+    Position: 40.640800, -73.777500
+    Time: 2025-09-21T01:21:42
+  - EDV5399 (B737)
+    Position: 40.635436, -73.781156
+    Time: 2025-09-21T01:21:42
+  - RPA5598 (B737)
+    Position: 40.633073, -73.776862
+    Time: 2025-09-21T01:21:42
+  - JBU479 (A320)
+    Position: 40.639664, -73.773443
+    Time: 2025-09-21T01:21:42
+  - JBU83 (A320)
+    Position: 40.639966, -73.784330
+    Time: 2025-09-21T01:21:42
+  - ASA113 (B737)
+    Position: 40.642234, -73.764978
+    Time: 2025-09-21T01:21:42
+
+============================================================
