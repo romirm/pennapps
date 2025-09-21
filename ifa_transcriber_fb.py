@@ -360,22 +360,72 @@ class InformedATCTranscriber:
     def _write_chatter_to_file(
         self, transcription: str, interpretation: str, aircraft_mentioned: list = None
     ):
-        """Write ATC chatter interpretation to file"""
+        """Write ATC chatter interpretation to file (filtered to relevant parts only)"""
         try:
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             aircraft_str = (
                 f" [{', '.join(aircraft_mentioned)}]" if aircraft_mentioned else ""
             )
 
-            entry = (
-                f"[{timestamp}]{aircraft_str} {transcription}\n-> {interpretation}\n\n"
-            )
+            # Extract only Fragment Analysis and Reconstructed Communication
+            filtered_interpretation = self._filter_interpretation(interpretation)
+
+            entry = f"[{timestamp}]{aircraft_str} {transcription}\n-> {filtered_interpretation}\n\n"
 
             with open(self.chatter_file, "a") as f:
                 f.write(entry)
 
         except Exception as e:
             print(f"❌ Error writing to chatter file: {e}")
+
+    def _filter_interpretation(self, interpretation: str) -> str:
+        """Extract only Fragment Analysis and Reconstructed Communication from full interpretation"""
+        lines = interpretation.split("\n")
+        filtered_lines = []
+
+        current_section = None
+        include_line = False
+
+        for line in lines:
+            line = line.strip()
+
+            # Check if this is a section header
+            if line.startswith("Fragment Analysis:"):
+                current_section = "fragment_analysis"
+                include_line = True
+            elif line.startswith("Reconstructed Communication:"):
+                current_section = "reconstructed_comm"
+                include_line = True
+            elif (
+                line.startswith("Callsigns:")
+                or line.startswith("Command Type:")
+                or line.startswith("Extracted Elements:")
+                or line.startswith("Operational Significance:")
+                or line.startswith("Confidence:")
+            ):
+                current_section = "other"
+                include_line = False
+            elif line == "":
+                # Empty lines - include if we're in a section we care about
+                if current_section in ["fragment_analysis", "reconstructed_comm"]:
+                    include_line = True
+                else:
+                    include_line = False
+            else:
+                # Content lines - include if we're in a section we care about
+                if current_section in ["fragment_analysis", "reconstructed_comm"]:
+                    include_line = True
+                else:
+                    include_line = False
+
+            if include_line:
+                filtered_lines.append(line)
+
+        # Clean up the result - remove trailing empty lines
+        while filtered_lines and filtered_lines[-1] == "":
+            filtered_lines.pop()
+
+        return "\n".join(filtered_lines)
 
     def process_audio_queue(self):
         """Enhanced audio processing with aircraft state correlation"""

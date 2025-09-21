@@ -98,6 +98,13 @@ RECENT ATC COMMUNICATIONS:"""
             - Ground Control: 121.9 (North), 121.65 (South)  
             - Tower: 119.1, 123.9
             - Major taxiways: A, B, C, D, K
+            
+        PRIMARY OBJECTIVES (in order)
+        1) Safety: never recommend a plan that could cause a runway/taxiway incursion or loss of separation.
+        2) Maintain runway throughput: prioritize departure/arrival cadence and minimize intersection occupancy time.
+        3) Reduce delay propagation: relieve the critical bottleneck first with the smallest viable change.
+        4) Preserve controller workload: prefer simple, standard, and minimal reroutes or holds.
+
 
         Pay particular attention to the following fields in the bottleneck data report:
         - severity. Severity is a number between 1 and 5, where 1 is the lowest severity and 5 is the highest severity. It is the most important factor to consider when designing an action plan.
