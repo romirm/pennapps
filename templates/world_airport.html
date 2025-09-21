@@ -481,43 +481,32 @@
             z-index: 1000;
         }
 
-        .status-bar {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.8);
-            color: #888;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7em;
-            border: 1px solid #333;
-            z-index: 1000;
-        }
-
-        .status-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #00ff00;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
 
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.3; }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         /* Scrollbar styling */
@@ -536,6 +525,124 @@
 
         .info-panel::-webkit-scrollbar-thumb:hover {
             background: #666;
+        }
+
+        /* Action checklist styles */
+        .action-checklist {
+            margin-top: 15px;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding: 8px;
+            background: rgba(20, 20, 20, 0.5);
+            border-radius: 4px;
+            border-left: 3px solid #444;
+            transition: all 0.3s ease;
+        }
+
+        .action-item:hover {
+            background: rgba(0, 255, 0, 0.05);
+            border-left-color: #00ff00;
+        }
+
+        .action-checkbox {
+            margin-right: 10px;
+            margin-top: 2px;
+            width: 16px;
+            height: 16px;
+            accent-color: #00ff00;
+            cursor: pointer;
+        }
+
+        .action-label {
+            flex: 1;
+            font-size: 0.85em;
+            line-height: 1.4;
+            color: #e0e0e0;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .action-checkbox:checked + .action-label {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .action-checkbox:checked + .action-label::before {
+            content: "✓ ";
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        /* Improvement figures styles */
+        .improvement-figures {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid #00ff00;
+            border-radius: 6px;
+        }
+
+        .improvement-figures h4 {
+            color: #00ff00;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .improvement-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+        }
+
+        .improvement-metric:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .improvement-label {
+            font-size: 0.8em;
+            color: #888;
+            font-weight: 500;
+        }
+
+        .improvement-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            font-weight: 700;
+            color: #00ff00;
+        }
+
+        /* Severity color coding */
+        .bottleneck-severity.low {
+            color: #ffaa00;
+            border-left-color: #ffaa00;
+        }
+
+        .bottleneck-severity.medium {
+            color: #ff6600;
+            border-left-color: #ff6600;
+        }
+
+        .bottleneck-severity.high {
+            color: #ff0000;
+            border-left-color: #ff0000;
+        }
+
+        .bottleneck-impact {
+            font-size: 0.75em;
+            color: #888;
+            margin-top: 4px;
+            font-family: 'JetBrains Mono', monospace;
         }
     </style>
 </head>
@@ -649,19 +756,30 @@
         X: 0, Y: 0
     </div>
 
-    <div class="status-bar">
-        <div class="status-left">
-            <div class="status-indicator">
-                <div class="status-dot"></div>
-                <span>Live View</span>
-            </div>
-            <div>{{ airport_code }} Active</div>
-            <div>Real-World Coordinates</div>
-        </div>
-        <div>ATC Visualizer v2.0</div>
-    </div>
 
+    <!-- Socket.IO Client Library -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    
     <script>
+        // Initialize Socket.IO connection
+        const socket = io();
+        
+        // Listen for bottleneck detection events
+        socket.on('bottleneck_detected', function(data) {
+            console.log('Bottleneck detected:', data);
+            if (data.action === 'new') {
+                addBottleneckToSidebar(data.bottleneck);
+            } else if (data.action === 'update') {
+                updateBottleneckInSidebar(data.bottleneck);
+            }
+        });
+        
+        // Listen for bottleneck resolution events
+        socket.on('bottleneck_resolved', function(data) {
+            console.log('Bottleneck resolved:', data);
+            removeBottleneckFromSidebar(data.bottleneck_id);
+        });
+        
         const canvas = document.getElementById('airportCanvas');
         const ctx = canvas.getContext('2d');
         const coordinates = document.getElementById('coordinates');
@@ -1091,89 +1209,240 @@
             aircraftList.innerHTML = aircraftHTML;
         }
 
-        // Test bottleneck data
-        const testBottlenecks = [
-            {
-                id: 'runway-congestion',
-                severity: 'HIGH',
-                title: 'Runway Congestion',
-                description: 'Runway 09L/27R experiencing heavy traffic',
-                overview: 'Current runway utilization exceeds 85% capacity with 12 aircraft in queue. Average wait time has increased to 18 minutes, causing significant delays for departing and arriving flights.',
-                metrics: [
-                    { label: 'Average Delay', value: '18 min' },
-                    { label: 'Aircraft in Queue', value: '12' },
-                    { label: 'Capacity Utilization', value: '87%' },
-                    { label: 'Passengers Affected', value: '1,200' }
-                ],
-                actions: [
-                    'Implement ground stop for 15 minutes',
-                    'Redirect 3 flights to Runway 09R/27L',
-                    'Increase separation between departures',
-                    'Coordinate with approach control for spacing'
-                ]
-            },
-            {
-                id: 'gate-availability',
-                severity: 'MEDIUM',
-                title: 'Gate Availability',
-                description: 'Limited gate space causing delays',
-                overview: 'Only 3 gates available for incoming flights. 8 aircraft are currently holding on taxiways waiting for gate assignments. This is causing backup in the taxiway system.',
-                metrics: [
-                    { label: 'Available Gates', value: '3' },
-                    { label: 'Aircraft Waiting', value: '8' },
-                    { label: 'Average Wait Time', value: '12 min' },
-                    { label: 'Gate Utilization', value: '94%' }
-                ],
-                actions: [
-                    'Expedite aircraft turnarounds',
-                    'Use remote parking positions',
-                    'Coordinate gate assignments with ground crew',
-                    'Consider offloading passengers via bus'
-                ]
-            },
-            {
-                id: 'weather-delay',
-                severity: 'LOW',
-                title: 'Weather Advisory',
-                description: 'Light precipitation affecting operations',
-                overview: 'Light rain and reduced visibility (3/4 mile) is causing minor delays. All aircraft are operating under IFR conditions with increased separation requirements.',
-                metrics: [
-                    { label: 'Visibility', value: '3/4 mile' },
-                    { label: 'Precipitation', value: 'Light rain' },
-                    { label: 'Wind Speed', value: '12 kts' },
-                    { label: 'Delays', value: '5-8 min' }
-                ],
-                actions: [
-                    'Monitor weather conditions closely',
-                    'Maintain increased separation',
-                    'Prepare for potential holding patterns',
-                    'Update NOTAMs as needed'
-                ]
-            }
-        ];
 
-        // Update bottlenecks with test data
+        // Global storage for real bottleneck data
+        let currentBottlenecks = [];
+
+        // Fetch real bottleneck data from API
+        async function fetchBottleneckData() {
+            try {
+                const response = await fetch('/api/bottlenecks');
+                if (response.ok) {
+                    const data = await response.json();
+                    currentBottlenecks = data.bottlenecks || [];
+                    updateBottlenecks(data);
+                    console.log(`🚨 Updated bottleneck data: ${currentBottlenecks.length} bottlenecks detected`);
+                } else {
+                    console.error('Failed to fetch bottleneck data:', response.status);
+                }
+            } catch (error) {
+                console.error('Error fetching bottleneck data:', error);
+            }
+        }
+
+        // Add new bottleneck to sidebar (called by WebSocket)
+        function addBottleneckToSidebar(bottleneck) {
+            // Add to current bottlenecks array
+            currentBottlenecks.push(bottleneck);
+            
+            // Update the sidebar display
+            updateBottlenecks();
+            
+            // Show notification
+            showBottleneckNotification(bottleneck);
+        }
+        
+        // Update existing bottleneck in sidebar (called by WebSocket)
+        function updateBottleneckInSidebar(updatedBottleneck) {
+            // Find and update existing bottleneck
+            const existingIndex = currentBottlenecks.findIndex(b => b.bottleneck_id === updatedBottleneck.bottleneck_id);
+            
+            if (existingIndex !== -1) {
+                // Update existing bottleneck
+                currentBottlenecks[existingIndex] = updatedBottleneck;
+                
+                // Update the sidebar display
+                updateBottlenecks();
+                
+                // Show subtle update notification (less intrusive than new bottleneck)
+                showBottleneckUpdateNotification(updatedBottleneck);
+            } else {
+                // If not found, treat as new bottleneck
+                addBottleneckToSidebar(updatedBottleneck);
+            }
+        }
+        
+        // Remove resolved bottleneck from sidebar (called by WebSocket)
+        function removeBottleneckFromSidebar(bottleneckId) {
+            // Find and remove bottleneck
+            const existingIndex = currentBottlenecks.findIndex(b => b.bottleneck_id === bottleneckId);
+            
+            if (existingIndex !== -1) {
+                const removedBottleneck = currentBottlenecks.splice(existingIndex, 1)[0];
+                
+                // Update the sidebar display
+                updateBottlenecks();
+                
+                // Show resolution notification
+                showBottleneckResolutionNotification(removedBottleneck);
+                
+                console.log(`✅ Bottleneck resolved and removed: ${bottleneckId}`);
+            }
+        }
+        
+        // Show notification for new bottleneck
+        function showBottleneckNotification(bottleneck) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'bottleneck-notification';
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <div class="notification-icon">🚨</div>
+                    <div class="notification-text">
+                        <strong>New Bottleneck Detected</strong><br>
+                        ${bottleneck.severity_text} severity at ${bottleneck.location}
+                    </div>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                </div>
+            `;
+            
+            // Add notification styles
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                background: rgba(255, 59, 48, 0.95);
+                color: white;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                z-index: 2000;
+                max-width: 300px;
+                animation: slideInLeft 0.3s ease-out;
+            `;
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+        
+        // Show subtle notification for bottleneck updates
+        function showBottleneckUpdateNotification(bottleneck) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'bottleneck-update-notification';
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <div class="notification-icon">🔄</div>
+                    <div class="notification-text">
+                        <strong>Bottleneck Updated</strong><br>
+                        ${bottleneck.severity_text} severity at ${bottleneck.location}
+                    </div>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                </div>
+            `;
+            
+            // Add notification styles (more subtle than new bottleneck)
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                background: rgba(255, 193, 7, 0.95);
+                color: #333;
+                padding: 12px;
+                border-radius: 6px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                z-index: 2000;
+                max-width: 280px;
+                animation: slideInLeft 0.2s ease-out;
+                font-size: 0.9em;
+            `;
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 3 seconds (shorter than new bottleneck)
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 3000);
+        }
+        
+        // Show notification for bottleneck resolution
+        function showBottleneckResolutionNotification(bottleneck) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'bottleneck-resolution-notification';
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <div class="notification-icon">✅</div>
+                    <div class="notification-text">
+                        <strong>Bottleneck Resolved</strong><br>
+                        Traffic cleared at ${bottleneck.location}
+                    </div>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                </div>
+            `;
+            
+            // Add notification styles (green for success)
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                background: rgba(40, 167, 69, 0.95);
+                color: white;
+                padding: 12px;
+                border-radius: 6px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                z-index: 2000;
+                max-width: 280px;
+                animation: slideInLeft 0.2s ease-out;
+                font-size: 0.9em;
+            `;
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 4 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 4000);
+        }
+
+        // Update bottlenecks with real data
         function updateBottlenecks(data) {
             const bottlenecksList = document.getElementById('bottlenecks-list');
             let bottlenecksHTML = '';
             
-            // Always show test bottlenecks
-            testBottlenecks.forEach(bottleneck => {
-                bottlenecksHTML += `
-                    <div class="bottleneck-item" onclick="showBottleneckDetail('${bottleneck.id}')">
-                        <div class="bottleneck-severity">${bottleneck.severity}</div>
-                        <div class="bottleneck-description">${bottleneck.description}</div>
-                    </div>
-                `;
-            });
+            // Show real bottlenecks if available
+            if (currentBottlenecks.length > 0) {
+                currentBottlenecks.forEach(bottleneck => {
+                    const severityClass = bottleneck.severity_text.toLowerCase().replace('-', '');
+                    bottlenecksHTML += `
+                        <div class="bottleneck-item" onclick="showBottleneckDetail('${bottleneck.bottleneck_id}')">
+                            <div class="bottleneck-severity ${severityClass}">${bottleneck.severity_text}</div>
+                            <div class="bottleneck-description">${bottleneck.location} - ${bottleneck.impact.aircraft_affected} aircraft affected</div>
+                            <div class="bottleneck-impact">${bottleneck.impact.estimated_delay_minutes.toFixed(1)} min delay</div>
+                        </div>
+                    `;
+                });
+            }
+            
+            if (bottlenecksHTML === '') {
+                bottlenecksHTML = '<div style="color: #888; font-size: 0.8em; text-align: center; padding: 20px;">No bottlenecks detected</div>';
+            }
             
             bottlenecksList.innerHTML = bottlenecksHTML;
         }
 
         // Show bottleneck detail view
         function showBottleneckDetail(bottleneckId) {
-            const bottleneck = testBottlenecks.find(b => b.id === bottleneckId);
-            if (!bottleneck) return;
+            // Find real bottleneck
+            let bottleneck = currentBottlenecks.find(b => b.bottleneck_id === bottleneckId);
+            
+            if (!bottleneck) {
+                console.log(`Bottleneck not found: ${bottleneckId}`);
+                return;
+            }
 
             // Get elements
             const panelSections = document.querySelectorAll('.panel-section');
@@ -1191,14 +1460,31 @@
                 section.classList.add('slide-out');
             });
 
-            // Populate detail content immediately (before animation)
-            document.getElementById('detail-title').textContent = bottleneck.title;
-            document.getElementById('detail-overview').textContent = bottleneck.overview;
+            // Populate detail content for real bottleneck
+            document.getElementById('detail-title').textContent = `${bottleneck.location} Bottleneck`;
+            
+            const overview = `
+                Severity: ${bottleneck.severity_text} (${bottleneck.severity}/5)<br>
+                Location: ${bottleneck.location}<br>
+                Aircraft Affected: ${bottleneck.impact.aircraft_affected}<br>
+                Passengers Affected: ${bottleneck.impact.passengers_affected}<br>
+                Estimated Delay: ${bottleneck.impact.estimated_delay_minutes.toFixed(1)} minutes<br>
+                Confidence: ${bottleneck.impact.confidence.toFixed(1)}%
+            `;
+            document.getElementById('detail-overview').innerHTML = overview;
 
             // Populate metrics
             const metricsContainer = document.getElementById('detail-metrics');
             metricsContainer.innerHTML = '';
-            bottleneck.metrics.forEach(metric => {
+            
+            const metrics = [
+                { label: 'Aircraft Affected', value: bottleneck.impact.aircraft_affected },
+                { label: 'Passengers Affected', value: bottleneck.impact.passengers_affected.toLocaleString() },
+                { label: 'Estimated Delay', value: `${bottleneck.impact.estimated_delay_minutes.toFixed(1)} min` },
+                { label: 'Confidence', value: `${bottleneck.impact.confidence.toFixed(1)}%` }
+            ];
+            
+            metrics.forEach(metric => {
                 const metricRow = document.createElement('div');
                 metricRow.className = 'metric-row';
                 metricRow.style.opacity = '0';
@@ -1210,9 +1496,79 @@
                 metricsContainer.appendChild(metricRow);
             });
 
-            // Populate actions
+            // Populate Cerebras action plan as checklist
             const actionsContainer = document.getElementById('detail-actions');
-            actionsContainer.innerHTML = bottleneck.actions.map(action => `• ${action}`).join('<br>');
+            if (bottleneck.cerebras_advice && Object.keys(bottleneck.cerebras_advice).length > 0) {
+                let actionsHTML = '<div class="action-checklist">';
+                
+                // Parse Cerebras advice to extract steps
+                const advice = bottleneck.cerebras_advice;
+                
+                // If it's a JSON object with steps
+                if (typeof advice === 'object') {
+                    const allKeys = Object.keys(advice);
+                    const stepKeys = allKeys.filter(key => 
+                        key !== 'total_passengers_benefitted' && key !== 'total_cost_savings_usd'
+                    );
+                    
+                    // Exclude the last step
+                    const stepsToShow = stepKeys.slice(0, -1);
+                    
+                    stepsToShow.forEach((key, index) => {
+                        const step = advice[key];
+                        actionsHTML += `
+                            <div class="action-item">
+                                <input type="checkbox" id="action-${index}" class="action-checkbox">
+                                <label for="action-${index}" class="action-label">
+                                    <strong>Step ${index + 1}:</strong> ${typeof step === 'object' ? step.description || step.action || JSON.stringify(step) : step}
+                                </label>
+                            </div>
+                        `;
+                    });
+                } else if (typeof advice === 'string') {
+                    // If it's a raw text response, try to parse it
+                    const steps = advice.split('\n').filter(line => line.trim().length > 0);
+                    
+                    // Exclude the last step
+                    const stepsToShow = steps.slice(0, -1);
+                    
+                    stepsToShow.forEach((step, index) => {
+                        if (step.trim()) {
+                            actionsHTML += `
+                                <div class="action-item">
+                                    <input type="checkbox" id="action-${index}" class="action-checkbox">
+                                    <label for="action-${index}" class="action-label">
+                                        ${step.trim()}
+                                    </label>
+                                </div>
+                            `;
+                        }
+                    });
+                }
+                
+                actionsHTML += '</div>';
+                
+                // Add improvement figures if available
+                if (advice.total_passengers_benefitted || advice.total_cost_savings) {
+                    actionsHTML += `
+                        <div class="improvement-figures">
+                            <h4>Expected Improvements:</h4>
+                            <div class="improvement-metric">
+                                <span class="improvement-label">Passengers Benefitted:</span>
+                                <span class="improvement-value">${advice.total_passengers_benefitted || 'N/A'}</span>
+                            </div>
+                            <div class="improvement-metric">
+                                <span class="improvement-label">Cost Savings:</span>
+                                <span class="improvement-value">$${advice.total_cost_savings / 100 || 'N/A'}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                actionsContainer.innerHTML = actionsHTML;
+            } else {
+                actionsContainer.innerHTML = '<div style="color: #888;">No action plan available</div>';
+            }
 
             // Start slide-in animation for detail view
             setTimeout(() => {
@@ -1271,6 +1627,9 @@
         function loadInitialData() {
             // Initial fetch of aircraft data
             fetchAircraftData();
+            
+            // Initial fetch of bottleneck data
+            fetchBottleneckData();
         }
         
         // Keyboard shortcuts
@@ -1301,11 +1660,16 @@
         loadInitialData();
         draw();
         
-        // Set up 5-second timer to continuously fetch aircraft data
+        // Set up timer to continuously fetch aircraft and bottleneck data
         setInterval(async () => {
             await fetchAircraftData();
             draw(); // Redraw the map with updated aircraft positions
-        }, 3000); // 5 seconds
+        }, 3000); // 3 seconds for aircraft data
+        
+        // Set up separate timer for bottleneck data (less frequent)
+        setInterval(async () => {
+            await fetchBottleneckData();
+        }, 20000); // 20 seconds for bottleneck data
     </script>
 </body>
 </html>

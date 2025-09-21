@@ -1,14 +1,18 @@
 from flask import Flask, render_template, request, jsonify
+from flask_socketio import SocketIO, emit
 import requests
 import json
+import hashlib
 from airport_data_fetcher import get_airport_data_for_app
 from world_data_processor import get_world_airport_data
 from client import PlaneMonitor
 from model.agentic_bottleneck_predictor import AgenticBottleneckPredictor
+from model.gemini_bottleneck_predictor import GeminiBottleneckPredictor
 import os
 import asyncio
 import threading
 from datetime import datetime
+from inference import CerebrasClient
 
 # Load environment variables from cerebras_config.env
 if os.path.exists('cerebras_config.env'):
@@ -20,12 +24,29 @@ if os.path.exists('cerebras_config.env'):
                 print(f"✅ Cerebras API key loaded from cerebras_config.env")
                 break
 
+# Load Gemini API key from gemini_config.env
+if os.path.exists('gemini_config.env'):
+    with open('gemini_config.env', 'r') as f:
+        for line in f:
+            if line.startswith('GEMINI_API_KEY='):
+                gemini_key = line.split('=', 1)[1].strip()
+                os.environ['GEMINI_API_KEY'] = gemini_key
+                print(f"✅ Gemini API key loaded from gemini_config.env")
+                break
+
 app = Flask(__name__)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Global plane monitor instance and data storage
 current_airport = "JFK"  # Default airport
 plane_monitor = PlaneMonitor(current_airport)
+cerebras_client = CerebrasClient()
 bottleneck_predictor = AgenticBottleneckPredictor()
+gemini_bottleneck_predictor = GeminiBottleneckPredictor()
+
+# Bottleneck tracking for deduplication
+active_bottlenecks = {}  # Dict to track active bottlenecks by key
+bottleneck_timeout_minutes = 15  # Consider bottleneck resolved after 15 minutes of no detection (reduced for better deduplication)
 latest_aircraft_data = {
     'current_planes': {'ground': {}, 'air': {}},
     'changes': {'entered': [], 'left': []},
@@ -100,17 +121,7 @@ def background_aircraft_monitor():
                                     'heading': plane_data.get('heading')
                                 })
                         
-                        # Run agentic AI bottleneck analysis
-                        async def run_analysis():
-                            analysis_results = await bottleneck_predictor.predict_and_analyze(aircraft_list, current_airport)
-                            bottleneck_predictor.save_results(analysis_results)
-                            confidence = analysis_results.get('confidence_score', 0)
-                            analysis_type = analysis_results.get('analysis_type', 'Unknown')
-                            print(f"🤖 Agentic AI analysis completed for {current_airport}: {analysis_type} (Confidence: {confidence:.1f}%)")
-                            return analysis_results
                         
-                        # Run async analysis in the event loop
-                        analysis_results = loop.run_until_complete(run_analysis())
                         
                     except Exception as e:
                         print(f"❌ Error in agentic AI analysis: {e}")
@@ -125,6 +136,488 @@ def background_aircraft_monitor():
     # Start background thread
     thread = threading.Thread(target=run_async, daemon=True)
     thread.start()
+    return thread
+
+def generate_bottleneck_key(prediction_data):
+    """Generate a unique key for bottleneck deduplication based on multiple factors"""
+    bottleneck_type = prediction_data.get('type', 'unknown')
+    coordinates = prediction_data.get('coordinates', [0.0, 0.0])
+    severity = prediction_data.get('severity', 0)
+    aircraft_count = prediction_data.get('aircraft_count', 0)
+    
+    # Round coordinates to 2 decimal places (tighter tolerance)
+    lat_rounded = round(coordinates[0], 2) if len(coordinates) > 0 else 0.0
+    lon_rounded = round(coordinates[1], 2) if len(coordinates) > 1 else 0.0
+    
+    # Create a more comprehensive key that includes:
+    # 1. Location (tighter coordinates)
+    # 2. Type
+    # 3. Severity level
+    # 4. Aircraft count (rounded to nearest 5 for tolerance)
+    aircraft_count_rounded = round(aircraft_count / 5) * 5  # Round to nearest 5
+    
+    # Generate key with multiple factors
+    base_key = f"{bottleneck_type}_{lat_rounded}_{lon_rounded}_{severity}_{aircraft_count_rounded}"
+    
+    # Add hash of affected aircraft for even more specificity
+    aircraft_affected = prediction_data.get('aircraft_affected', [])
+    if aircraft_affected:
+        # Create a hash of aircraft IDs for additional uniqueness
+        aircraft_ids = [ac.get('flight_id', '') for ac in aircraft_affected[:5]]  # Use first 5 aircraft
+        aircraft_hash = hashlib.md5('_'.join(sorted(aircraft_ids)).encode()).hexdigest()[:8]
+        base_key += f"_{aircraft_hash}"
+    
+    return base_key
+
+def is_bottleneck_active(bottleneck_key):
+    """Check if a bottleneck is still considered active based on timeout"""
+    if bottleneck_key not in active_bottlenecks:
+        return False
+    
+    last_seen = active_bottlenecks[bottleneck_key]['last_seen']
+    time_diff = datetime.now() - last_seen
+    
+    return time_diff.total_seconds() < (bottleneck_timeout_minutes * 60)
+
+def update_bottleneck_tracking(bottleneck_key, bottleneck_data):
+    """Update or create bottleneck tracking entry"""
+    active_bottlenecks[bottleneck_key] = {
+        'data': bottleneck_data,
+        'last_seen': datetime.now(),
+        'first_seen': active_bottlenecks.get(bottleneck_key, {}).get('first_seen', datetime.now()),
+        'update_count': active_bottlenecks.get(bottleneck_key, {}).get('update_count', 0) + 1
+    }
+
+def should_create_new_bottleneck_card(prediction_data):
+    """Determine if we should create a new bottleneck card or update existing one"""
+    bottleneck_key = generate_bottleneck_key(prediction_data)
+    
+    # If bottleneck doesn't exist or is no longer active, create new card
+    if not is_bottleneck_active(bottleneck_key):
+        return True, bottleneck_key, None
+    
+    # Check for similar bottlenecks within a time window (last 5 minutes)
+    current_time = datetime.now()
+    similar_bottlenecks = []
+    
+    for key, bottleneck_info in active_bottlenecks.items():
+        if is_bottleneck_active(key):
+            last_seen = bottleneck_info['last_seen']
+            time_diff = current_time - last_seen
+            
+            # Check if bottleneck was seen within last 5 minutes
+            if time_diff.total_seconds() < 300:  # 5 minutes
+                existing_data = bottleneck_info['data']
+                
+                # Check if this is a similar bottleneck based on location and type
+                if is_similar_bottleneck(prediction_data, existing_data):
+                    similar_bottlenecks.append((key, existing_data))
+    
+    # If we found similar bottlenecks, update the most recent one
+    if similar_bottlenecks:
+        # Sort by last_seen time and get the most recent
+        similar_bottlenecks.sort(key=lambda x: active_bottlenecks[x[0]]['last_seen'], reverse=True)
+        most_recent_key, most_recent_data = similar_bottlenecks[0]
+        return False, most_recent_key, most_recent_data
+    
+    # If bottleneck exists and is active, update existing one instead
+    existing_data = active_bottlenecks[bottleneck_key]['data']
+    return False, bottleneck_key, existing_data
+
+def is_similar_bottleneck(new_prediction, existing_prediction):
+    """Check if two bottlenecks are similar enough to be considered the same"""
+    # Extract data from both predictions
+    new_type = new_prediction.get('type', 'unknown')
+    new_coords = new_prediction.get('coordinates', [0.0, 0.0])
+    new_severity = new_prediction.get('severity', 0)
+    new_aircraft_count = new_prediction.get('aircraft_count', 0)
+    
+    existing_type = existing_prediction.get('type', 'unknown')
+    existing_coords = existing_prediction.get('coordinates', [0.0, 0.0])
+    existing_severity = existing_prediction.get('severity', 0)
+    existing_aircraft_count = existing_prediction.get('aircraft_count', 0)
+    
+    # Must be same type
+    if new_type != existing_type:
+        return False
+    
+    # Severity must be within 1 level
+    if abs(new_severity - existing_severity) > 1:
+        return False
+    
+    # Aircraft count must be within 25% of each other
+    if existing_aircraft_count > 0:
+        aircraft_diff = abs(new_aircraft_count - existing_aircraft_count) / existing_aircraft_count
+        if aircraft_diff > 0.25:  # 25% tolerance
+            return False
+    
+    # Location must be within 0.005 degrees (roughly 500m at JFK) - tighter tolerance
+    if len(new_coords) >= 2 and len(existing_coords) >= 2:
+        lat_diff = abs(new_coords[0] - existing_coords[0])
+        lon_diff = abs(new_coords[1] - existing_coords[1])
+        
+        if lat_diff > 0.005 or lon_diff > 0.005:
+            return False
+    
+    return True
+
+def find_duplicate_bottlenecks():
+    """Find and report potential duplicate bottlenecks for debugging"""
+    duplicates_found = []
+    keys = list(active_bottlenecks.keys())
+    
+    for i in range(len(keys)):
+        for j in range(i + 1, len(keys)):
+            key1, key2 = keys[i], keys[j]
+            data1 = active_bottlenecks[key1]['data']
+            data2 = active_bottlenecks[key2]['data']
+            
+            if is_similar_bottleneck(data1, data2):
+                duplicates_found.append((key1, key2))
+    
+    if duplicates_found:
+        print(f"🔧 DEBUG: Found {len(duplicates_found)} potential duplicate pairs:")
+        for key1, key2 in duplicates_found:
+            print(f"  - {key1[:30]}... <-> {key2[:30]}...")
+    
+    return duplicates_found
+
+def log_active_bottlenecks():
+    """Log all active bottlenecks for debugging"""
+    if active_bottlenecks:
+        print(f"🔧 DEBUG: Active bottlenecks ({len(active_bottlenecks)}):")
+        for key, info in active_bottlenecks.items():
+            last_seen = info['last_seen']
+            update_count = info['update_count']
+            bottleneck_id = info['data'].get('bottleneck_id', 'unknown')
+            print(f"  - {key[:50]}... | ID: {bottleneck_id} | Updates: {update_count} | Last seen: {last_seen.strftime('%H:%M:%S')}")
+    else:
+        print("🔧 DEBUG: No active bottlenecks")
+
+def cleanup_inactive_bottlenecks():
+    """Remove bottlenecks that are no longer active and notify frontend"""
+    inactive_keys = []
+    
+    for key, bottleneck_info in active_bottlenecks.items():
+        if not is_bottleneck_active(key):
+            inactive_keys.append(key)
+    
+    # Remove inactive bottlenecks and notify frontend
+    for key in inactive_keys:
+        removed_bottleneck = active_bottlenecks.pop(key, None)
+        if removed_bottleneck and socketio:
+            print(f"🧹 Cleaning up inactive bottleneck: {key}")
+            socketio.emit('bottleneck_resolved', {
+                'bottleneck_id': removed_bottleneck['data']['bottleneck_id'],
+                'timestamp': datetime.now().isoformat()
+            })
+    
+    return len(inactive_keys)
+
+def create_bottleneck_card_with_advice(prediction_data, cerebras_advice, airport_code):
+    """Create a bottleneck card combining prediction results and Cerebras advice"""
+    import uuid
+    from datetime import datetime
+    
+    # Extract data from prediction results
+    bottleneck_id = prediction_data.get('bottleneck_id', f"bottleneck_{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}")
+    severity = prediction_data.get('severity', 1)
+    bottleneck_type = prediction_data.get('type', 'unknown')
+    duration = prediction_data.get('duration', 0)
+    confidence = prediction_data.get('confidence', 0.0)
+    aircraft_count = prediction_data.get('aircraft_count', 0)
+    coordinates = prediction_data.get('coordinates', [0.0, 0.0])
+    
+    # Convert severity to text
+    severity_text = {
+        1: "Low",
+        2: "Low-Medium", 
+        3: "Medium",
+        4: "High",
+        5: "Critical"
+    }.get(severity, "Unknown")
+    
+    # Parse Cerebras advice - apply same cleaning as predict_bottlenecks
+    parsed_advice = {}
+    if cerebras_advice:
+        try:
+            import json
+            
+            # Clean the response from markdown code blocks if present (same as predict_bottlenecks)
+            cleaned_advice = cerebras_advice.strip()
+            if cleaned_advice.startswith('```json'):
+                # Remove ```json from start and ``` from end
+                cleaned_advice = cleaned_advice[7:]  # Remove ```json
+                if cleaned_advice.endswith('```'):
+                    cleaned_advice = cleaned_advice[:-3]  # Remove ```
+            elif cleaned_advice.startswith('```'):
+                # Remove ``` from start and end
+                cleaned_advice = cleaned_advice[3:]
+                if cleaned_advice.endswith('```'):
+                    cleaned_advice = cleaned_advice[:-3]
+            
+            cleaned_advice = cleaned_advice.strip()
+            
+            # Parse the cleaned JSON response
+            parsed_advice = json.loads(cleaned_advice)
+        except Exception as e:
+            print(f"🔧 DEBUG: Cerebras advice JSON parsing failed in create_bottleneck_card_with_advice: {e}")
+            parsed_advice = {"raw_response": cerebras_advice, "parse_error": str(e)}
+    
+    # Create bottleneck card
+    bottleneck_card = {
+        "bottleneck_id": bottleneck_id,
+        "timestamp": datetime.now().isoformat(),
+        "airport_code": airport_code,
+        "type": bottleneck_type,
+        "severity": severity,
+        "severity_text": severity_text,
+        "location": f"{airport_code} {bottleneck_type.title()}",
+        "coordinates": coordinates,
+        "impact": {
+            "estimated_delay_minutes": duration,
+            "aircraft_affected": aircraft_count,
+            "confidence": confidence * 100,  # Convert to percentage
+            "economic_impact_usd": duration * aircraft_count * 150,  # Rough estimate
+            "passengers_affected": aircraft_count * 150  # Average passengers per aircraft
+        },
+        "cerebras_advice": parsed_advice,
+        "status": "active"
+    }
+    
+    return bottleneck_card
+
+# Background task for enhanced bottleneck monitoring every 30 seconds
+def enhanced_bottleneck_monitor():
+    """Background task that runs every 30 seconds to fetch aircraft data and predict bottlenecks"""
+    def run_async():
+        print("🔧 DEBUG: Starting enhanced_bottleneck_monitor thread")
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        print("🔧 DEBUG: Event loop created and set")
+        
+        cycle_count = 0
+        while True:
+            cycle_count += 1
+            print(f"\n{'='*80}")
+            print(f"🔧 DEBUG: Starting monitoring cycle #{cycle_count}")
+            print(f"🔧 DEBUG: Current airport: {current_airport}")
+            print(f"🔧 DEBUG: Current time: {datetime.now().isoformat()}")
+            print(f"{'='*80}")
+            
+            try:
+                print("🔧 DEBUG: Creating PlaneMonitor instance...")
+                # Create a fresh monitor for the current airport
+                current_monitor = PlaneMonitor(current_airport)
+                print(f"🔧 DEBUG: PlaneMonitor created for {current_airport}")
+                
+                print("🔧 DEBUG: Fetching aircraft data for bottleneck analysis...")
+                # Fetch aircraft data for bottleneck analysis
+                aircraft_data = loop.run_until_complete(current_monitor.fetch_aircrafts_for_bottlenecks())
+                print(f"🔧 DEBUG: Aircraft data fetch completed")
+                print(f"🔧 DEBUG: Raw aircraft data type: {type(aircraft_data)}")
+                print(f"🔧 DEBUG: Raw aircraft data length: {len(aircraft_data) if aircraft_data else 'None'}")
+                
+                if aircraft_data:
+                    print(f"🔧 DEBUG: Sample aircraft data (first 2): {aircraft_data[:2] if len(aircraft_data) >= 2 else aircraft_data}")
+                else:
+                    print("🔧 DEBUG: No aircraft data received!")
+                
+                print(f"🛩️ Fetched {len(aircraft_data)} aircraft for bottleneck analysis at {current_airport}")
+                
+                print("🔧 DEBUG: Starting Gemini bottleneck prediction...")
+                print(f"🔧 DEBUG: Gemini predictor type: {type(gemini_bottleneck_predictor)}")
+                print(f"🔧 DEBUG: Gemini predictor has predict_bottlenecks: {hasattr(gemini_bottleneck_predictor, 'predict_bottlenecks')}")
+                
+                # Predict bottlenecks using GeminiBottleneckPredictor
+                prediction_results = loop.run_until_complete(gemini_bottleneck_predictor.predict_bottlenecks(
+                    aircraft_data, current_airport
+                ))
+                
+                print("🔧 DEBUG: Gemini prediction completed")
+                print(f"🔧 DEBUG: Prediction results type: {type(prediction_results)}")
+                print(f"🔧 DEBUG: Prediction results: {prediction_results}")
+                
+                # Parse the raw JSON response from Gemini
+                import json
+                
+                # Clean the response from markdown code blocks if present
+                cleaned_response = prediction_results.strip()
+                if cleaned_response.startswith('```json'):
+                    # Remove ```json from start and ``` from end
+                    cleaned_response = cleaned_response[7:]  # Remove ```json
+                    if cleaned_response.endswith('```'):
+                        cleaned_response = cleaned_response[:-3]  # Remove ```
+                elif cleaned_response.startswith('```'):
+                    # Remove ``` from start and end
+                    cleaned_response = cleaned_response[3:]
+                    if cleaned_response.endswith('```'):
+                        cleaned_response = cleaned_response[:-3]
+                
+                cleaned_response = cleaned_response.strip()
+                
+                # Parse the cleaned JSON response
+                prediction_data = json.loads(cleaned_response)
+                
+                # Handle array response - check each bottleneck
+                if isinstance(prediction_data, list):
+                    for bottleneck in prediction_data:
+                        severity = bottleneck.get('severity', 0)
+                        print(f"🔧 DEBUG: Extracted severity: {severity}")
+                        
+                        # If severity is above 2, call cerebras_client.advise with prediction_results
+                        if severity > 2:
+                            print("🔧 DEBUG: Severity above 2, calling cerebras_client.advise...")
+                            try:
+                                # Check if this is a new bottleneck or existing one
+                                should_create_new, bottleneck_key, existing_data = should_create_new_bottleneck_card(bottleneck)
+                                
+                                print(f"🔧 DEBUG: Bottleneck analysis - Key: {bottleneck_key}")
+                                print(f"🔧 DEBUG: Should create new: {should_create_new}")
+                                print(f"🔧 DEBUG: Active bottlenecks count: {len(active_bottlenecks)}")
+                                
+                                if should_create_new:
+                                    # Feed the JSON from bottleneck directly into advise()
+                                    cerebras_advice = cerebras_client.advise(bottleneck, "")
+                                    print(f"🔧 DEBUG: Cerebras advice received: {cerebras_advice}")
+                                    print(f"🚨 NEW Bottleneck detected at {current_airport}: severity {severity}")
+                                    
+                                    # Create bottleneck card with both prediction results and Cerebras advice
+                                    bottleneck_card = create_bottleneck_card_with_advice(bottleneck, cerebras_advice, current_airport)
+                                    
+                                    # Update tracking
+                                    update_bottleneck_tracking(bottleneck_key, bottleneck_card)
+                                    
+                                    # Send to frontend via WebSocket
+                                    if socketio:
+                                        socketio.emit('bottleneck_detected', {
+                                            'bottleneck': bottleneck_card,
+                                            'timestamp': datetime.now().isoformat(),
+                                            'action': 'new'
+                                        })
+                                        print(f"🔧 DEBUG: Sent NEW bottleneck card to frontend via WebSocket")
+                                else:
+                                    # Update existing bottleneck
+                                    print(f"🔄 UPDATING existing bottleneck at {current_airport}: severity {severity}")
+                                    
+                                    # Update the existing bottleneck data with new prediction info
+                                    existing_card = existing_data.copy()
+                                    existing_card['severity'] = severity
+                                    existing_card['timestamp'] = datetime.now().isoformat()
+                                    existing_card['impact']['estimated_delay_minutes'] = bottleneck.get('duration', existing_card['impact']['estimated_delay_minutes'])
+                                    existing_card['impact']['aircraft_affected'] = bottleneck.get('aircraft_count', existing_card['impact']['aircraft_affected'])
+                                    
+                                    # Update tracking
+                                    update_bottleneck_tracking(bottleneck_key, existing_card)
+                                    
+                                    # Send update to frontend
+                                    if socketio:
+                                        socketio.emit('bottleneck_detected', {
+                                            'bottleneck': existing_card,
+                                            'timestamp': datetime.now().isoformat(),
+                                            'action': 'update'
+                                        })
+                                        print(f"🔧 DEBUG: Sent bottleneck UPDATE to frontend via WebSocket")
+                                
+                            except Exception as e:
+                                print(f"🔧 DEBUG: Error calling Cerebras client: {e}")
+                                print(f"❌ Failed to get Cerebras advice: {e}")
+                        else:
+                            print(f"✅ No significant bottleneck detected at {current_airport} (severity: {severity})")
+                else:
+                    # Handle single object response
+                    severity = prediction_data.get('severity', 0)
+                    print(f"🔧 DEBUG: Extracted severity: {severity}")
+                    
+                    if severity > 2:
+                        print("🔧 DEBUG: Severity above 2, calling cerebras_client.advise...")
+                        try:
+                            # Check if this is a new bottleneck or existing one
+                            should_create_new, bottleneck_key, existing_data = should_create_new_bottleneck_card(prediction_data)
+                            
+                            print(f"🔧 DEBUG: Single object bottleneck analysis - Key: {bottleneck_key}")
+                            print(f"🔧 DEBUG: Should create new: {should_create_new}")
+                            print(f"🔧 DEBUG: Active bottlenecks count: {len(active_bottlenecks)}")
+                            
+                            if should_create_new:
+                                cerebras_advice = cerebras_client.advise(prediction_data, "")
+                                print(f"🔧 DEBUG: Cerebras advice received: {(cerebras_advice)}")
+                                print(f"🚨 NEW Bottleneck detected at {current_airport}: severity {severity}")
+                                
+                                # Create bottleneck card with both prediction results and Cerebras advice
+                                bottleneck_card = create_bottleneck_card_with_advice(prediction_data, cerebras_advice, current_airport)
+                                
+                                # Update tracking
+                                update_bottleneck_tracking(bottleneck_key, bottleneck_card)
+                                
+                                # Send to frontend via WebSocket
+                                if socketio:
+                                    socketio.emit('bottleneck_detected', {
+                                        'bottleneck': bottleneck_card,
+                                        'timestamp': datetime.now().isoformat(),
+                                        'action': 'new'
+                                    })
+                                    print(f"🔧 DEBUG: Sent NEW bottleneck card to frontend via WebSocket")
+                            else:
+                                # Update existing bottleneck
+                                print(f"🔄 UPDATING existing bottleneck at {current_airport}: severity {severity}")
+                                
+                                # Update the existing bottleneck data with new prediction info
+                                existing_card = existing_data.copy()
+                                existing_card['severity'] = severity
+                                existing_card['timestamp'] = datetime.now().isoformat()
+                                existing_card['impact']['estimated_delay_minutes'] = prediction_data.get('duration', existing_card['impact']['estimated_delay_minutes'])
+                                existing_card['impact']['aircraft_affected'] = prediction_data.get('aircraft_count', existing_card['impact']['aircraft_affected'])
+                                
+                                # Update tracking
+                                update_bottleneck_tracking(bottleneck_key, existing_card)
+                                
+                                # Send update to frontend
+                                if socketio:
+                                    socketio.emit('bottleneck_detected', {
+                                        'bottleneck': existing_card,
+                                        'timestamp': datetime.now().isoformat(),
+                                        'action': 'update'
+                                    })
+                                    print(f"🔧 DEBUG: Sent bottleneck UPDATE to frontend via WebSocket")
+                                
+                        except Exception as e:
+                            print(f"🔧 DEBUG: Error calling Cerebras client: {e}")
+                            print(f"❌ Failed to get Cerebras advice: {e}")
+                    else:
+                        print(f"✅ No significant bottleneck detected at {current_airport} (severity: {severity})")
+                
+                # Log active bottlenecks for debugging
+                log_active_bottlenecks()
+                
+                # Check for potential duplicates
+                find_duplicate_bottlenecks()
+                
+                # Cleanup inactive bottlenecks
+                cleaned_count = cleanup_inactive_bottlenecks()
+                if cleaned_count > 0:
+                    print(f"🧹 Cleaned up {cleaned_count} inactive bottlenecks")
+                
+                print(f"🔧 DEBUG: Cycle #{cycle_count} completed successfully")
+                
+            except Exception as e:
+                print(f"🔧 DEBUG: Exception in cycle #{cycle_count}: {e}")
+                print(f"🔧 DEBUG: Exception type: {type(e)}")
+                import traceback
+                print(f"🔧 DEBUG: Full traceback:")
+                traceback.print_exc()
+                print(f"❌ Error in enhanced bottleneck monitoring: {e}")
+            
+            print(f"🔧 DEBUG: Waiting 30 seconds before next cycle...")
+            # Wait 30 seconds before next cycle
+            import time
+            time.sleep(30)
+    
+    print("🔧 DEBUG: Starting background thread...")
+    # Start background thread
+    thread = threading.Thread(target=run_async, daemon=True)
+    thread.start()
+    print(f"🔧 DEBUG: Thread started: {thread.name}")
     return thread
 
 # Function to fetch airport data from free APIs
@@ -1103,9 +1596,155 @@ def get_recent_communications():
     except Exception as e:
         return jsonify({'error': f'Failed to get communications: {str(e)}'}), 500
 
+@app.route('/api/start-enhanced-monitoring')
+def start_enhanced_monitoring():
+    """Start enhanced bottleneck monitoring that runs every 30 seconds"""
+    try:
+        # Start the enhanced bottleneck monitoring thread
+        thread = enhanced_bottleneck_monitor()
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'Enhanced bottleneck monitoring started - running every 30 seconds',
+            'thread_name': thread.name,
+            'airport': current_airport,
+            'monitoring_interval': '30 seconds'
+        })
+        
+    except Exception as e:
+        return jsonify({'error': f'Failed to start enhanced monitoring: {str(e)}'}), 500
+
+@app.route('/api/enhanced-bottleneck-prediction')
+def get_enhanced_bottleneck_prediction():
+    """Get a single enhanced bottleneck prediction (manual trigger)"""
+    try:
+        # Create a fresh monitor for the current airport
+        current_monitor = PlaneMonitor(current_airport)
+        
+        # Fetch aircraft data for bottleneck analysis
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        aircraft_data = loop.run_until_complete(current_monitor.fetch_aircrafts_for_bottlenecks())
+        
+        # Predict bottlenecks using GeminiBottleneckPredictor
+        prediction_results = loop.run_until_complete(gemini_bottleneck_predictor.predict_bottlenecks(
+            aircraft_data, current_airport
+        ))
+        
+        return jsonify({
+            'status': 'success',
+            'aircraft_count': len(aircraft_data),
+            'airport': current_airport,
+            'prediction_results': prediction_results
+        })
+        
+    except Exception as e:
+        return jsonify({'error': f'Failed to get enhanced bottleneck prediction: {str(e)}'}), 500
+
+@app.route('/api/bottlenecks')
+def get_bottlenecks():
+    """Get current bottleneck data for the frontend"""
+    try:
+        # Create a fresh monitor for the current airport
+        current_monitor = PlaneMonitor(current_airport)
+        
+        # Fetch aircraft data for bottleneck analysis
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        aircraft_data = loop.run_until_complete(current_monitor.fetch_aircrafts_for_bottlenecks())
+        
+        # Predict bottlenecks using GeminiBottleneckPredictor
+        prediction_results = loop.run_until_complete(gemini_bottleneck_predictor.predict_bottlenecks(
+            aircraft_data, current_airport
+        ))
+        
+        # Check if bottleneck is detected
+        bottleneck_likelihood = prediction_results.severity_score
+        risk_level = prediction_results.risk_level
+        
+        bottlenecks = []
+        
+        # Only create bottleneck card if severity is low, medium, or high
+        if bottleneck_likelihood > 20 and risk_level in ['Low', 'Medium', 'High']:
+            # Create bottleneck card
+            bottleneck_card = gemini_bottleneck_predictor.create_bottleneck_card(prediction_results)
+            
+            # Trigger Cerebras inference for action plan
+            bottleneck_data = {
+                "bottleneck_id": bottleneck_card["bottleneck_id"],
+                "coordinates": [40.6413, -73.7781],  # Default JFK coordinates
+                "timestamp": datetime.now().isoformat(),
+                "type": "traffic_congestion",
+                "severity": bottleneck_card["severity"],
+                "duration": bottleneck_card["impact"]["estimated_delay_minutes"],
+                "confidence": bottleneck_card["impact"]["confidence"] / 100,
+                "aircraft_count": bottleneck_card["impact"]["aircraft_affected"],
+                "aircraft_affected": [
+                    {
+                        "flight_id": ac.get('flight', f'FLIGHT_{i}'),
+                        "aircraft_type": "B737",
+                        "position": [ac.get('lat', 40.6413), ac.get('lon', -73.7781)],
+                        "time": datetime.now().isoformat(),
+                    }
+                    for i, ac in enumerate(aircraft_data[:10])  # Limit to first 10 aircraft
+                ]
+            }
+            
+            # Get Cerebras action plan
+            cerebras_advice = cerebras_client.advise(bottleneck_data, "")
+            
+            # Parse Cerebras advice if it's JSON - apply same cleaning as predict_bottlenecks
+            try:
+                if cerebras_advice:
+                    import json
+                    
+                    # Clean the response from markdown code blocks if present (same as predict_bottlenecks)
+                    cleaned_advice = cerebras_advice.strip()
+                    if cleaned_advice.startswith('```json'):
+                        # Remove ```json from start and ``` from end
+                        cleaned_advice = cleaned_advice[7:]  # Remove ```json
+                        if cleaned_advice.endswith('```'):
+                            cleaned_advice = cleaned_advice[:-3]  # Remove ```
+                    elif cleaned_advice.startswith('```'):
+                        # Remove ``` from start and end
+                        cleaned_advice = cleaned_advice[3:]
+                        if cleaned_advice.endswith('```'):
+                            cleaned_advice = cleaned_advice[:-3]
+                    
+                    cleaned_advice = cleaned_advice.strip()
+                    
+                    # Parse the cleaned JSON response
+                    advice_data = json.loads(cleaned_advice)
+                    bottleneck_card["cerebras_advice"] = advice_data
+                else:
+                    bottleneck_card["cerebras_advice"] = {}
+            except Exception as e:
+                # If not JSON, store as text with error info
+                print(f"🔧 DEBUG: Cerebras advice JSON parsing failed: {e}")
+                bottleneck_card["cerebras_advice"] = {"raw_response": cerebras_advice, "parse_error": str(e)}
+            
+            bottlenecks.append(bottleneck_card)
+        
+        return jsonify({
+            'status': 'success',
+            'airport': current_airport,
+            'bottlenecks': bottlenecks,
+            'total_aircraft': len(aircraft_data),
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({'error': f'Failed to get bottlenecks: {str(e)}'}), 500
+
 if __name__ == '__main__':
     # Start background aircraft monitoring
     print("🚁 Starting aircraft monitoring...")
     background_aircraft_monitor()
     
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    # Start enhanced bottleneck monitoring
+    print("🤖 Starting enhanced bottleneck monitoring...")
+    enhanced_bottleneck_monitor()
+    
+    socketio.run(app, debug=True, host='0.0.0.0', port=5001)
