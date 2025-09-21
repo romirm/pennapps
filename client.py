@@ -11,11 +11,8 @@ from typing import  Any, Union
 from dataclasses import asdict
 
 # Optional imports - these may not be available in all environments
-try:
-    from exa_py import Exa
-except ImportError:
-    Exa = None
-    print("Warning: exa_py not available. Exa functionality will be disabled.")
+# Exa functionality disabled by user preference
+Exa = None
 
 try:
     from cerebras.cloud.sdk import Cerebras
@@ -563,10 +560,8 @@ async def fetch_planes(airport_code: str = "JFK"):
 
 class CerebrasClient:
     def __init__(self):
-        if Exa is not None:
-            self.exa = Exa(api_key="b5db2092-d868-464c-9332-fb18ffde95ea")
-        else:
-            self.exa = None
+        # Exa functionality disabled by user preference
+        self.exa = None
             
         if Cerebras is not None:
             self.cerebras = Cerebras(api_key="csk-wh4h6pkp5n6k496fxhmrwhc5vhdp55jrpxr9y5kmxtvy3y34")
@@ -574,8 +569,8 @@ class CerebrasClient:
             self.cerebras = None
     def search_air(self, flightNumbers):
         if self.exa is None:
-            print("Warning: Exa service not available")
-            return {num: "Exa service not available" for num in flightNumbers}
+            # Exa service disabled - return empty flight info
+            return {num: "Flight info lookup disabled" for num in flightNumbers}
             
         flightInfo = {}
         for num in flightNumbers:
