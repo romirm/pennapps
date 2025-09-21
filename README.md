@@ -1,14 +1,6 @@
 # AirFlow ✨  
 An advanced AI ecosystem that uses Cerebras' API to help air traffic controllers resolve ground conflicts by predicting and solving bottlenecks.
 
-## 🚧 Built With
-
-<!-- Gemini -->
-[Gemini]: https://img.shields.io/badge/Gemini%20API-4285F4?style=for-the-badge&logo=google&logoColor=white
-[Gemini-url]: https://ai.google.dev/
-
----
-
 ## 🛠️ Setup Instructions
 
 ### 1. Clone the repo
