@@ -18,7 +18,19 @@ except ImportError:
 
 class SimpleBottleneckPredictor:
     def __init__(self):
-        self.cerebras = Cerebras() if Cerebras else None
+        # Initialize Cerebras only if API key is available
+        self.cerebras = None
+        if Cerebras:
+            try:
+                import os
+                if os.getenv('CEREBRAS_API_KEY'):
+                    self.cerebras = Cerebras()
+                    print("✅ Cerebras API initialized successfully")
+                else:
+                    print("⚠️  CEREBRAS_API_KEY not set - using simple prediction mode")
+            except Exception as e:
+                print(f"⚠️  Cerebras initialization failed: {e} - using simple prediction mode")
+        
         self.results_file = "model/results.txt"
         
     def calculate_distance(self, lat1: float, lon1: float, lat2: float, lon2: float) -> float:

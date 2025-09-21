@@ -5,12 +5,17 @@ A lightweight bottleneck prediction system that analyzes aircraft traffic patter
 and predicts potential bottlenecks using either the Cerebras API or simple heuristic algorithms.
 """
 
-# Import the simple bottleneck predictor
-from .simple_bottleneck_predictor import SimpleBottleneckPredictor
+# Import the agentic AI bottleneck predictor
+from .agentic_bottleneck_predictor import AgenticBottleneckPredictor, AgenticCerebrasAnalyzer, AircraftDatabase, AircraftInfo, BottleneckImpact, PilotCommunication
 
-__version__ = "3.0.0"
-__author__ = "Simple Bottleneck Prediction System"
+__version__ = "5.0.0"
+__author__ = "Agentic AI Bottleneck Prediction System with Comprehensive Analysis"
 
 __all__ = [
-    "SimpleBottleneckPredictor"
+    "AgenticBottleneckPredictor",
+    "AgenticCerebrasAnalyzer", 
+    "AircraftDatabase",
+    "AircraftInfo",
+    "BottleneckImpact",
+    "PilotCommunication"
 ]

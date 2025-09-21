@@ -4,18 +4,28 @@ import json
 from airport_data_fetcher import get_airport_data_for_app
 from world_data_processor import get_world_airport_data
 from client import PlaneMonitor
-from model.simple_bottleneck_predictor import SimpleBottleneckPredictor
+from model.agentic_bottleneck_predictor import AgenticBottleneckPredictor
 import os
 import asyncio
 import threading
 from datetime import datetime
+
+# Load environment variables from cerebras_config.env
+if os.path.exists('cerebras_config.env'):
+    with open('cerebras_config.env', 'r') as f:
+        for line in f:
+            if line.startswith('CEREBRAS_API_KEY='):
+                api_key = line.split('=', 1)[1].strip()
+                os.environ['CEREBRAS_API_KEY'] = api_key
+                print(f"✅ Cerebras API key loaded from cerebras_config.env")
+                break
 
 app = Flask(__name__)
 
 # Global plane monitor instance and data storage
 current_airport = "JFK"  # Default airport
 plane_monitor = PlaneMonitor(current_airport)
-bottleneck_predictor = SimpleBottleneckPredictor()
+bottleneck_predictor = AgenticBottleneckPredictor()
 latest_aircraft_data = {
     'current_planes': {'ground': {}, 'air': {}},
     'changes': {'entered': [], 'left': []},
@@ -90,12 +100,20 @@ def background_aircraft_monitor():
                                     'heading': plane_data.get('heading')
                                 })
                         
-                        # Run bottleneck prediction
-                        bottleneck_results = bottleneck_predictor.predict_and_save(aircraft_list, current_airport)
-                        print(f"🔍 Bottleneck prediction completed for {current_airport}: {bottleneck_results.get('risk_level', 'Unknown')} risk")
+                        # Run agentic AI bottleneck analysis
+                        async def run_analysis():
+                            analysis_results = await bottleneck_predictor.predict_and_analyze(aircraft_list, current_airport)
+                            bottleneck_predictor.save_results(analysis_results)
+                            confidence = analysis_results.get('confidence_score', 0)
+                            analysis_type = analysis_results.get('analysis_type', 'Unknown')
+                            print(f"🤖 Agentic AI analysis completed for {current_airport}: {analysis_type} (Confidence: {confidence:.1f}%)")
+                            return analysis_results
+                        
+                        # Run async analysis in the event loop
+                        analysis_results = loop.run_until_complete(run_analysis())
                         
                     except Exception as e:
-                        print(f"❌ Error in bottleneck prediction: {e}")
+                        print(f"❌ Error in agentic AI analysis: {e}")
                 
             except Exception as e:
                 print(f"❌ Error fetching aircraft data: {e}")
@@ -997,6 +1015,93 @@ def search():
     matches.sort(key=lambda x: (x['code'] != query, x['name']))
     
     return jsonify(matches[:5])  # Return top 5 matches
+
+@app.route('/api/transcription', methods=['POST'])
+def receive_transcription():
+    """Receive pilot communications from transcription engine"""
+    try:
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        
+        # Expected format:
+        # {
+        #     "frequency": "121.9",
+        #     "audio_data": "base64_encoded_audio",
+        #     "timestamp": "2025-09-20T22:30:00Z"
+        # }
+        
+        frequency = data.get('frequency', '121.9')
+        audio_data = data.get('audio_data')
+        timestamp = data.get('timestamp', datetime.now().isoformat())
+        
+        if not audio_data:
+            return jsonify({'error': 'No audio data provided'}), 400
+        
+        # Process the transcription (mock implementation)
+        # In a real implementation, you would:
+        # 1. Decode the base64 audio data
+        # 2. Send it to your transcription service
+        # 3. Parse the results
+        
+        # For now, we'll simulate the transcription
+        import base64
+        try:
+            # Decode base64 audio (mock)
+            decoded_audio = base64.b64decode(audio_data)
+            
+            # Simulate transcription processing
+            communications = bottleneck_predictor.transcription_engine.transcribe_audio(decoded_audio, frequency)
+            
+            return jsonify({
+                'status': 'success',
+                'communications_count': len(communications),
+                'frequency': frequency,
+                'timestamp': timestamp,
+                'communications': [
+                    {
+                        'callsign': comm.pilot_callsign,
+                        'message': comm.message,
+                        'type': comm.message_type,
+                        'context': comm.location_context,
+                        'urgency': comm.urgency_level
+                    } for comm in communications
+                ]
+            })
+            
+        except Exception as e:
+            return jsonify({'error': f'Transcription processing failed: {str(e)}'}), 500
+            
+    except Exception as e:
+        return jsonify({'error': f'Invalid request: {str(e)}'}), 400
+
+@app.route('/api/communications', methods=['GET'])
+def get_recent_communications():
+    """Get recent pilot communications"""
+    try:
+        minutes = int(request.args.get('minutes', 10))
+        communications = bottleneck_predictor.transcription_engine.get_recent_communications(minutes)
+        
+        return jsonify({
+            'status': 'success',
+            'communications_count': len(communications),
+            'time_range_minutes': minutes,
+            'communications': [
+                {
+                    'timestamp': comm.timestamp,
+                    'frequency': comm.frequency,
+                    'callsign': comm.pilot_callsign,
+                    'message': comm.message,
+                    'type': comm.message_type,
+                    'context': comm.location_context,
+                    'urgency': comm.urgency_level
+                } for comm in communications
+            ]
+        })
+        
+    except Exception as e:
+        return jsonify({'error': f'Failed to get communications: {str(e)}'}), 500
 
 if __name__ == '__main__':
     # Start background aircraft monitoring
