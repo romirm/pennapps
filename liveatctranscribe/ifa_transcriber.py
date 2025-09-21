@@ -56,12 +56,10 @@ class JFKContextualTranscriber(FastATCTranscriber):
                 "Content-Type": "application/json",
             }
 
-            # Build context from recent conversation history
+            # Build enhanced context from recent conversation history
             context_section = ""
             if self.conversation_history:
-                context_section = "\n\nRecent ATC conversation context:\n"
-                for i, prev_msg in enumerate(self.conversation_history[-5:], 1):
-                    context_section += f'{i}. "{prev_msg}"\n'
+                context_section = self._build_enhanced_conversation_context()
                 context_section += "\n"
 
             # Build aircraft context section
@@ -71,7 +69,7 @@ class JFKContextualTranscriber(FastATCTranscriber):
                     aircraft_context
                 )
 
-            # Enhanced JFK-specific prompt
+            # Enhanced JFK-specific prompt with fragment detection
             prompt = f"""You are an expert ATC interpreter for JOHN F. KENNEDY INTERNATIONAL AIRPORT (KJFK) operations analyzing transcribed audio.
 
 ENHANCED JFK CONTEXT:
@@ -83,26 +81,49 @@ ENHANCED JFK CONTEXT:
 
 {aircraft_context_section}
 
-Your job for AI agent training:
-1) Identify all aircraft callsigns and their operational status
-2) Extract runways, taxiways, frequencies, altitudes, speeds
-3) Categorize command type: taxi/takeoff/landing/frequency_change/hold/runway_crossing/altitude/speed/acknowledgment
-4) Assess operational significance and safety implications
+CRITICAL: FRAGMENT DETECTION & CONVERSATION CONTINUITY
+⚠️ ATC communications are often fragmented across multiple transcription segments due to:
+- Radio transmission breaks, static, overlapping voices
+- Pilot readbacks split from controller instructions
+- Callsigns separated from instructions (e.g., "Air France" → "9 7 0" → "taxi via alpha")
 
-Prior context: {context_section}
+FRAGMENT ANALYSIS PRIORITIES:
+1) **ALWAYS examine recent context** for incomplete communications that this segment might complete
+2) **Look for orphaned callsigns** in recent history that need instructions
+3) **Identify partial instructions** waiting for callsign completion
+4) **Detect readback patterns** (pilot confirming controller instruction)
+5) **Connect numbered sequences** (e.g., "9 7 0" likely completes "Air France")
+
+FRAGMENT INDICATORS:
+- Isolated callsigns without instructions ("Delta 671", "Air France")
+- Isolated flight numbers ("9 7 0", "2 4 5")
+- Partial instructions without callsigns ("taxi via alpha", "contact ground")
+- Single words/phrases ("roger", "wilco", "affirm")
+- Frequency fragments ("1 2 1 point 9")
+
+Your job for AI agent training:
+1) **FIRST**: Analyze if current transcription connects to recent fragments
+2) Identify all aircraft callsigns and reconstruct complete communications
+3) Extract runways, taxiways, frequencies, altitudes, speeds from combined context
+4) Categorize command type considering fragment reconstruction
+5) Assess operational significance of the complete communication chain
+
+{context_section}
 
 Output format:
-Callsigns: <list all aircraft mentioned>
-Command Type: <category>
+Fragment Analysis: <Is this connected to recent communications? How?>
+Reconstructed Communication: <Complete communication if fragments combined>
+Callsigns: <list all aircraft mentioned, including from context>
+Command Type: <category considering full context>
 Extracted Elements: <runways, taxiways, frequencies, etc.>
 Operational Significance: <what this accomplishes>
-Confidence: <high/medium/low based on clarity>
+Confidence: <high/medium/low based on clarity and reconstruction>
 
 Current Communication: "{transcription}"
 """
 
             data = {
-                "model": "gpt-oss-120b",
+                "model": "llama3.1-8b",
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": 4096,
                 "temperature": 0.3,
@@ -198,6 +219,109 @@ Current Communication: "{transcription}"
         context_lines.append("")  # Empty line for formatting
 
         return "\n".join(context_lines)
+
+    def _build_enhanced_conversation_context(self) -> str:
+        """Build enhanced conversation context with fragment detection"""
+        if not self.conversation_history:
+            return ""
+
+        context_lines = [
+            "RECENT ATC CONVERSATION HISTORY (analyze for fragments & connections):",
+            "=" * 70,
+        ]
+
+        # Get recent history with timestamps if available
+        recent_history = self.conversation_history[
+            -8:
+        ]  # Increased from 5 to 8 for better context
+
+        for i, entry in enumerate(recent_history, 1):
+            # Handle both simple strings and enhanced entries
+            if isinstance(entry, dict):
+                transcription = entry.get("transcription", "")
+                timestamp = entry.get("timestamp", "")
+                fragment_type = entry.get("fragment_type", "unknown")
+                context_lines.append(
+                    f'[{i}] {timestamp} ({fragment_type}): "{transcription}"'
+                )
+            else:
+                # Legacy string format
+                fragment_analysis = self._analyze_fragment_type(entry)
+                context_lines.append(f'[{i}] ({fragment_analysis}): "{entry}"')
+
+        # Add fragment reconstruction hints
+        context_lines.extend(
+            [
+                "",
+                "FRAGMENT ANALYSIS HINTS:",
+                "• Look for orphaned callsigns that need completion",
+                "• Connect flight numbers to airline names (e.g., Air France + 970)",
+                "• Link partial instructions to recent callsigns",
+                "• Identify controller→pilot vs pilot→controller patterns",
+                "• Watch for readback confirmations of previous instructions",
+                "",
+            ]
+        )
+
+        return "\n".join(context_lines)
+
+    def _analyze_fragment_type(self, transcription: str) -> str:
+        """Analyze what type of fragment this transcription represents"""
+        text = transcription.lower().strip()
+
+        # Common fragment patterns
+        if len(text.split()) <= 2:
+            if any(
+                airline in text
+                for airline in [
+                    "delta",
+                    "american",
+                    "jetblue",
+                    "air france",
+                    "united",
+                    "southwest",
+                ]
+            ):
+                return "ORPHANED_CALLSIGN"
+            elif text.replace(" ", "").isdigit() or (
+                "point" in text and any(c.isdigit() for c in text)
+            ):
+                return "FLIGHT_NUMBER/FREQ"
+            elif text in ["roger", "wilco", "affirm", "negative", "standby"]:
+                return "ACKNOWLEDGMENT"
+            else:
+                return "FRAGMENT"
+
+        # Check for common instruction patterns without callsigns
+        instruction_keywords = [
+            "taxi",
+            "contact",
+            "hold",
+            "cleared",
+            "turn",
+            "climb",
+            "descend",
+        ]
+        if any(keyword in text for keyword in instruction_keywords) and not any(
+            airline in text for airline in ["delta", "american", "jetblue"]
+        ):
+            return "ORPHANED_INSTRUCTION"
+
+        # Check for complete communications
+        has_callsign = any(
+            airline in text
+            for airline in ["delta", "american", "jetblue", "air france", "united"]
+        )
+        has_instruction = any(keyword in text for keyword in instruction_keywords)
+
+        if has_callsign and has_instruction:
+            return "COMPLETE_COMM"
+        elif has_callsign:
+            return "CALLSIGN_ONLY"
+        elif has_instruction:
+            return "INSTRUCTION_ONLY"
+        else:
+            return "UNCLEAR"
 
 
 class InformedATCTranscriber:
@@ -348,8 +472,22 @@ class InformedATCTranscriber:
                         # Add to dataset
                         self.dataset_builder.add_record(validation_record)
 
-                        # Add to conversation history for context
-                        self.transcriber.conversation_history.append(transcription)
+                        # Add enhanced entry to conversation history for context
+                        fragment_type = self.transcriber._analyze_fragment_type(
+                            transcription
+                        )
+                        history_entry = {
+                            "transcription": transcription,
+                            "timestamp": datetime.now().strftime("%H:%M:%S"),
+                            "fragment_type": fragment_type,
+                            "explanation_preview": (
+                                explanation[:100] + "..."
+                                if len(explanation) > 100
+                                else explanation
+                            ),
+                        }
+
+                        self.transcriber.conversation_history.append(history_entry)
                         if (
                             len(self.transcriber.conversation_history)
                             > self.transcriber.max_history_items

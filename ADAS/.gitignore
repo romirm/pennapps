@@ -1,0 +1,41 @@
+# ADAS specific ignores
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Environment files
+.env
+.env.local
+
+# Logs
+*.log
+adas.log
+
+# Results and state files
+adas_results_*.json
+adas_state_*.json
+
+# Temporary inspection files
+tmp/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+adas.log
+./adas.log
+./archived-datasets/
+archived-datasets/
+archived-datasets/*
+
+archived-samples/*
+validation-dataset/*
+bottleneck-scenarios/*
