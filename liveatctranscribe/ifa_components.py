@@ -314,20 +314,24 @@ class ValidationDatasetBuilder:
             self._save_batch()
 
     def _save_batch(self):
-        """Save current batch to JSON file"""
+        """Save current batch to JSON file in validation-dataset folder"""
         if not self.current_batch:
             return
 
+        # Create validation-dataset directory if it doesn't exist
+        dataset_dir = os.path.join(os.path.dirname(__file__), "validation-dataset")
+        os.makedirs(dataset_dir, exist_ok=True)
+
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"t{self.file_counter}-{timestamp}.json"
-        filepath = os.path.join(os.path.dirname(__file__), filename)
+        filepath = os.path.join(dataset_dir, filename)
 
         try:
             with open(filepath, "w") as f:
                 json.dump(self.current_batch, f, indent=2)
 
             print(
-                f"💾 Saved batch {self.file_counter}: {len(self.current_batch)} records to {filename}"
+                f"💾 Saved batch {self.file_counter}: {len(self.current_batch)} records to validation-dataset/{filename}"
             )
 
             # Reset for next batch
